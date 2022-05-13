@@ -1,5 +1,7 @@
 {
     "recommendations": [
-        "rust-lang.rust"
+        "rust-lang.rust",
+        "bungcip.better-toml",
+        "serayuzgur.crates"
     ]
 }
