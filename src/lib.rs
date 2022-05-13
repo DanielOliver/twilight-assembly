@@ -1,5 +1,8 @@
 
 #![allow(unused_variables)]
+
+mod types;
+
 fn main() {
 extern crate wasm_bindgen;
 
