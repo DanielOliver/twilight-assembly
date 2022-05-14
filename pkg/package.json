@@ -1,0 +1,19 @@
+{
+  "name": "twilight-assembly",
+  "version": "0.1.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DanielOliver/twilight-assembly"
+  },
+  "files": [
+    "twilight_assembly_bg.wasm",
+    "twilight_assembly.js",
+    "twilight_assembly_bg.js",
+    "twilight_assembly.d.ts",
+    "LICENSE.md"
+  ],
+  "module": "twilight_assembly.js",
+  "types": "twilight_assembly.d.ts",
+  "sideEffects": false
+}
