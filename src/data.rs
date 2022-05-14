@@ -356,7 +356,7 @@ pub const DEFAULT_PLANETS: &'static [Planet] = &[
     create_planet(76, 98, "Rigel III", 1, 1, PlanetTrait::Industrial, Some(TechnologySpecialty::Biotic)),
     Planet {
         is_legendary: true,
-        ..create_planet(77, 99, "Mallice", 0, 3, PlanetTrait::Cultural, None)
+        ..create_planet(77, 9, "Mallice", 0, 3, PlanetTrait::Cultural, None)
     },
 ];
 
