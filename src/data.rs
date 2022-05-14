@@ -49,6 +49,7 @@ fn create_home_system(system_id: i32, name: &str, base_game: bool) -> SystemTile
         base_game,
         is_home_system: true,
         is_valid_placement_pool: false,
+        system_type: SystemType::Green,
         ..Default::default()
     }
 }
@@ -212,3 +213,42 @@ const DEFAULT_SYSTEMS: &'static [SystemTile] = &[
     },
 ];
 
+fn create_planet(planet_id: i32, system_id: i32,  name: &str,  resources: i32, influence: i32, is_legendary: bool, is_home_planet: bool, is_mecatol_rex: bool, planet_trait: Option<PlanetTrait>, specialty: Option<TechnologySpecialty>) -> Planet {
+    Planet {
+        planet_id,
+        system_id,
+        name,
+        resources,
+        influence,
+        is_legendary,
+        is_home_planet,
+        is_mecatol_rex,
+        planet_trait,
+        specialty,
+        ..Default::default()
+    }
+}
+
+fn create_home_planet(system_id: i32, planet_id: i32, name: &str,  resources: i32, influence: i32) -> Planet {
+    Planet {
+        planet_id,
+        system_id,
+        name,
+        resources,
+        influence,
+        is_home_planet: true,
+        ..Default::default()
+    }
+}
+
+const DEFAULT_PLANETS: &'static [Planet] = &[
+    create_home_planet(1, 1, "Jord", 4, 2),
+    create_home_planet(2, 1, "Moll Primus", 4, 1),
+    create_home_planet(3, 1, "Darien", 4, 4),
+    create_home_planet(4, 1, "Muaat", 4, 1),
+    create_home_planet(5, 1, "Nestphar", 3, 2),
+    create_home_planet(6, 1, "[0.0.0]", 5, 0),
+    create_home_planet(7, 1, "Winnu", 3, 4),
+    create_home_planet(8, 1, "Mordai II", 4, 0),
+    // https://github.com/KeeganW/ti4/blob/master/src/data/tileData.json
+];

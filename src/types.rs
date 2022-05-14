@@ -28,7 +28,8 @@ enum Anomaly {
 
 enum SystemType {
     Blue,
-    Red
+    Red,
+    Green,
 }
 
 struct Faction {
@@ -74,18 +75,13 @@ struct Planet {
     system_id: i32,
     name: &'static str,
     flavor_text: &'static str,
-    is_legendary: bool,
-    is_hazardous: bool,
-    is_industrious: bool,
-    is_cultural: bool,
-    is_home_planet: bool,
-    is_mecatol_rex: bool,
     resources: i32,
     influence: i32,
-    has_biotic_technology_specialty: bool,
-    has_propulsion_technology_specialty: bool,
-    has_warfare_technology_specialty: bool,
-    has_cybernetic_technology_specialty: bool,
+    is_legendary: bool,
+    is_home_planet: bool,
+    is_mecatol_rex: bool,
+    planet_trait: Option<PlanetTrait>,
+    specialty: Option<TechnologySpecialty>,
 }
 
 impl Default for Planet {
@@ -95,18 +91,13 @@ impl Default for Planet {
             system_id: 0,
             name: "",
             flavor_text: "",
-            is_legendary: false,
-            is_hazardous: false,
-            is_industrious: false,
-            is_cultural: false,
-            is_home_planet: false,
-            is_mecatol_rex: false,
             resources: 0,
             influence: 0,
-            has_biotic_technology_specialty: false,
-            has_propulsion_technology_specialty: false,
-            has_warfare_technology_specialty: false,
-            has_cybernetic_technology_specialty: false,
+            is_legendary: false,
+            is_home_planet: false,
+            is_mecatol_rex: false,
+            planet_trait: None,
+            specialty: None
         }
     }
 }
