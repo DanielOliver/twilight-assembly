@@ -1,6 +1,5 @@
 use crate::types::*;
 
-
 const fn create_faction(faction_id: i32, name: &'static str, base_game: bool) -> Faction {
     let pok_game = true;
     let home_system_id = faction_id;
@@ -360,3 +359,18 @@ pub const DEFAULT_PLANETS: &'static [Planet] = &[
         ..create_planet(77, 99, "Mallice", 0, 3, PlanetTrait::Cultural, None)
     },
 ];
+
+pub fn get_base_data() -> InitialMapData {
+    InitialMapData {
+        planets: DEFAULT_PLANETS.to_vec(),
+        system_tiles: DEFAULT_SYSTEMS.to_vec(),
+    }
+}
+
+pub fn get_base_data_dict() -> InitialMapDataDictionary {
+    InitialMapDataDictionary {
+        planets: DEFAULT_PLANETS.iter().cloned().map(|x| (x.planet_id, x)).collect(),
+        system_tiles: DEFAULT_SYSTEMS.iter().cloned().map(|x| (x.system_id, x)).collect(),
+        factions: DEFAULT_FACTIONS.iter().cloned().map(|x| (x.faction_id, x)).collect()
+    }
+}

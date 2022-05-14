@@ -1,3 +1,9 @@
+use std::collections::HashMap;
+use serde::{Serialize, Deserialize};
+use ts_rs::TS;
+
+#[derive(Copy, Clone, Serialize, Deserialize, TS)]
+#[ts(export)]
 pub enum TechnologySpecialty {
     Warfare,
     Cybernetic,
@@ -5,12 +11,16 @@ pub enum TechnologySpecialty {
     Biotic,
 }
 
+#[derive(Copy, Clone, Serialize, Deserialize, TS)]
+#[ts(export)]
 pub enum PlanetTrait {
     Cultural,
     Hazardous,
     Industrial,
 }
 
+#[derive(Copy, Clone, Serialize, Deserialize, TS)]
+#[ts(export)]
 pub enum Wormhole {
     Alpha,
     Beta,
@@ -18,6 +28,8 @@ pub enum Wormhole {
     Gamma,
 }
 
+#[derive(Copy, Clone, Serialize, Deserialize, TS)]
+#[ts(export)]
 pub enum Anomaly {
     MuaatSupernova,
     Supernova,
@@ -26,12 +38,16 @@ pub enum Anomaly {
     AsteroidField,
 }
 
+#[derive(Copy, Clone, Serialize, Deserialize, TS)]
+#[ts(export)]
 pub enum SystemType {
     Blue,
     Red,
     Green,
 }
 
+#[derive(Copy, Clone, Serialize, Deserialize, TS)]
+#[ts(export)]
 pub struct Faction {
     pub faction_id: i32,
     pub name: &'static str,
@@ -40,6 +56,8 @@ pub struct Faction {
     pub home_system_id: i32,
 }
 
+#[derive(Copy, Clone, Serialize, Deserialize, TS)]
+#[ts(export)]
 pub struct SystemTile {
     pub system_id: i32,
     pub faction_id: Option<i32>,
@@ -70,6 +88,8 @@ impl SystemTile {
     }
 }
 
+#[derive(Clone, Serialize, Deserialize, TS)]
+#[ts(export)]
 pub struct Planet {
     pub system_id: i32,
     pub planet_id: i32,
@@ -100,4 +120,17 @@ impl Planet {
             specialty: None
         }
     }
+}
+
+#[derive(Serialize)]
+pub struct InitialMapData {
+    pub planets: Vec<Planet>,
+    pub system_tiles: Vec<SystemTile>,
+}
+
+#[derive(Serialize)]
+pub struct InitialMapDataDictionary {
+    pub planets: HashMap<i32, Planet>,
+    pub system_tiles: HashMap<i32, SystemTile>,
+    pub factions: HashMap<i32, Faction>
 }

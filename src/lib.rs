@@ -1,21 +1,25 @@
 
 #![allow(unused_variables)]
 
+use crate::data::{get_base_data, get_base_data_dict};
+
 mod types;
 mod data;
 
-fn main() {
 extern crate wasm_bindgen;
 
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
-extern {
-    fn alert(s: &str);
+pub fn get_game_data() -> JsValue {
+    let data = get_base_data();
+    JsValue::from_serde(&data).unwrap()
 }
 
 #[wasm_bindgen]
-pub fn greet() {
-    alert("Hello, World!");
+pub fn get_game_data_dictionary() -> JsValue {
+    let data = get_base_data_dict();
+    JsValue::from_serde(&data).unwrap()
 }
-}
+
+
