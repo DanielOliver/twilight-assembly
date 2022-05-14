@@ -1,6 +1,7 @@
-use std::time::SystemTime;
+use crate::types::*;
 
-fn create_faction(faction_id: i32, name: &'static str, base_game: bool) -> Faction {
+
+const fn create_faction(faction_id: i32, name: &'static str, base_game: bool) -> Faction {
     let pok_game = true;
     let home_system_id = faction_id;
     Faction {
@@ -12,7 +13,7 @@ fn create_faction(faction_id: i32, name: &'static str, base_game: bool) -> Facti
     }
 }
 
-const DEFAULT_FACTIONS: &'static [Faction] = &[
+const DEFAULT_FACTIONS: &[Faction] = &[
     // BASE GAME
     create_faction(1, "The Federation of Sol", true),
     create_faction(2, "The Mentak Coalition", true),
@@ -41,59 +42,57 @@ const DEFAULT_FACTIONS: &'static [Faction] = &[
     create_faction(58, "The Argent Flight", false),
 ];
 
-fn create_home_system(system_id: i32, name: &str, base_game: bool) -> SystemTile {
+const fn create_home_system(system_id: i32, name: &'static str, base_game: bool) -> SystemTile {
     SystemTile {
         system_id,
         faction_id: Some(system_id),
         name,
         base_game,
-        is_home_system: true,
-        is_valid_placement_pool: false,
         system_type: SystemType::Green,
-        ..Default::default()
+        ..SystemTile::new()
     }
 }
 
-fn create_planet_system(system_id: i32, base_game: bool) -> SystemTile {
+const fn create_planet_system(system_id: i32, base_game: bool) -> SystemTile {
     let faction_id = system_id;
     SystemTile {
         system_id,
         base_game,
-        ..Default::default()
+        ..SystemTile::new()
     }
 }
 
 
-fn create_wormhole_system(system_id: i32, base_game: bool, wormhole: Wormhole) -> SystemTile {
+const fn create_wormhole_system(system_id: i32, base_game: bool, wormhole: Wormhole) -> SystemTile {
     SystemTile {
         system_id,
         base_game,
-        wormhole,
-        system_type: SystemType::Blue
-            ..Default::default(),
+        wormhole: Some(wormhole),
+        system_type: SystemType::Blue,
+        ..SystemTile::new()
     }
 }
 
-fn create_empty_system(system_id: i32, base_game: bool) -> SystemTile {
+const fn create_empty_system(system_id: i32, base_game: bool) -> SystemTile {
     SystemTile {
         system_id,
         base_game,
-        system_type: SystemType::Red
-            ..Default::default(),
+        system_type: SystemType::Red,
+        ..SystemTile::new()
     }
 }
 
-fn create_anomaly_system(system_id: i32, base_game: bool, anomaly: Anomaly) -> SystemTile {
+const fn create_anomaly_system(system_id: i32, base_game: bool, anomaly: Anomaly) -> SystemTile {
     SystemTile {
         system_id,
         base_game,
-        anomoly,
-        system_type: SystemType::Red
-            ..Default::default(),
+        anomaly: Some(anomaly),
+        system_type: SystemType::Red,
+        ..SystemTile::new()
     }
 }
 
-const DEFAULT_SYSTEMS: &'static [SystemTile] = &[
+pub const DEFAULT_SYSTEMS: &'static [SystemTile] = &[
     // BASE GAME Home Systems
     create_home_system(1, "The Federation of Sol", true),
     create_home_system(2, "The Mentak Coalition", true),
@@ -112,11 +111,11 @@ const DEFAULT_SYSTEMS: &'static [SystemTile] = &[
     create_home_system(15, "The Yssaril Tribes", true),
     create_home_system(16, "The Emirates of Hacan", true),
     SystemTile {
-        wormhole: Wormhole::Delta,
+        wormhole: Some(Wormhole::Delta),
         ..create_home_system(17, "The Ghosts of Creuss", true)
     },
     SystemTile {
-        wormhole: Wormhole::Delta,
+        wormhole: Some(Wormhole::Delta),
         ..create_home_system(51, "The Ghosts of Creuss", true)
     },
     // POK Home Systems
@@ -125,7 +124,7 @@ const DEFAULT_SYSTEMS: &'static [SystemTile] = &[
     create_home_system(54, "The Vuil'raith Cabal", false),
     create_home_system(55, "The Titans of Ul", false),
     SystemTile {
-        anomaly: Anomaly::Nebula,
+        anomaly: Some(Anomaly::Nebula),
         ..create_home_system(56, "The Empyrean", false)
     },
     create_home_system(57, "The Naaz-Rokha Alliance", false),
@@ -163,7 +162,7 @@ const DEFAULT_SYSTEMS: &'static [SystemTile] = &[
     create_anomaly_system(41, true, Anomaly::GravityRift),
     create_anomaly_system(42, true, Anomaly::Nebula),
     create_anomaly_system(43, true, Anomaly::Supernova),
-    create_anomaly_system(44, true, Anomaly::Asteroid),
+    create_anomaly_system(44, true, Anomaly::AsteroidField),
     create_wormhole_system(45, true, Wormhole::Beta),
     create_empty_system(46, true),
     create_empty_system(47, true),
@@ -202,7 +201,7 @@ const DEFAULT_SYSTEMS: &'static [SystemTile] = &[
     create_empty_system(77, false),
     create_empty_system(78, false),
     SystemTile {
-        wormhole: Wormhole::Alpha,
+        wormhole: Some(Wormhole::Alpha),
         ..create_anomaly_system(79, false, Anomaly::AsteroidField)
     },
     create_anomaly_system(80, false, Anomaly::Supernova),
@@ -213,7 +212,7 @@ const DEFAULT_SYSTEMS: &'static [SystemTile] = &[
     },
 ];
 
-fn create_home_planet(system_id: i32, planet_id: i32, name: &str,  resources: i32, influence: i32) -> Planet {
+const fn create_home_planet(system_id: i32, planet_id: i32, name: &'static str, resources: i32, influence: i32) -> Planet {
     Planet {
         system_id,
         planet_id,
@@ -221,18 +220,143 @@ fn create_home_planet(system_id: i32, planet_id: i32, name: &str,  resources: i3
         resources,
         influence,
         is_home_planet: true,
-        ..Default::default()
+        ..Planet::new()
     }
 }
 
-const DEFAULT_PLANETS: &'static [Planet] = &[
+const fn create_planet(system_id: i32, planet_id: i32, name: &'static str, resources: i32, influence: i32, planet_trait: PlanetTrait, specialty: Option<TechnologySpecialty>) -> Planet {
+    Planet {
+        system_id,
+        planet_id,
+        name,
+        resources,
+        influence,
+        planet_trait: Some(planet_trait),
+        specialty,
+        ..Planet::new()
+    }
+}
+
+pub const DEFAULT_PLANETS: &'static [Planet] = &[
+    // BASE GAME Home Planets
     create_home_planet(1, 1, "Jord", 4, 2),
-    create_home_planet(2, 1, "Moll Primus", 4, 1),
-    create_home_planet(3, 1, "Darien", 4, 4),
-    create_home_planet(4, 1, "Muaat", 4, 1),
-    create_home_planet(5, 1, "Nestphar", 3, 2),
-    create_home_planet(6, 1, "[0.0.0]", 5, 0),
-    create_home_planet(7, 1, "Winnu", 3, 4),
-    create_home_planet(8, 1, "Mordai II", 4, 0),
-    // https://github.com/KeeganW/ti4/blob/master/src/data/tileData.json
+    create_home_planet(2, 2, "Moll Primus", 4, 1),
+    create_home_planet(3, 3, "Darien", 4, 4),
+    create_home_planet(4, 4, "Muaat", 4, 1),
+    create_home_planet(5, 5, "Nestphar", 3, 2),
+    create_home_planet(6, 6, "[0.0.0]", 5, 0),
+    create_home_planet(7, 7, "Winnu", 3, 4),
+    create_home_planet(8, 8, "Mordai II", 4, 0),
+    create_home_planet(9, 10, "Maaluuk", 2, 0),
+    create_home_planet(9, 11, "Druaa", 3, 1),
+    create_home_planet(10, 12, "Arc Prime", 4, 0),
+    create_home_planet(10, 13, "Wren Terra", 2, 1),
+    create_home_planet(11, 14, "Lisis II", 1, 0),
+    create_home_planet(11, 15, "Ragh", 2, 1),
+    create_home_planet(12, 16, "Nar", 2, 3),
+    create_home_planet(12, 17, "Jol", 1, 2),
+    create_home_planet(13, 18, "Tren'lak", 1, 0),
+    create_home_planet(13, 19, "Quinarra", 3, 1),
+    create_home_planet(14, 20, "Archon Ren", 2, 3),
+    create_home_planet(14, 21, "Archon Tau", 1, 1),
+    create_home_planet(15, 22, "Retillion", 2, 3),
+    create_home_planet(15, 23, "Shalloq", 1, 2),
+    create_home_planet(16, 24, "Arretze", 2, 0),
+    create_home_planet(16, 25, "Hercant", 1, 1),
+    create_home_planet(16, 26, "Kamdorn", 0, 1),
+    // Mecatol Rex
+    Planet {
+        system_id: 18,
+        planet_id: 27,
+        name: "Mecatol Rex",
+        resources: 1,
+        influence: 6,
+        is_mecatol_rex: true,
+        ..Planet::new()
+    },
+    // BASE GAME Planets
+    create_planet(19, 28, "Wellon", 1, 2, PlanetTrait::Industrial, Some(TechnologySpecialty::Cybernetic)),
+    create_planet(20, 29, "Vefut II", 2, 2, PlanetTrait::Hazardous, None),
+    create_planet(21, 30, "Thibah", 1, 1, PlanetTrait::Industrial, Some(TechnologySpecialty::Propulsion)),
+    create_planet(22, 31, "Tar'mann", 1, 1, PlanetTrait::Industrial, Some(TechnologySpecialty::Biotic)),
+    create_planet(23, 32, "Saudor", 2, 2, PlanetTrait::Industrial, None),
+    create_planet(24, 33, "Mehar Xull", 1, 3, PlanetTrait::Hazardous, Some(TechnologySpecialty::Warfare)),
+    create_planet(25, 34, "Quann", 2, 1, PlanetTrait::Cultural, None),
+    create_planet(26, 35, "Lodor", 3, 1, PlanetTrait::Cultural, None),
+    create_planet(27, 36, "New Albion", 1, 1, PlanetTrait::Industrial, Some(TechnologySpecialty::Biotic)),
+    create_planet(27, 37, "Starpoint", 3, 1, PlanetTrait::Hazardous, None),
+    create_planet(28, 38, "Tequ'ran", 2, 0, PlanetTrait::Hazardous, None),
+    create_planet(28, 39, "Torkan", 0, 3, PlanetTrait::Cultural, None),
+    create_planet(29, 40, "Qucen'n", 1, 2, PlanetTrait::Industrial, None),
+    create_planet(29, 41, "Rarron", 0, 3, PlanetTrait::Cultural, None),
+    create_planet(30, 42, "Mellon", 0, 2, PlanetTrait::Cultural, None),
+    create_planet(30, 43, "Zohbat", 3, 1, PlanetTrait::Hazardous, None),
+    create_planet(31, 44, "Lazar", 1, 0, PlanetTrait::Industrial, Some(TechnologySpecialty::Cybernetic)),
+    create_planet(31, 45, "Sakulag", 2, 1, PlanetTrait::Hazardous, None),
+    create_planet(32, 46, "Dal Bootha", 0, 2, PlanetTrait::Cultural, None),
+    create_planet(32, 47, "Xxehan", 1, 1, PlanetTrait::Cultural, None),
+    create_planet(33, 48, "Corneeq", 1, 2, PlanetTrait::Cultural, None),
+    create_planet(33, 49, "Resulon", 2, 0, PlanetTrait::Cultural, None),
+    create_planet(34, 50, "Centauri", 1, 3, PlanetTrait::Cultural, None),
+    create_planet(34, 51, "Gral", 1, 1, PlanetTrait::Industrial, Some(TechnologySpecialty::Propulsion)),
+    create_planet(35, 52, "Bereg", 3, 1, PlanetTrait::Hazardous, None),
+    create_planet(35, 53, "Lirta IV", 2, 3, PlanetTrait::Hazardous, None),
+    create_planet(36, 54, "Arnor", 2, 1, PlanetTrait::Industrial, None),
+    create_planet(36, 55, "Lor", 1, 2, PlanetTrait::Industrial, None),
+    create_planet(37, 56, "Arinam", 1, 2, PlanetTrait::Industrial, None),
+    create_planet(37, 57, "Meer", 0, 4, PlanetTrait::Hazardous, Some(TechnologySpecialty::Warfare)),
+    create_planet(38, 58, "Abyz", 3, 0, PlanetTrait::Hazardous, None),
+    create_planet(38, 59, "Fria", 2, 0, PlanetTrait::Hazardous, None),
+    // Ghosts of Creuss
+    create_home_planet(51, 60, "Creuss", 4, 2),
+    // POK Home Planets
+    create_home_planet(52, 61, "Ixth", 3, 5),
+    create_home_planet(53, 62, "Arcturus", 4, 4),
+    create_home_planet(54, 63, "Acheron", 4, 0),
+    create_home_planet(55, 64, "Elysium", 4, 1),
+    create_home_planet(56, 65, "The Dark", 3, 4),
+    create_home_planet(57, 66, "Naazir", 2, 1),
+    create_home_planet(57, 67, "Rokha", 1, 2),
+    create_home_planet(58, 68, "Valk", 2, 0),
+    create_home_planet(58, 69, "Avar", 1, 1),
+    create_home_planet(58, 70, "Ylir", 0, 2),
+    // POK planets
+    create_planet(59, 71, "Archon Vail", 1, 3, PlanetTrait::Hazardous, Some(TechnologySpecialty::Propulsion)),
+    create_planet(60, 72, "Perimeter", 2, 1, PlanetTrait::Industrial, None),
+    create_planet(61, 73, "Ang", 2, 0, PlanetTrait::Industrial, Some(TechnologySpecialty::Warfare)),
+    create_planet(62, 74, "Sem-Lore", 3, 2, PlanetTrait::Cultural, Some(TechnologySpecialty::Cybernetic)),
+    create_planet(63, 75, "Vorhal", 0, 2, PlanetTrait::Cultural, Some(TechnologySpecialty::Biotic)),
+    create_planet(64, 76, "Atlas", 3, 1, PlanetTrait::Hazardous, None),
+    Planet {
+        is_legendary: true,
+        ..create_planet(65, 77, "Primor", 2, 1, PlanetTrait::Cultural, None)
+    },
+    Planet {
+        is_legendary: true,
+        ..create_planet(66, 78, "Hope's End", 3, 0, PlanetTrait::Hazardous, None)
+    },
+    create_planet(67, 79, "Cormund", 2, 0, PlanetTrait::Hazardous, None),
+    create_planet(68, 80, "Everra", 3, 1, PlanetTrait::Cultural, None),
+    create_planet(69, 81, "Accoen", 2, 3, PlanetTrait::Industrial, None),
+    create_planet(69, 82, "Jeol Ir", 2, 3, PlanetTrait::Industrial, None),
+    create_planet(70, 83, "Kraag", 2, 1, PlanetTrait::Hazardous, None),
+    create_planet(70, 84, "Siig", 0, 2, PlanetTrait::Hazardous, None),
+    create_planet(71, 85, "Ba'Kal", 3, 2, PlanetTrait::Industrial, None),
+    create_planet(71, 86, "Alio Prima", 1, 1, PlanetTrait::Cultural, None),
+    create_planet(72, 87, "Lisis", 2, 2, PlanetTrait::Industrial, None),
+    create_planet(72, 88, "Velnor", 2, 1, PlanetTrait::Industrial, Some(TechnologySpecialty::Warfare)),
+    create_planet(73, 89, "Cealdri", 0, 2, PlanetTrait::Cultural, Some(TechnologySpecialty::Cybernetic)),
+    create_planet(73, 90, "Xanhact", 0, 1, PlanetTrait::Hazardous, None),
+    create_planet(74, 91, "Vega Major", 2, 1, PlanetTrait::Cultural, None),
+    create_planet(74, 92, "Vega Minor", 1, 2, PlanetTrait::Cultural, Some(TechnologySpecialty::Propulsion)),
+    create_planet(75, 93, "Loki", 1, 2, PlanetTrait::Cultural, None),
+    create_planet(75, 94, "Abaddon", 1, 0, PlanetTrait::Cultural, None),
+    create_planet(75, 95, "Ashtroth", 2, 0, PlanetTrait::Hazardous, None),
+    create_planet(76, 96, "Rigel I", 0, 1, PlanetTrait::Hazardous, None),
+    create_planet(76, 97, "Rigel II", 1, 2, PlanetTrait::Industrial, None),
+    create_planet(76, 98, "Rigel III", 1, 1, PlanetTrait::Industrial, Some(TechnologySpecialty::Biotic)),
+    Planet {
+        is_legendary: true,
+        ..create_planet(77, 99, "Mallice", 0, 3, PlanetTrait::Cultural, None)
+    },
 ];

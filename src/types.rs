@@ -1,24 +1,24 @@
-enum TechnologySpecialty {
+pub enum TechnologySpecialty {
     Warfare,
     Cybernetic,
     Propulsion,
     Biotic,
 }
 
-enum PlanetTrait {
+pub enum PlanetTrait {
     Cultural,
     Hazardous,
-    Industrious,
+    Industrial,
 }
 
-enum Wormhole {
+pub enum Wormhole {
     Alpha,
     Beta,
     Delta,
     Gamma,
 }
 
-enum Anomaly {
+pub enum Anomaly {
     MuaatSupernova,
     Supernova,
     Nebula,
@@ -26,35 +26,35 @@ enum Anomaly {
     AsteroidField,
 }
 
-enum SystemType {
+pub enum SystemType {
     Blue,
     Red,
     Green,
 }
 
-struct Faction {
-    faction_id: i32,
-    name: &'static str,
-    base_game: bool,
-    pok_game: bool,
-    home_system_id: i32,
+pub struct Faction {
+    pub faction_id: i32,
+    pub name: &'static str,
+    pub base_game: bool,
+    pub pok_game: bool,
+    pub home_system_id: i32,
 }
 
-struct SystemTile {
-    system_id: i32,
-    faction_id: Option<i32>,
-    name: &'static str,
-    base_game: bool,
-    pok_game: bool,
-    wormhole: Option<Wormhole>,
-    anomaly: Option<Anomaly>,
-    system_type: SystemType,
-    contains_legendary_planet: bool,
-    is_mecatol_rex: bool,
+pub struct SystemTile {
+    pub system_id: i32,
+    pub faction_id: Option<i32>,
+    pub name: &'static str,
+    pub base_game: bool,
+    pub pok_game: bool,
+    pub wormhole: Option<Wormhole>,
+    pub anomaly: Option<Anomaly>,
+    pub system_type: SystemType,
+    pub contains_legendary_planet: bool,
+    pub is_mecatol_rex: bool,
 }
 
-impl Default for SystemTile {
-    fn default() -> SystemTile {
+impl SystemTile {
+    pub const fn new() -> SystemTile {
         SystemTile {
             system_id: 0,
             faction_id: None,
@@ -70,22 +70,22 @@ impl Default for SystemTile {
     }
 }
 
-struct Planet {
-    system_id: i32,
-    planet_id: i32,
-    name: &'static str,
-    flavor_text: &'static str,
-    resources: i32,
-    influence: i32,
-    is_legendary: bool,
-    is_home_planet: bool,
-    is_mecatol_rex: bool,
-    planet_trait: Option<PlanetTrait>,
-    specialty: Option<TechnologySpecialty>,
+pub struct Planet {
+    pub system_id: i32,
+    pub planet_id: i32,
+    pub name: &'static str,
+    pub flavor_text: &'static str,
+    pub resources: i32,
+    pub influence: i32,
+    pub is_legendary: bool,
+    pub is_home_planet: bool,
+    pub is_mecatol_rex: bool,
+    pub planet_trait: Option<PlanetTrait>,
+    pub specialty: Option<TechnologySpecialty>,
 }
 
-impl Default for Planet {
-    fn default() -> Planet {
+impl Planet {
+    pub const fn new() -> Planet {
         Planet{
             system_id: 0,
             planet_id: 0,
