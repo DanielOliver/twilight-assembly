@@ -1,4 +1,4 @@
-import {get_game_data, get_game_data_dictionary} from 'twilight-assembly'
+import { get_game_data_dictionary} from 'twilight-assembly'
 import {Planet} from "../bindings/Planet";
 import {SystemTile} from "../bindings/SystemTile";
 import {Faction} from "../bindings/Faction";
