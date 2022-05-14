@@ -8,6 +8,9 @@ const nextConfig = {
         config.experiments = Object.assign(config.experiments || {}, {
             asyncWebAssembly: true
         });
+        // config.images = Object.assign(config.images || {}, {
+        //     loader: 'custom'
+        // })
 
         // https://github.com/vercel/next.js/issues/25852
         config.plugins.push(

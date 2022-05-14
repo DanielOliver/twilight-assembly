@@ -3,71 +3,51 @@ import {getGameDataDictionary} from "../utils/twilight_assembly";
 import {Layout} from "../components/Layout";
 import React from "react";
 import {Column, useSortBy, useTable} from "react-table";
-import {Planet} from "../bindings/Planet";
-import {Container} from "react-bootstrap";
+import {SystemTile} from "../bindings/SystemTile";
+import { Container } from 'react-bootstrap';
 
 const gameData = getGameDataDictionary();
-const planets = Object.values(gameData.planets);
-const systems = gameData.system_tiles
+const systems = Object.values(gameData.system_tiles);
 
-const isInBaseGame = (system_id: number) => {
-    return systems[system_id].base_game
-}
+const Systems: NextPage = () => {
 
-const Planets: NextPage = () => {
-
-    const data = React.useMemo(() => planets, []);
-    const columns = React.useMemo<Column<Planet>[]>(
+    const data = React.useMemo(() => systems, []);
+    const columns = React.useMemo<Column<SystemTile>[]>(
         () => [
             {
                 Header: 'Id',
                 Footer: 'Id',
-                accessor: 'planet_id',
+                accessor: 'system_id',
             },
             {
-                Header: 'Planet Name',
-                Footer: 'Planet Name',
-                accessor: 'name'
-            },
-            {
-                Header: 'System',
-                Footer: 'System',
-                accessor: 'system_id'
-            },
-            {
-                Header: 'Resources',
-                Footer: 'Resources',
-                accessor: 'resources'
-            },
-            {
-                Header: 'Influence',
-                Footer: 'Influence',
-                accessor: 'influence'
-            },
-            {
-                Header: 'Trait',
-                Footer: 'Trait',
-                accessor: 'planet_trait'
-            },
-            {
-                Header: 'Specialty',
-                Footer: 'Specialty',
-                accessor: 'specialty'
-            },
-            {
-                Header: 'Home Planet',
-                Footer: 'Home Planet',
-                accessor: row => row.is_home_planet ? 'Home Planet' : '',
-            },
-            {
-                Header: 'Legendary',
-                Footer: 'Legendary',
-                accessor: row => row.is_legendary ? 'Legendary' : '',
+                Header: 'Type',
+                Footer: 'Type',
+                accessor: 'system_type'
             },
             {
                 Header: 'Game',
                 Footer: 'Game',
-                accessor: row => isInBaseGame(row.system_id) ? 'Base' : 'POK',
+                accessor: row => row.base_game ? 'Base' : 'POK',
+            },
+            {
+                Header: 'Anomaly',
+                Footer: 'Anomaly',
+                accessor: 'anomaly'
+            },
+            {
+                Header: 'Wormhole',
+                Footer: 'Wormhole',
+                accessor: 'wormhole'
+            },
+            {
+                Header: 'Home System',
+                Footer: 'Home System',
+                accessor: row => row.system_type === "Green" ? 'Home System' : '',
+            },
+            {
+                Header: 'Name',
+                Footer: 'Name',
+                accessor: 'name'
             }
         ],
         []
@@ -79,7 +59,7 @@ const Planets: NextPage = () => {
         footerGroups,
         rows,
         prepareRow,
-    } = useTable<Planet>({
+    } = useTable<SystemTile>({
             data,
             columns
         },
@@ -89,7 +69,7 @@ const Planets: NextPage = () => {
         <Layout>
             <Container fluid="lg">
                 <table className="table w-auto table-responsive table-bordered table-hover"  {...getTableProps()}>
-                    <caption>List of planets in Twilight Imperium 4</caption>
+                    <caption>List of systems in Twilight Imperium 4</caption>
                     <thead>
                     {headerGroups.map((headerGroup, i) => (
                         // @ts-ignore
@@ -146,4 +126,4 @@ const Planets: NextPage = () => {
     )
 }
 
-export default Planets
+export default Systems
