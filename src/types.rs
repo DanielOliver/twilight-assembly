@@ -71,8 +71,8 @@ impl Default for SystemTile {
 }
 
 struct Planet {
-    planet_id: i32,
     system_id: i32,
+    planet_id: i32,
     name: &'static str,
     flavor_text: &'static str,
     resources: i32,
@@ -87,8 +87,8 @@ struct Planet {
 impl Default for Planet {
     fn default() -> Planet {
         Planet{
-            planet_id: 0,
             system_id: 0,
+            planet_id: 0,
             name: "",
             flavor_text: "",
             resources: 0,

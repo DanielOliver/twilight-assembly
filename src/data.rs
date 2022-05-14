@@ -213,26 +213,10 @@ const DEFAULT_SYSTEMS: &'static [SystemTile] = &[
     },
 ];
 
-fn create_planet(planet_id: i32, system_id: i32,  name: &str,  resources: i32, influence: i32, is_legendary: bool, is_home_planet: bool, is_mecatol_rex: bool, planet_trait: Option<PlanetTrait>, specialty: Option<TechnologySpecialty>) -> Planet {
-    Planet {
-        planet_id,
-        system_id,
-        name,
-        resources,
-        influence,
-        is_legendary,
-        is_home_planet,
-        is_mecatol_rex,
-        planet_trait,
-        specialty,
-        ..Default::default()
-    }
-}
-
 fn create_home_planet(system_id: i32, planet_id: i32, name: &str,  resources: i32, influence: i32) -> Planet {
     Planet {
-        planet_id,
         system_id,
+        planet_id,
         name,
         resources,
         influence,
