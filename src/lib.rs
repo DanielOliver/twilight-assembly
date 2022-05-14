@@ -2,6 +2,7 @@
 #![allow(unused_variables)]
 
 mod types;
+mod data;
 
 fn main() {
 extern crate wasm_bindgen;

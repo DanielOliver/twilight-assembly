@@ -11,6 +11,26 @@ enum PlanetTrait {
     Industrious,
 }
 
+enum Wormhole {
+    Alpha,
+    Beta,
+    Delta,
+    Gamma,
+}
+
+enum Anomaly {
+    MuaatSupernova,
+    Supernova,
+    Nebula,
+    GravityRift,
+    AsteroidField,
+}
+
+enum SystemType {
+    Blue,
+    Red
+}
+
 struct Faction {
     faction_id: i32,
     name: &'static str,
@@ -19,28 +39,34 @@ struct Faction {
     home_system_id: i32,
 }
 
-struct System {
+struct SystemTile {
     system_id: i32,
     faction_id: Option<i32>,
     name: &'static str,
     base_game: bool,
     pok_game: bool,
-    flip_side_system_id: i32,
-    is_anomaly: bool,
-    is_asteroid: bool,
-    is_nebula: bool,
-    is_supernova: bool,
-    is_valid_placement_pool: bool,
-    is_gravity_rift: bool,
-    is_home_system: bool,
-    is_mecatol_rex: bool,
-    is_wormhole_nexus: bool,
-    planets: i32,
+    wormhole: Option<Wormhole>,
+    anomaly: Option<Anomaly>,
+    system_type: SystemType,
     contains_legendary_planet: bool,
-    contains_alpha_wormhole: bool,
-    contains_beta_wormhole: bool,
-    contains_delta_wormhole: bool,
-    contains_gamma_wormhole: bool,
+    is_mecatol_rex: bool,
+}
+
+impl Default for SystemTile {
+    fn default() -> SystemTile {
+        SystemTile {
+            system_id: 0,
+            faction_id: None,
+            name: "",
+            base_game: true,
+            pok_game: true,
+            wormhole: None,
+            anomaly: None,
+            system_type: SystemType::Blue,
+            contains_legendary_planet: false,
+            is_mecatol_rex: false,
+        }
+    }
 }
 
 struct Planet {
@@ -62,3 +88,25 @@ struct Planet {
     has_cybernetic_technology_specialty: bool,
 }
 
+impl Default for Planet {
+    fn default() -> Planet {
+        Planet{
+            planet_id: 0,
+            system_id: 0,
+            name: "",
+            flavor_text: "",
+            is_legendary: false,
+            is_hazardous: false,
+            is_industrious: false,
+            is_cultural: false,
+            is_home_planet: false,
+            is_mecatol_rex: false,
+            resources: 0,
+            influence: 0,
+            has_biotic_technology_specialty: false,
+            has_propulsion_technology_specialty: false,
+            has_warfare_technology_specialty: false,
+            has_cybernetic_technology_specialty: false,
+        }
+    }
+}
