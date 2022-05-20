@@ -1,0 +1,34 @@
+name: Build
+on:
+  push:
+    branches: [ $default-branch ]
+  pull_request:
+    branches: [ $default-branch ]
+
+  workflow_dispatch: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+        matrix:
+            node-version: [17.x]
+            dotnet: [ '6.0' ]
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ matrix.dotnet }}
+      - run: npm ci
+        working-directory: ./front
+      - run: npm run build
+        working-directory: ./front
+      - uses: actions/upload-artifact@v3
+        with:
+          name: front
+          path: front/public/
