@@ -1,41 +1,39 @@
 module TwilightAssembly.Front.App
 
-Fable.Core.JsInterop.importAll "bootstrap/dist/css/bootstrap.min.css"
-Fable.Core.JsInterop.importAll "bootstrap/dist/js/bootstrap.js"
+//Fable.Core.JsInterop.importAll "bootstrap/dist/css/bootstrap.min.css"
 
 open Browser.Dom
 open Feliz
-
-[<ReactComponent>]
-let Counter () =
-    let (count, setCount) = React.useState (0)
-
-    let increment =
-        Html.button [ prop.classes [ Css.bootstrap.Btn
-                                     Css.bootstrap.BtnInfo ]
-                      prop.onClick (fun _ -> setCount (count + 1))
-                      prop.text "Increment" ]
-
-    let decrement =
-        Html.button [ prop.classes [ Css.bootstrap.Btn
-                                     Css.bootstrap.BtnInfo ]
-                      prop.onClick (fun _ -> setCount (count - 1))
-                      prop.text "Decrement" ]
+open Feliz.Router
+open TwilightAssembly.Front.Pages
 
 
+let IndexPage () =
     Html.div [ prop.classes [ Css.bootstrap.ContainerLg ]
-               prop.children [ increment
-                               decrement
-                               Html.h1 count ] ]
+               prop.children [ Navigation PageType.Index
+                               Html.h1 "Work in progress" ] ]
 
-let Navigation () =
-    Html.nav [ prop.classes [ Css.bootstrap.Navbar
-                              Css.bootstrap.NavbarExpandLg
-                              Css.bootstrap.BgLight ]
-               prop.children [ Html.div [ prop.classes [ Css.bootstrap.ContainerLg ]
-                                          prop.children [ Html.a [ prop.classes [ Css.bootstrap.NavbarBrand ]
-                                                                   prop.text "Twilight Assembly" ] ] ] ] ]
+let SystemsPage () =
+    Html.div [ prop.classes [ Css.bootstrap.ContainerLg ]
+               prop.children [ Navigation PageType.Systems
+                               Html.h1 "Systems: Work in progress" ] ]
 
-let World () = Html.div [ Navigation(); Counter() ]
+let PlanetsPage() =
+    Html.div [ prop.classes [ Css.bootstrap.ContainerLg ]
+               prop.children [ Navigation PageType.Planets
+                               Html.h1 "Planets: Work in progress" ] ]
+[<ReactComponent>]
+let Router () =
+    let (currentUrl, updateUrl) =
+        React.useState (Router.currentUrl ())
 
-ReactDOM.render (World(), document.getElementById "root")
+    React.router [ router.onUrlChanged updateUrl
+                   router.children [ match currentUrl with
+                                     | [] -> IndexPage()
+                                     | [ "systems" ] -> SystemsPage()
+                                     | [ "planets" ] -> PlanetsPage()
+                                     | otherwise -> Html.h1 "Not found" ] ]
+
+ReactDOM.render (Router(), document.getElementById "root")
+
+//Fable.Core.JsInterop.importAll "bootstrap/dist/js/bootstrap.js"
