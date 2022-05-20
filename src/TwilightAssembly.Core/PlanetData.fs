@@ -34,7 +34,7 @@ let Default: Planet list =
       create_home_planet (6, 6, "[0.0.0]", 5, 0)
       create_home_planet (7, 7, "Winnu", 3, 4)
       create_home_planet (8, 8, "Mordai II", 4, 0)
-      create_home_planet (9, 9, "Maaluuk", 2, 0)
+      create_home_planet (9, 9, "Maaluuk", 0, 2)
       create_home_planet (9, 10, "Druaa", 3, 1)
       create_home_planet (10, 11, "Arc Prime", 4, 0)
       create_home_planet (10, 12, "Wren Terra", 2, 1)
