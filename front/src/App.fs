@@ -125,7 +125,7 @@ let PlanetsPage () =
 [<ReactComponent>]
 let TilesPage () =
     let tileCards =
-        SystemData.Default
+        SystemData.DefaultWithoutMalliceBack
         |> List.map (fun t ->
             Html.div [ prop.key t.SystemId
                        prop.classes [ Css.bootstrap.Col ]
