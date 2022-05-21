@@ -28,6 +28,14 @@ type Anomaly =
     | GravityRift
     | MuaatSupernova
 
+    member this.Readable =
+        match this with
+        | Anomaly.Nebula -> "Nebula"
+        | Anomaly.Supernova -> "Supernova"
+        | Anomaly.AsteroidField -> "Asteroid Field"
+        | Anomaly.MuaatSupernova -> "Muaat Supernova"
+        | Anomaly.GravityRift -> "Gravity Rift"
+
 [<RequireQualifiedAccess>]
 type SystemType =
     | Blue
@@ -92,7 +100,7 @@ type Planet =
       Trait: Trait option
       Specialty: Specialty option }
 
-[<RequireQualifiedAccess>] 
+[<RequireQualifiedAccess>]
 type Factions =
     | FederationOfSol
     | MentakCoalition

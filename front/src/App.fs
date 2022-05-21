@@ -5,23 +5,124 @@ module TwilightAssembly.Front.App
 open Browser.Dom
 open Feliz
 open Feliz.Router
+open TwilightAssembly.Core
 open TwilightAssembly.Front.Pages
 
 
+[<ReactComponent>]
 let IndexPage () =
     Html.div [ prop.classes [ Css.bootstrap.ContainerLg ]
                prop.children [ Navigation PageType.Index
                                Html.h1 "Work in progress" ] ]
 
+[<ReactComponent>]
 let SystemsPage () =
+    let systemRows =
+        SystemData.Default
+        |> List.map (fun t ->
+            Html.tr [ prop.key t.SystemId
+                      prop.children [ Html.th t.SystemId
+                                      Html.td (t.SystemType.ToString())
+                                      Html.td t.Name
+                                      Html.td (
+                                          t.Anomaly
+                                          |> Option.map (fun t -> t.Readable)
+                                          |> Option.defaultValue ""
+                                      )
+                                      Html.td (System.String.Join(", ", t.Wormholes))
+                                      Html.td (if t.EmptySystem then "Empty" else "")
+                                      Html.td (
+                                          if t.IsRedBorder then
+                                              "Red Border"
+                                          else
+                                              ""
+                                      )
+                                      Html.td (if t.BaseGame then "Base" else "POK") ] ])
+
+    let systemsTable =
+        Html.table [ prop.classes [ Css.bootstrap.Table
+                                    Css.bootstrap.TableStriped
+                                    Css.bootstrap.TableBordered
+                                    Css.bootstrap.TableHover
+                                    Css.bootstrap.TableResponsive
+                                    Css.bootstrap.WAuto ]
+                     prop.children [ Html.thead [ Html.tr [ Html.th "#"
+                                                            Html.th "System Type"
+                                                            Html.th "Name"
+                                                            Html.th "Anomaly"
+                                                            Html.th "Wormholes"
+                                                            Html.th "Planets"
+                                                            Html.th "Red Border"
+                                                            Html.th "Base Game" ] ]
+                                     Html.tfoot [ Html.tr [ Html.th "#"
+                                                            Html.th "System Type"
+                                                            Html.th "Name"
+                                                            Html.th "Anomaly"
+                                                            Html.th "Wormholes"
+                                                            Html.th "Planets"
+                                                            Html.th "Red Border"
+                                                            Html.th "Base Game" ] ]
+                                     Html.tbody systemRows ] ]
+
     Html.div [ prop.classes [ Css.bootstrap.ContainerLg ]
                prop.children [ Navigation PageType.Systems
-                               Html.h1 "Systems: Work in progress" ] ]
 
-let PlanetsPage() =
+                               Html.h1 [ prop.text "Planets"
+                                         prop.classes [ "display-1" ] ]
+                               Html.br []
+                               systemsTable ] ]
+
+[<ReactComponent>]
+let PlanetsPage () =
+    let planetRows =
+        PlanetData.Default
+        |> List.map (fun t ->
+            Html.tr [ prop.key t.PlanetId
+                      prop.children [ Html.th t.PlanetId
+                                      Html.td (t.SystemId.ToString())
+                                      Html.td t.Name
+                                      Html.td t.Resources
+                                      Html.td t.Influence
+                                      Html.td (
+                                          t.Specialty
+                                          |> Option.map (fun t -> t.ToString())
+                                          |> Option.defaultValue ""
+                                      )
+                                      Html.td (
+                                          t.Trait
+                                          |> Option.map (fun t -> t.ToString())
+                                          |> Option.defaultValue ""
+                                      )
+                                      Html.td (t.PlanetType.ToString()) ] ])
+
+    let headersRow =
+        [ Html.tr [ Html.th "#"
+                    Html.th "System Id"
+                    Html.th "Name"
+                    Html.th "Resources"
+                    Html.th "Influence"
+                    Html.th "Specialty"
+                    Html.th "Trait"
+                    Html.th "Type" ] ]
+
+    let planetsTable =
+        Html.table [ prop.classes [ Css.bootstrap.Table
+                                    Css.bootstrap.TableStriped
+                                    Css.bootstrap.TableBordered
+                                    Css.bootstrap.TableHover
+                                    Css.bootstrap.TableResponsive
+                                    Css.bootstrap.WAuto ]
+                     prop.children [ Html.thead headersRow
+                                     Html.tfoot headersRow
+                                     Html.tbody planetRows ] ]
+
     Html.div [ prop.classes [ Css.bootstrap.ContainerLg ]
                prop.children [ Navigation PageType.Planets
-                               Html.h1 "Planets: Work in progress" ] ]
+                               Html.h1 [ prop.text "Planets"
+                                         prop.classes [ "display-1" ] ]
+                               Html.br []
+                               planetsTable ] ]
+
 [<ReactComponent>]
 let Router () =
     let (currentUrl, updateUrl) =

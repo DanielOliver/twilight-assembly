@@ -14,4 +14,7 @@
     <PackageReference Include="Feliz.Router" Version="3.8.0" />
     <PackageReference Include="Zanaptak.TypedCssClasses" Version="1.0.0" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\TwilightAssembly.Core\TwilightAssembly.Core.fsproj" />
+  </ItemGroup>
 </Project>
