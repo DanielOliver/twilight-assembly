@@ -156,8 +156,6 @@ let Default: SystemTile list =
           Wormholes =
               [ Wormhole.Gamma
                 Wormhole.Alpha
-                Wormhole.Beta ] } ]
+                Wormhole.Beta ] } ]    
     
-    
-let DefaultWithoutMalliceBack =
-    Default |> List.where( fun t -> t.Unique.IsNone || t.Unique.Value <> UniqueTile.MalliceFlippedSide )
+let DefaultWithoutMalliceBack = Default |> List.where( fun t -> t.Unique.IsNone || t.Unique.Value <> UniqueTile.MalliceFlippedSide)

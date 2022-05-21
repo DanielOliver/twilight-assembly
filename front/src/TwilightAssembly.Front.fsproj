@@ -5,6 +5,7 @@
   <ItemGroup>
     <Compile Include="Css.fs" />
     <Compile Include="Pages.fs" />
+    <Compile Include="PageMapBuilder.fs" />
     <Compile Include="App.fs" />
   </ItemGroup>
   <ItemGroup>
