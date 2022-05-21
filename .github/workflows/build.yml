@@ -37,7 +37,7 @@ jobs:
         with:
           publish-dir: './front/public'
           production-branch: twilight
-          production-deploy: true
+          # production-deploy: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: "Deploy from GitHub Actions"
           enable-pull-request-comment: true
