@@ -1,11 +1,10 @@
 name: Build
 on:
   push:
-    branches: [ $default-branch ]
+    branches: [ twilight ]
   pull_request:
-    branches: [ $default-branch ]
+    branches: [ twilight ]
 
-  workflow_dispatch: true
 jobs:
   build:
     runs-on: ubuntu-latest
