@@ -6,12 +6,14 @@ open Feliz.Router
 let UrlIndex = ""
 let UrlPlanets = "planets"
 let UrlSystems = "systems"
+let UrlTiles = "tiles"
 
 [<RequireQualifiedAccess>]
 type PageType =
     | Index
     | Planets
     | Systems
+    | Tiles
 
 [<ReactComponent>]
 let Navigation (currentPage: PageType) =
@@ -27,7 +29,11 @@ let Navigation (currentPage: PageType) =
           Html.li [ prop.classes [ Css.bootstrap.NavItem ]
                     prop.children [ Html.a [ prop.text "Planets"
                                              prop.classes [ Css.bootstrap.NavLink; Active PageType.Planets ]
-                                             prop.href (Router.format UrlPlanets) ] ] ] ]
+                                             prop.href (Router.format UrlPlanets) ] ] ]
+          Html.li [ prop.classes [ Css.bootstrap.NavItem ]
+                    prop.children [ Html.a [ prop.text "Tiles"
+                                             prop.classes [ Css.bootstrap.NavLink; Active PageType.Tiles ]
+                                             prop.href (Router.format UrlTiles) ] ] ] ]
 
     let NavChildren =
         [ Html.a [ prop.classes [ Css.bootstrap.NavbarBrand ]

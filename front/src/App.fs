@@ -8,7 +8,6 @@ open Feliz.Router
 open TwilightAssembly.Core
 open TwilightAssembly.Front.Pages
 
-
 [<ReactComponent>]
 let IndexPage () =
     Html.div [ prop.classes [ Css.bootstrap.ContainerLg ]
@@ -67,7 +66,7 @@ let SystemsPage () =
     Html.div [ prop.classes [ Css.bootstrap.ContainerLg ]
                prop.children [ Navigation PageType.Systems
 
-                               Html.h1 [ prop.text "Planets"
+                               Html.h1 [ prop.text "Systems"
                                          prop.classes [ "display-1" ] ]
                                Html.br []
                                systemsTable ] ]
@@ -124,6 +123,42 @@ let PlanetsPage () =
                                planetsTable ] ]
 
 [<ReactComponent>]
+let TilesPage () =
+    let tileCards =
+        SystemData.Default
+        |> List.map (fun t ->
+            Html.div [ prop.key t.SystemId
+                       prop.classes [ Css.bootstrap.Col ]
+                       prop.children [ Html.div [ prop.classes [ Css.bootstrap.Card ]
+                                                  prop.children [ Html.img [ prop.src (
+                                                                                 "/static/tiles/ST_"
+                                                                                 + t.SystemId.ToString()
+                                                                                 + ".png"
+                                                                             )
+                                                                             prop.width 364
+                                                                             prop.classes [ "card-img-top" ] ]
+                                                                  Html.div [ prop.classes [ Css.bootstrap.CardBody ]
+                                                                             prop.children [ Html.h5 [ prop.classes [ Css.bootstrap.CardTitle ]
+                                                                                                       prop.text t.Name ] ] ] ] ] ] ])
+
+    let tileRow =
+        Html.div [ prop.classes [ Css.bootstrap.RowColsAuto
+                                  Css.bootstrap.Row ]
+                   prop.children tileCards ]
+
+    Html.div [ prop.classes [ Css.bootstrap.ContainerFluid ]
+               prop.children [ Navigation PageType.Tiles
+                               Html.div [ prop.classes [ Css.bootstrap.ContainerLg ]
+                                          prop.children [ Html.h1 [ prop.text "Tiles"
+                                                                    prop.classes [ "display-1" ] ]
+
+                                                           ] ]
+                               Html.br []
+                               tileRow ] ]
+
+
+
+[<ReactComponent>]
 let Router () =
     let (currentUrl, updateUrl) =
         React.useState (Router.currentUrl ())
@@ -133,6 +168,7 @@ let Router () =
                                      | [] -> IndexPage()
                                      | [ "systems" ] -> SystemsPage()
                                      | [ "planets" ] -> PlanetsPage()
+                                     | [ "tiles" ] -> TilesPage()
                                      | otherwise -> Html.h1 "Not found" ] ]
 
 ReactDOM.render (Router(), document.getElementById "root")
