@@ -19,18 +19,22 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Setup dotnet
+      - name: Setup dotnet ${{ matrix.dotnet }}
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ matrix.dotnet }}
       - run: npm ci
         working-directory: ./TwilightAssembly.Front
+        name: NPM install
       - run: npm run build
         working-directory: ./TwilightAssembly.Front
+        name: Build Frontend
       - run: npm run test
         working-directory: ./TwilightAssembly.Front
-      - run: dotnet test
+        name: Run Frontend tests
+      - run: dotnet run
         working-directory: ./TwilightAssembly.Front/tests
+        name: Run Frontend dotnet tests
       - uses: actions/upload-artifact@v3
         with:
           name: TwilightAssembly.Front
@@ -44,7 +48,7 @@ jobs:
           # production-deploy: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: "Deploy from GitHub Actions"
-          enable-pull-request-comment: true
+          enable-pull-request-comment: false
           enable-commit-comment: true
           overwrites-pull-request-comment: true
         env:
