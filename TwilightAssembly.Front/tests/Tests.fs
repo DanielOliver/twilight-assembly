@@ -1,6 +1,10 @@
 module Tests
 
+#if FABLE_COMPILER
 open Fable.Mocha
+#else
+open Expecto
+#endif
 
 let add x y = x + y
 
@@ -15,4 +19,9 @@ let allTests = testList "All" [
 ]
 
 [<EntryPoint>]
-let main (args: string[]) = Mocha.runTests allTests
+let main args =
+#if FABLE_COMPILER
+    Mocha.runTests allTests
+#else
+    runTestsWithArgs defaultConfig args allTests
+#endif

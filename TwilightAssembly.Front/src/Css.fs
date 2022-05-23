@@ -1,4 +1,4 @@
-﻿module TwilightAssembly.Front.Css
+﻿module TwilightAssembly.App.Css
 
 open Zanaptak.TypedCssClasses
 

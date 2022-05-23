@@ -24,18 +24,22 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet }}
       - run: npm ci
-        working-directory: ./front
+        working-directory: ./TwilightAssembly.Front
       - run: npm run build
-        working-directory: ./front
+        working-directory: ./TwilightAssembly.Front
+      - run: npm run test
+        working-directory: ./TwilightAssembly.Front
+      - run: dotnet test
+        working-directory: ./TwilightAssembly.Front/tests
       - uses: actions/upload-artifact@v3
         with:
-          name: front
-          path: ./front/public/
+          name: TwilightAssembly.Front
+          path: ./TwilightAssembly.Front/dist/
 
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v1.2
         with:
-          publish-dir: './front/public'
+          publish-dir: './TwilightAssembly.Front/dist'
           production-branch: twilight
           # production-deploy: true
           github-token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,14 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
+        <OutputType>Exe</OutputType>
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="Tests.fs" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\src\App.fsproj" />
+        <ProjectReference Include="..\src\TwilightAssembly.App.fsproj" />
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="Expecto" Version="9.0.4" />
         <PackageReference Include="Fable.Mocha" Version="2.9.1" />
     </ItemGroup>
 </Project>
