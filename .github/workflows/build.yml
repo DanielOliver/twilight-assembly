@@ -47,7 +47,7 @@ jobs:
         if: always()
         with:
           name: TestResults
-          path: junit/*junit.xml
+          path: '**/*junit.xml'
       - uses: actions/upload-artifact@v3
         with:
           name: TwilightAssembly.Front
@@ -81,9 +81,10 @@ jobs:
     if: always()
     steps:
       - name: Download Artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
-          path: artifacts
+          path: TestResults
+          name: TestResults
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1
         with:
