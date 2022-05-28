@@ -1,10 +1,10 @@
 ﻿open Expecto
+open TwilightAssembly.Core.Tests.Math_Tests
 
 let tests =
-    test "A simple test" {
-        let subject = "Hello World"
-        Expect.equal subject "Hello World" "The strings should equal"
-    }
+  testList "core" [
+    AxialTests
+  ]
 
 [<EntryPoint>]
 let main args = runTestsWithCLIArgs [] args tests
