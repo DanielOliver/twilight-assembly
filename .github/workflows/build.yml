@@ -29,12 +29,22 @@ jobs:
       - run: npm run build
         working-directory: ./TwilightAssembly.Front
         name: Build Frontend
+
+      - run: dotnet run --junit-summary junit/dotnet.Core.TestResults.junit.xml
+        working-directory: ./TwilightAssembly.Front/tests
+        name: Run Core dotnet tests
       - run: npm run test
         working-directory: ./TwilightAssembly.Front
         name: Run Frontend tests
-      - run: dotnet run
+      - run: dotnet run --junit-summary junit/dotnet.Front.TestResults.junit.xml
         working-directory: ./TwilightAssembly.Front/tests
         name: Run Frontend dotnet tests
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: TestResults
+          path: junit/*junit.xml
       - uses: actions/upload-artifact@v3
         with:
           name: TwilightAssembly.Front

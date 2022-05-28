@@ -177,8 +177,3 @@ let Router () =
 ReactDOM.render (Router(), document.getElementById "root")
 
 
-//ReactDOM.render(
-//    Components.Router(),
-//    document.getElementById "feliz-app"
-//)
-
