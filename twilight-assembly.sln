@@ -9,6 +9,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TwilightAssembly.App", "Twi
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TwilightAssembly.App.Tests", "TwilightAssembly.Front\tests\TwilightAssembly.App.Tests.fsproj", "{83AC3CDC-A2C7-46B6-A033-531221B3A738}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TwilightAssembly.Core.Tests", "TwilightAssembly.Core.Tests\TwilightAssembly.Core.Tests.fsproj", "{D7D096AF-9C36-4484-ACCC-AC0354102B32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{83AC3CDC-A2C7-46B6-A033-531221B3A738}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83AC3CDC-A2C7-46B6-A033-531221B3A738}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83AC3CDC-A2C7-46B6-A033-531221B3A738}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7D096AF-9C36-4484-ACCC-AC0354102B32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7D096AF-9C36-4484-ACCC-AC0354102B32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7D096AF-9C36-4484-ACCC-AC0354102B32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7D096AF-9C36-4484-ACCC-AC0354102B32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
