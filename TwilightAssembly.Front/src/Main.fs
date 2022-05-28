@@ -1,12 +1,14 @@
-module TwilightAssembly.Front.App
+module Main
 
-//Fable.Core.JsInterop.importAll "bootstrap/dist/css/bootstrap.min.css"
-
-open Browser.Dom
 open Feliz
 open Feliz.Router
+open Browser.Dom
+open Fable.Core.JsInterop
 open TwilightAssembly.Core
-open TwilightAssembly.Front.Pages
+open TwilightAssembly.App
+open TwilightAssembly.App.Pages
+
+importSideEffects "./styles/global.scss"
 
 [<ReactComponent>]
 let IndexPage () =
@@ -161,9 +163,10 @@ let TilesPage () =
 [<ReactComponent>]
 let Router () =
     let (currentUrl, updateUrl) =
-        React.useState (Router.currentUrl ())
+        React.useState (Router.currentPath ())
 
-    React.router [ router.onUrlChanged updateUrl
+    React.router [ router.pathMode
+                   router.onUrlChanged updateUrl
                    router.children [ match currentUrl with
                                      | [] -> IndexPage()
                                      | [ "systems" ] -> SystemsPage()
@@ -173,4 +176,9 @@ let Router () =
 
 ReactDOM.render (Router(), document.getElementById "root")
 
-//Fable.Core.JsInterop.importAll "bootstrap/dist/js/bootstrap.js"
+
+//ReactDOM.render(
+//    Components.Router(),
+//    document.getElementById "feliz-app"
+//)
+

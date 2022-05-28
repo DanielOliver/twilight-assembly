@@ -1,4 +1,4 @@
-﻿module TwilightAssembly.Front.Pages
+﻿module TwilightAssembly.App.Pages
 
 open Feliz
 open Feliz.Router
@@ -25,19 +25,19 @@ let Navigation (currentPage: PageType) =
         [ Html.li [ prop.classes [ Css.bootstrap.NavItem ]
                     prop.children [ Html.a [ prop.text "Systems"
                                              prop.classes [ Css.bootstrap.NavLink; Active PageType.Systems ]
-                                             prop.href (Router.format UrlSystems) ] ] ]
+                                             prop.href (Router.formatPath UrlSystems) ] ] ]
           Html.li [ prop.classes [ Css.bootstrap.NavItem ]
                     prop.children [ Html.a [ prop.text "Planets"
                                              prop.classes [ Css.bootstrap.NavLink; Active PageType.Planets ]
-                                             prop.href (Router.format UrlPlanets) ] ] ]
+                                             prop.href (Router.formatPath UrlPlanets) ] ] ]
           Html.li [ prop.classes [ Css.bootstrap.NavItem ]
                     prop.children [ Html.a [ prop.text "Tiles"
                                              prop.classes [ Css.bootstrap.NavLink; Active PageType.Tiles ]
-                                             prop.href (Router.format UrlTiles) ] ] ] ]
+                                             prop.href (Router.formatPath UrlTiles) ] ] ] ]
 
     let NavChildren =
         [ Html.a [ prop.classes [ Css.bootstrap.NavbarBrand ]
-                   prop.href (Router.format UrlIndex)
+                   prop.href (Router.formatPath UrlIndex)
                    prop.text "Twilight Assembly" ]
           Html.button [ prop.classes [ Css.bootstrap.NavbarToggler ]
                         prop.type' "button"
