@@ -5,49 +5,44 @@ open Feliz.Router
 
 module External =
 
-    [<ReactComponent(import="About", from="./About.tsx")>]
-    let About (title: string) = React.imported()
+  [<ReactComponent(import = "About", from = "./About.tsx")>]
+  let About (title: string) = React.imported ()
 
 
 type Components =
 
-    /// <summary>
-    /// The simplest possible React component.
-    /// Shows a header with the text Hello World
-    /// </summary>
-    [<ReactComponent>]
-    static member HelloWorld() = Html.h1 "Hello World"
+  /// <summary>
+  /// The simplest possible React component.
+  /// Shows a header with the text Hello World
+  /// </summary>
+  [<ReactComponent>]
+  static member HelloWorld() = Html.h1 "Hello World"
 
-    /// <summary>
-    /// A stateful React component that maintains a counter
-    /// </summary>
-    [<ReactComponent>]
-    static member Counter() =
-        let (count, setCount) = React.useState(0)
-        Html.div [
-            Html.h1 count
-            Html.button [
-                prop.onClick (fun _ -> setCount(count + 1))
-                prop.text "Increment"
-            ]
-        ]
+  /// <summary>
+  /// A stateful React component that maintains a counter
+  /// </summary>
+  [<ReactComponent>]
+  static member Counter() =
+    let (count, setCount) = React.useState (0)
 
-    /// <summary>
-    /// A React component that uses Feliz.Router
-    /// to determine what to show based on the current URL
-    /// </summary>
-    [<ReactComponent>]
-    static member Router() =
-        let (currentUrl, updateUrl) = React.useState(Router.currentPath())
-        React.router [
-            router.pathMode
-            router.onUrlChanged updateUrl
-            router.children [
-                match currentUrl with
-                | [ ] -> Html.h1 "Index"
-                | [ "hello" ] -> Components.HelloWorld()
-                | [ "about" ] -> External.About "Test This"
-                | [ "counter" ] -> Components.Counter()
-                | otherwise -> Html.h1 "Not found"
-            ]
-        ]
+    Html.div [ Html.h1 count
+               Html.button [ prop.onClick (fun _ -> setCount (count + 1))
+                             prop.text "Increment" ] ]
+
+  /// <summary>
+  /// A React component that uses Feliz.Router
+  /// to determine what to show based on the current URL
+  /// </summary>
+  [<ReactComponent>]
+  static member Router() =
+    let (currentUrl, updateUrl) =
+      React.useState (Router.currentPath ())
+
+    React.router [ router.pathMode
+                   router.onUrlChanged updateUrl
+                   router.children [ match currentUrl with
+                                     | [] -> Html.h1 "Index"
+                                     | [ "hello" ] -> Components.HelloWorld()
+                                     | [ "about" ] -> External.About "Test This"
+                                     | [ "counter" ] -> Components.Counter()
+                                     | otherwise -> Html.h1 "Not found" ] ]
