@@ -3,6 +3,7 @@
     "scripts": {
         "prestart": "dotnet tool restore",
         "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider dotnet fable watch ./src -s --run webpack-dev-server",
+        "start-opensuse": "dotnet fable watch ./src -s --run webpack-dev-server",
         "prebuild": "dotnet tool restore",
         "build": "dotnet fable ./src && cross-env NODE_OPTIONS=--openssl-legacy-provider webpack",
         "test:live": "dotnet fable watch tests --run webpack-dev-server --config ./webpack.tests.js",
