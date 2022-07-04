@@ -27,9 +27,15 @@ jobs:
       - run: npm ci
         working-directory: ./TwilightAssembly.Front
         name: NPM install
+      - run: npm ci
+        working-directory: ./staticfront
+        name: NPM install
       - run: npm run build
         working-directory: ./TwilightAssembly.Front
         name: Build Frontend
+      - run: npm run build
+        working-directory: ./staticfront
+        name: Build Static Frontend
       # TESTS
       - run: dotnet run --junit-summary junit/dotnet.Core.TestResults.junit.xml
         working-directory: ./TwilightAssembly.Front/tests
@@ -56,7 +62,7 @@ jobs:
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v1.2
         with:
-          publish-dir: './TwilightAssembly.Front/dist'
+          publish-dir: './staticfront/out'
           production-branch: twilight
           # production-deploy: true
           github-token: ${{ secrets.GITHUB_TOKEN }}

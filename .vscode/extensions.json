@@ -1,7 +1,5 @@
 {
     "recommendations": [
-        "rust-lang.rust",
-        "bungcip.better-toml",
-        "serayuzgur.crates"
+        "Ionide.Ionide-fsharp"
     ]
 }
