@@ -4,7 +4,7 @@ import React from "react";
 import {Column, useSortBy, useTable} from "react-table";
 import {Container} from "react-bootstrap";
 // import {Planet} from "ti4-types";
-// import { PlanetData } from "../../TwilightAssembly.Front/src/Data.fs.js";
+import { PlanetData as ssadfasdfasdfadsf } from "../../TwilightAssembly.Front/src/Data.fs.js";
 import { PlanetData } from "ti4-core/data";
 import { Planet } from "ti4-core/types";
 
@@ -18,6 +18,7 @@ const isInBaseGame = (system_id: number) => {
 }
 
 const Planets: NextPage = () => {
+    console.log(ssadfasdfasdfadsf)
 
     const data = React.useMemo(() => PlanetData, []);
     const columns = React.useMemo<Column<Planet>[]>(

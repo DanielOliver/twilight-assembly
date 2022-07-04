@@ -28,3 +28,48 @@ export interface Planet {
     Trait?: Trait;
     Specialty?: Specialty;
 }
+
+export enum Wormhole {
+    Alpha = 1,
+    Beta,
+    Delta,
+    Gamma
+}
+
+export enum SystemType {
+    Blue = 1,
+    Red,
+    Green
+}
+
+export enum Anomaly {
+    AsteroidField = 1,
+    Nebula,
+    Supernova,
+    GravityRift,
+    MuaatSupernova
+}
+
+export enum UniqueTile {
+    MecatolRex = 1,
+    GhostsHomeSystem,
+    GhostsSliceSystem,
+    MalliceStartingSide,
+    MalliceFlippedSide,
+    HopesEnd,
+    Primor,
+    Mirage
+}
+
+export interface System {
+    SystemId: number;
+    FactionId?: number;
+    Name: string;
+    BaseGame: boolean;
+    POK: boolean;
+    Wormholes: Wormhole[]; 
+    SystemType: SystemType;
+    EmptySystem: boolean;
+    Unique?: UniqueTile;
+    Anomaly?: Anomaly;
+}

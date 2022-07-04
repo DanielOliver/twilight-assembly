@@ -1,4 +1,4 @@
-import { Planet, PlanetType, Trait, Specialty } from "./types"
+import { Planet, PlanetType, Trait, Specialty, System, SystemType, Wormhole, UniqueTile, Anomaly } from "./types"
 
 const PlanetData: Planet[] = [
     {
@@ -872,6 +872,798 @@ const PlanetData: Planet[] = [
       Trait: Trait.Cultural
     }
   ];
+
+const SystemData: System[] =  [
+    {
+      "SystemId": 1,
+      "FactionId": 1,
+      "Name": "The Federation of Sol",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Green,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 2,
+      "FactionId": 2,
+      "Name": "The Mentak Coalition",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Green,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 3,
+      "FactionId": 3,
+      "Name": "The Yin Brotherhood",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Green,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 4,
+      "FactionId": 4,
+      "Name": "The Embers of Muaat",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Green,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 5,
+      "FactionId": 5,
+      "Name": "The Arborec",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Green,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 6,
+      "FactionId": 6,
+      "Name": "The Lizix Mindnet",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Green,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 7,
+      "FactionId": 7,
+      "Name": "The Winnu",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Green,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 8,
+      "FactionId": 8,
+      "Name": "The Nekro Virus",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Green,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 9,
+      "FactionId": 9,
+      "Name": "The Naalu Collective",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Green,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 10,
+      "FactionId": 10,
+      "Name": "The Barony of Letnev",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Green,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 11,
+      "FactionId": 11,
+      "Name": "The Clan of Saar",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Green,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 12,
+      "FactionId": 12,
+      "Name": "The Universities of Jol-Nar",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Green,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 13,
+      "FactionId": 13,
+      "Name": "Sardakk N'orr",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Green,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 14,
+      "FactionId": 14,
+      "Name": "The Xxcha Kingdom",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Green,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 15,
+      "FactionId": 15,
+      "Name": "The Yssaril Tribes",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Green,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 16,
+      "FactionId": 16,
+      "Name": "The Emirates of Hacan",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Green,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 17,
+      "FactionId": 17,
+      "Name": "The Ghosts of Creuss",
+      "BaseGame": true,
+      "POK": true,
+      "Wormholes": [ Wormhole.Delta ],
+      SystemType: SystemType.Green,
+      "EmptySystem": true,
+      "Unique": UniqueTile.GhostsHomeSystem
+    },
+    {
+      "SystemId": 51,
+      "FactionId": 51,
+      "Name": "The Ghosts of Creuss",
+      "BaseGame": true,
+      "POK": true,
+      "Wormholes": [ Wormhole.Delta ],
+      SystemType: SystemType.Green,
+      "EmptySystem": false,
+      "Unique": UniqueTile.GhostsSliceSystem
+    },
+    {
+      "SystemId": 52,
+      "FactionId": 52,
+      "Name": "The Mahact Gene-sorcerers",
+      "BaseGame": false,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Green,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 53,
+      "FactionId": 53,
+      "Name": "The Nomad",
+      "BaseGame": false,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Green,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 54,
+      "FactionId": 54,
+      "Name": "The Vuil'raith Cabal",
+      "BaseGame": false,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Green,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 55,
+      "FactionId": 55,
+      "Name": "The Titans of Ul",
+      "BaseGame": false,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Green,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 56,
+      "FactionId": 56,
+      "Name": "The Empyrean",
+      "BaseGame": false,
+      "POK": true,
+      "Anomaly": Anomaly.Nebula,
+      Wormholes: [],
+      SystemType: SystemType.Green,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 57,
+      "FactionId": 57,
+      "Name": "The Naaz-Rokha Alliance",
+      "BaseGame": false,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Green,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 58,
+      "FactionId": 58,
+      "Name": "The Argent Flight",
+      "BaseGame": false,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Green,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 18,
+      "Name": "Mecatol Rex",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false,
+      "Unique": UniqueTile.MecatolRex
+    },
+    {
+      "SystemId": 19,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 20,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 21,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 22,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 23,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 24,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 25,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 26,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 27,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 28,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 29,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 30,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 31,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 32,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 33,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 34,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 35,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 36,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 37,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 38,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 39,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      "Wormholes": [ Wormhole.Alpha ],
+      SystemType: SystemType.Red,
+      "EmptySystem": true
+    },
+    {
+      "SystemId": 40,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      "Wormholes": [ Wormhole.Beta ],
+      SystemType: SystemType.Red,
+      "EmptySystem": true
+    },
+    {
+      "SystemId": 41,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      "Anomaly": Anomaly.GravityRift,
+      Wormholes: [],
+      SystemType: SystemType.Red,
+      "EmptySystem": true
+    },
+    {
+      "SystemId": 42,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      "Anomaly": Anomaly.Nebula,
+      Wormholes: [],
+      SystemType: SystemType.Red,
+      "EmptySystem": true
+    },
+    {
+      "SystemId": 43,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      "Anomaly": Anomaly.Supernova,
+      Wormholes: [],
+      SystemType: SystemType.Red,
+      "EmptySystem": true
+    },
+    {
+      "SystemId": 44,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      "Anomaly": Anomaly.AsteroidField,
+      Wormholes: [],
+      SystemType: SystemType.Red,
+      "EmptySystem": true
+    },
+    {
+      "SystemId": 45,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      "Wormholes": [ Wormhole.Beta ],
+      SystemType: SystemType.Red,
+      "EmptySystem": true
+    },
+    {
+      "SystemId": 46,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Red,
+      "EmptySystem": true
+    },
+    {
+      "SystemId": 47,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Red,
+      "EmptySystem": true
+    },
+    {
+      "SystemId": 48,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Red,
+      "EmptySystem": true
+    },
+    {
+      "SystemId": 49,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Red,
+      "EmptySystem": true
+    },
+    {
+      "SystemId": 50,
+      "Name": "",
+      "BaseGame": true,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Red,
+      "EmptySystem": true
+    },
+    {
+      "SystemId": 59,
+      "Name": "",
+      "BaseGame": false,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 60,
+      "Name": "",
+      "BaseGame": false,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 61,
+      "Name": "",
+      "BaseGame": false,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 62,
+      "Name": "",
+      "BaseGame": false,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 63,
+      "Name": "",
+      "BaseGame": false,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 64,
+      "Name": "",
+      "BaseGame": false,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 65,
+      "Name": "",
+      "BaseGame": false,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false,
+      "Unique": UniqueTile.Primor
+    },
+    {
+      "SystemId": 66,
+      "Name": "",
+      "BaseGame": false,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false,
+      "Unique": UniqueTile.HopesEnd
+    },
+    {
+      "SystemId": 67,
+      "Name": "",
+      "BaseGame": false,
+      "POK": true,
+      "Anomaly": Anomaly.GravityRift,
+      Wormholes: [],
+      SystemType: SystemType.Red,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 68,
+      "Name": "",
+      "BaseGame": false,
+      "POK": true,
+      "Anomaly": Anomaly.Nebula,
+      Wormholes: [],
+      SystemType: SystemType.Red,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 69,
+      "Name": "",
+      "BaseGame": false,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 70,
+      "Name": "",
+      "BaseGame": false,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 71,
+      "Name": "",
+      "BaseGame": false,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 72,
+      "Name": "",
+      "BaseGame": false,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 73,
+      "Name": "",
+      "BaseGame": false,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 74,
+      "Name": "",
+      "BaseGame": false,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 75,
+      "Name": "",
+      "BaseGame": false,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 76,
+      "Name": "",
+      "BaseGame": false,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false
+    },
+    {
+      "SystemId": 77,
+      "Name": "",
+      "BaseGame": false,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Red,
+      "EmptySystem": true
+    },
+    {
+      "SystemId": 78,
+      "Name": "",
+      "BaseGame": false,
+      "POK": true,
+      Wormholes: [],
+      SystemType: SystemType.Red,
+      "EmptySystem": true
+    },
+    {
+      "SystemId": 79,
+      "Name": "",
+      "BaseGame": false,
+      "POK": true,
+      "Anomaly": Anomaly.AsteroidField,
+      "Wormholes": [ Wormhole.Alpha ],
+      SystemType: SystemType.Red,
+      "EmptySystem": true
+    },
+    {
+      "SystemId": 80,
+      "Name": "",
+      "BaseGame": false,
+      "POK": true,
+      "Anomaly": Anomaly.Supernova,
+      Wormholes: [],
+      SystemType: SystemType.Red,
+      "EmptySystem": true
+    },
+    {
+      "SystemId": 81,
+      "Name": "",
+      "BaseGame": false,
+      "POK": true,
+      "Anomaly": Anomaly.MuaatSupernova,
+      Wormholes: [],
+      SystemType: SystemType.Red,
+      "EmptySystem": true
+    },
+    {
+      "SystemId": 82,
+      "Name": "",
+      "BaseGame": false,
+      "POK": true,
+      "Wormholes": [ Wormhole.Gamma ],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false,
+      "Unique": UniqueTile.MalliceStartingSide
+    },
+    {
+      "SystemId": 83,
+      "Name": "",
+      "BaseGame": false,
+      "POK": true,
+      "Wormholes": [ Wormhole.Alpha, Wormhole.Beta, Wormhole.Gamma ],
+      SystemType: SystemType.Blue,
+      "EmptySystem": false,
+      "Unique": UniqueTile.MalliceFlippedSide
+    }
+  ]
 
 export {
   PlanetData
