@@ -3,4 +3,6 @@ const nextConfig = {
   reactStrictMode: true,
 }
 
-module.exports = nextConfig
+const withExportImages = require('next-export-optimize-images')
+
+module.exports = withExportImages(nextConfig)
