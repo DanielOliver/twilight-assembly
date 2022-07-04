@@ -1,5 +1,6 @@
 {
     "private": true,
+    "name": "twilightassembly-front",
     "scripts": {
         "prestart": "dotnet tool restore",
         "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider dotnet fable watch ./src -s --run webpack-dev-server",

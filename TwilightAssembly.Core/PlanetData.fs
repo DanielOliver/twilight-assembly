@@ -140,3 +140,5 @@ let Default: Planet list =
     create_planet (76, 97, "Rigel III", 1, 1, Some Trait.Industrial, Some Specialty.Biotic)
     { create_planet (82, 98, "Mallice", 0, 3, Some Trait.Cultural, None) with PlanetType = PlanetType.Legendary }
     { create_planet (83, 99, "Mallice", 0, 3, Some Trait.Cultural, None) with PlanetType = PlanetType.Legendary } ]
+
+let DefaultArray = Default |> List.toArray

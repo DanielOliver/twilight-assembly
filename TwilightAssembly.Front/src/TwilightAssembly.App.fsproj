@@ -8,6 +8,7 @@
         <Compile Include="Components.fs" />
         <Compile Include="Css.fs" />
         <Compile Include="Pages.fs" />
+        <Compile Include="Data.fs" />
         <Compile Include="Main.fs" />
     </ItemGroup>
     <ItemGroup>
