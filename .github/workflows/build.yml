@@ -24,31 +24,31 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet }}
       # Install and Build
-      - run: npm ci
-        working-directory: ./TwilightAssembly.Front
-        name: NPM install
+      # - run: npm ci
+      #   working-directory: ./TwilightAssembly.Front
+        # name: NPM install
       - run: npm ci
         working-directory: ./staticfront
         name: NPM install
-      - run: npm run build
-        working-directory: ./TwilightAssembly.Front
-        name: Build Frontend
+      # - run: npm run build
+      #   working-directory: ./TwilightAssembly.Front
+      #   name: Build Frontend
       - run: npm run build
         working-directory: ./staticfront
         name: Build Static Frontend
       # TESTS
-      - run: dotnet run --junit-summary junit/dotnet.Core.TestResults.junit.xml
-        working-directory: ./TwilightAssembly.Front/tests
-        name: Run Core dotnet tests
-        if: always()
-      - run: npm run test
-        working-directory: ./TwilightAssembly.Front
-        name: Run Frontend tests
-      - run: dotnet run --junit-summary junit/dotnet.Front.TestResults.junit.xml
-        working-directory: ./TwilightAssembly.Front/tests
-        name: Run Frontend dotnet tests
-        if: always()
-      # Upload artifacts
+      # - run: dotnet run --junit-summary junit/dotnet.Core.TestResults.junit.xml
+      #   working-directory: ./TwilightAssembly.Front/tests
+      #   name: Run Core dotnet tests
+      #   if: always()
+      # - run: npm run test
+      #   working-directory: ./TwilightAssembly.Front
+      #   name: Run Frontend tests
+      # - run: dotnet run --junit-summary junit/dotnet.Front.TestResults.junit.xml
+      #   working-directory: ./TwilightAssembly.Front/tests
+      #   name: Run Frontend dotnet tests
+      #   if: always()
+      # # Upload artifacts
       - uses: actions/upload-artifact@v3
         if: always()
         with:
