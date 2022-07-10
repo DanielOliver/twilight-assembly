@@ -2,15 +2,12 @@ import type { NextPage } from 'next'
 import React from "react";
 import { Column, useSortBy, useTable } from "react-table";
 import { Container } from "react-bootstrap";
-import { PlanetData as ssadfasdfasdfadsf } from "../../TwilightAssembly.Front/src/Data.fs.js";
 import { PlanetData } from "ti4-core/data";
 import { Planet } from "ti4-core/types";
 import { planetTypeToText, specialtyToText, traitToText } from 'ti4-core/display';
 import Layout from '../components/layout';
 
 const Planets: NextPage = () => {
-    console.log(ssadfasdfasdfadsf)
-
     const data = React.useMemo(() => PlanetData, []);
     const columns = React.useMemo<Column<Planet>[]>(
         () => [
