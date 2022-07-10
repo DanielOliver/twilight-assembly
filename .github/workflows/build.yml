@@ -11,7 +11,7 @@ jobs:
     strategy:
         matrix:
             node-version: [17.x]
-            dotnet: [ '5.0' ]
+            # dotnet: [ '5.0' ]
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
@@ -19,10 +19,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Setup dotnet ${{ matrix.dotnet }}
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: ${{ matrix.dotnet }}
+      # - name: Setup dotnet ${{ matrix.dotnet }}
+      #   uses: actions/setup-dotnet@v1
+      #   with:
+      #     dotnet-version: ${{ matrix.dotnet }}
       # Install and Build
       # - run: npm ci
       #   working-directory: ./TwilightAssembly.Front
@@ -50,14 +50,15 @@ jobs:
       #   if: always()
       # # Upload artifacts
       - uses: actions/upload-artifact@v3
+        name: Upload test results
         if: always()
         with:
           name: TestResults
           path: '**/*junit.xml'
-      - uses: actions/upload-artifact@v3
-        with:
-          name: TwilightAssembly.Front
-          path: ./TwilightAssembly.Front/dist/
+      # - uses: actions/upload-artifact@v3
+      #   with:
+      #     name: TwilightAssembly.Front
+      #     path: ./TwilightAssembly.Front/dist/
 
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v1.2
