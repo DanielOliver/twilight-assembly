@@ -1,21 +1,12 @@
-import type {NextPage} from 'next'
-// import {Layout} from "../components/Layout";
+import type { NextPage } from 'next'
 import React from "react";
-import {Column, useSortBy, useTable} from "react-table";
-import {Container} from "react-bootstrap";
-// import {Planet} from "ti4-types";
+import { Column, useSortBy, useTable } from "react-table";
+import { Container } from "react-bootstrap";
 import { PlanetData as ssadfasdfasdfadsf } from "../../TwilightAssembly.Front/src/Data.fs.js";
 import { PlanetData } from "ti4-core/data";
 import { Planet } from "ti4-core/types";
-
-// const gameData = getGameDataDictionary();
-// const planets = Object.values(gameData.planets);
-// const systems = gameData.system_tiles
-
-const isInBaseGame = (system_id: number) => {
-    return false;
-    // return systems[system_id].base_game
-}
+import { planetTypeToText, specialtyToText, traitToText } from 'ti4-core/display';
+import Layout from '../components/layout';
 
 const Planets: NextPage = () => {
     console.log(ssadfasdfasdfadsf)
@@ -34,8 +25,8 @@ const Planets: NextPage = () => {
                 accessor: 'Name'
             },
             {
-                Header: 'System',
-                Footer: 'System',
+                Header: 'System Id',
+                Footer: 'System Id',
                 accessor: 'SystemId'
             },
             {
@@ -47,32 +38,22 @@ const Planets: NextPage = () => {
                 Header: 'Influence',
                 Footer: 'Influence',
                 accessor: 'Influence'
-            }
-            // {
-            //     Header: 'Trait',
-            //     Footer: 'Trait',
-            //     accessor: 'Trait'
-            // },
-            // {
-            //     Header: 'Specialty',
-            //     Footer: 'Specialty',
-            //     accessor: 'Specialty'
-            // }
-            // {
-            //     Header: 'Home Planet',
-            //     Footer: 'Home Planet',
-            //     accessor: row => row.is_home_planet ? 'Home Planet' : '',
-            // },
-            // {
-            //     Header: 'Legendary',
-            //     Footer: 'Legendary',
-            //     accessor: row => row.is_legendary ? 'Legendary' : '',
-            // },
-            // {
-            //     Header: 'Game',
-            //     Footer: 'Game',
-            //     accessor: row => isInBaseGame(row.system_id) ? 'Base' : 'POK',
-            // }
+            },
+            {
+                Header: 'Specialty',
+                Footer: 'Specialty',
+                accessor: row => specialtyToText(row.Specialty),                
+            },
+            {
+                Header: 'Trait',
+                Footer: 'Trait',
+                accessor: row => traitToText(row.Trait),                
+            },
+            {
+                Header: 'Type',
+                Footer: 'Type',
+                accessor: row => planetTypeToText(row.PlanetType),                
+            },
         ],
         []
     );
@@ -84,67 +65,71 @@ const Planets: NextPage = () => {
         rows,
         prepareRow,
     } = useTable<Planet>({
-            data,
-            columns
-        },
+        data,
+        columns
+    },
         useSortBy);
 
     return (
+        <>
+            <Layout></Layout>
             <Container fluid="lg">
-                <table className="table w-auto table-responsive table-bordered table-hover"  {...getTableProps()}>
+                <h1 className='display-1'>Planets</h1>
+                <table className="table w-auto table-striped table-responsive table-bordered table-hover"  {...getTableProps()}>
                     <caption>List of planets in Twilight Imperium 4</caption>
                     <thead>
-                    {headerGroups.map((headerGroup, i) => (
-                        // @ts-ignore
-                        <tr key={i} className="table-light" {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map((column, j) => (
-                                // @ts-ignore
-                                <th key={j} {...column.getHeaderProps(column.getSortByToggleProps())}>
-                                    {column.render('Header')}
-                                    {// @ts-ignore
-                                        <span>{column.isSorted ? column.isSortedDesc ? ' 🔽' : ' 🔼' : ''}</span>
-                                    }
-                                </th>
-                            ))}
-                        </tr>
-                    ))}
+                        {headerGroups.map((headerGroup, i) => (
+                            // @ts-ignore
+                            <tr key={i} className="table-light" {...headerGroup.getHeaderGroupProps()}>
+                                {headerGroup.headers.map((column, j) => (
+                                    // @ts-ignore
+                                    <th key={j} {...column.getHeaderProps(column.getSortByToggleProps())}>
+                                        {column.render('Header')}
+                                        {// @ts-ignore
+                                            <span>{column.isSorted ? column.isSortedDesc ? ' 🔽' : ' 🔼' : ''}</span>
+                                        }
+                                    </th>
+                                ))}
+                            </tr>
+                        ))}
                     </thead>
                     <tfoot className="table-group-divider">
-                    {footerGroups.map((footerGroup,i) => (
-                        // @ts-ignore
-                        <tr key={i} className="table-light" {...footerGroup.getFooterGroupProps()}>
-                            {footerGroup.headers.map((column, j) => (
-                                // @ts-ignore
-                                <th key={j} {...column.getHeaderProps(column.getSortByToggleProps())}>
-                                    {column.render('Footer')}
-                                    {// @ts-ignore
-                                        <span>{column.isSorted ? column.isSortedDesc ? ' 🔽' : ' 🔼' : ''}</span>
-                                    }
-                                </th>
-                            ))}
-                        </tr>
-                    ))}
+                        {footerGroups.map((footerGroup, i) => (
+                            // @ts-ignore
+                            <tr key={i} className="table-light" {...footerGroup.getFooterGroupProps()}>
+                                {footerGroup.headers.map((column, j) => (
+                                    // @ts-ignore
+                                    <th key={j} {...column.getHeaderProps(column.getSortByToggleProps())}>
+                                        {column.render('Footer')}
+                                        {// @ts-ignore
+                                            <span>{column.isSorted ? column.isSortedDesc ? ' 🔽' : ' 🔼' : ''}</span>
+                                        }
+                                    </th>
+                                ))}
+                            </tr>
+                        ))}
                     </tfoot>
                     <tbody className="table-group-divider" {...getTableBodyProps()}>
-                    {rows.map((row, i) => {
-                        prepareRow(row)
-                        return (
-                            // @ts-ignore
-                            <tr key={i} {...row.getRowProps()}>
-                                {row.cells.map((cell, j) => {
-                                    return (
-                                        // @ts-ignore
-                                        <td key={j} {...cell.getCellProps()}>
-                                            {cell.render('Cell')}
-                                        </td>
-                                    )
-                                })}
-                            </tr>
-                        )
-                    })}
+                        {rows.map((row, i) => {
+                            prepareRow(row)
+                            return (
+                                // @ts-ignore
+                                <tr key={i} {...row.getRowProps()}>
+                                    {row.cells.map((cell, j) => {
+                                        return (
+                                            // @ts-ignore
+                                            <td key={j} {...cell.getCellProps()}>
+                                                {cell.render('Cell')}
+                                            </td>
+                                        )
+                                    })}
+                                </tr>
+                            )
+                        })}
                     </tbody>
                 </table>
             </Container>
+        </>
     )
 }
 
