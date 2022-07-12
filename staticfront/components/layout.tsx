@@ -11,6 +11,7 @@ const Layout = () => {
                     <Nav className="me-auto">
                         <Link passHref href="/systems"><Nav.Link href="/systems">Systems</Nav.Link></Link>
                         <Link passHref href="/planets"><Nav.Link>Planets</Nav.Link></Link>
+                        <Link passHref href="/map"><Nav.Link>Map</Nav.Link></Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

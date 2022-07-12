@@ -2,3 +2,16 @@
 
 @import "~bootstrap/scss/bootstrap";
 
+.fill-height-container {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-flow: column;
+}
+
+.fill-height {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    flex: 1;
+}
