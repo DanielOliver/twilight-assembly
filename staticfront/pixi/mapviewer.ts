@@ -1,5 +1,8 @@
 import { Viewport } from "pixi-viewport";
-import { Application, Sprite, Texture, Text } from "pixi.js";
+import { Application, Sprite, Texture, Text, ShaderSystem } from "pixi.js";
+import { install } from '@pixi/unsafe-eval';
+
+install({ ShaderSystem });
 
 export function setupMapViewer({ ref }: { ref: React.RefObject<HTMLDivElement> }): () => void {
     const app = new Application({
