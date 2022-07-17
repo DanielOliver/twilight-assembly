@@ -105,8 +105,21 @@ class MapViewer {
     static readonly pxTileWidth = 364;
     static readonly pxTileHeight = 317;
     static readonly hexMagicY = 0.7555;
+    private minPxX = 1000000
+    private minPxY = 1000000
+    private maxPxX = 0
+    private maxPxY = 0
 
     constructor(private grid: Ti4BaseMap) {
+    }
+
+    initialBounds(): { x: number; y: number; width: number; height: number; } {
+        return {
+            x: this.minPxX,
+            y: this.minPxY,
+            width: this.maxPxX - this.minPxX,
+            height: this.maxPxY - this.minPxY,
+        }
     }
 
     build(): Container {
@@ -117,10 +130,6 @@ class MapViewer {
         this.container = new Container()
 
         const tiles = this.grid.tiles();
-        const minX = Math.min(...tiles.map(e => e.position.x))
-        const minY = Math.min(...tiles.map(e => e.position.y))
-
-
         for (const tile of tiles) {
             const sprite = Sprite.from(`/static/tiles/ST_${tile.mapTile}.png`);
             sprite.anchor.set(0.5);
@@ -128,10 +137,16 @@ class MapViewer {
             const x = tile.position.x;
             const y = tile.position.y;
 
-            const xOffset = (((x - minX) * MapViewer.hexMagicY) + 0.5) * MapViewer.pxTileWidth;
-            const yOffset = ((x % 2 == 0) ? 1 + (y - minY) : 0.5 + (y - minY)) * MapViewer.pxTileHeight;
+            const xOffset = ((x * MapViewer.hexMagicY) + 0.5) * MapViewer.pxTileWidth;
+            const yOffset = ((tile.position.x % 2 == 0) ? 1 + y : 0.5 + y) * MapViewer.pxTileHeight;
             sprite.position.set(xOffset, yOffset)
             this.container.addChild(sprite)
+
+            this.minPxX = Math.min(this.minPxX, xOffset - (0.5 * MapViewer.pxTileWidth))
+            this.maxPxX = Math.max(this.maxPxX, xOffset + (0.5 * MapViewer.pxTileWidth))
+
+            this.minPxY = Math.min(this.minPxY, yOffset - (0.5 * MapViewer.pxTileHeight))
+            this.maxPxY = Math.max(this.maxPxY, yOffset + (0.5 * MapViewer.pxTileHeight))
         }
 
         return this.container;
@@ -140,7 +155,7 @@ class MapViewer {
 
 export function setupMapViewer({ ref,
     ttsString = '24 33 30 26 41 36 35 42 37 44 34 49 31 50 38 39 40 21 0 28 19 0 46 25 0 45 48 0 29 22 0 43 47 0 32 20'
- }: { ref: React.RefObject<HTMLDivElement>; ttsString: string }): () => void {
+}: { ref: React.RefObject<HTMLDivElement>; ttsString: string }): () => void {
     const app = new Application({
         backgroundColor: 0x0B0A0F,
         resizeTo: window,
@@ -150,8 +165,8 @@ export function setupMapViewer({ ref,
     app.start();
 
     const viewport = new Viewport({
-        screenWidth: app.screen.width,
-        screenHeight: app.screen.height,
+        screenWidth: app.renderer.width,
+        screenHeight: app.renderer.height,
         worldWidth: 2000,
         worldHeight: 2000,
         interaction: app.renderer.plugins.interaction,
@@ -169,25 +184,22 @@ export function setupMapViewer({ ref,
             direction: "all"
         })
         .clampZoom({
-            minScale: 0.3,
-            maxScale: 5
+            minScale: 0.4,
+            maxScale: 8
         });
 
     const grid = new Ti4BaseMap();
-    
     grid.setByTtsString(ttsString);
 
     const mapViewer = new MapViewer(grid);
     const mapContainer = mapViewer.build();
-    const mapContainerBounds = mapContainer.getLocalBounds();
-    mapContainer.position.set(-mapContainerBounds.x + 5, -mapContainerBounds.y + 5)
-    viewport.worldWidth = mapContainerBounds.width + 10
-    viewport.worldHeight = mapContainerBounds.height + 10
     viewport.addChild(mapContainer);
-    viewport.fitWorld();
 
-
-
+    const initialBounds = mapViewer.initialBounds();
+    mapContainer.position.set(-initialBounds.x + 8, -initialBounds.y + 8)
+    viewport.resize(app.renderer.width, app.renderer.height, initialBounds.width + 16, initialBounds.height + 16);
+    viewport.fit()
+    
     return () => {
         // On unload completely destroy the application and all of it's children
         app.destroy(true, true);
