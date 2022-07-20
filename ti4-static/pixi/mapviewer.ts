@@ -158,7 +158,7 @@ export function setupMapViewer({ ref,
 }: { ref: React.RefObject<HTMLDivElement>; ttsString: string }): () => void {
     const app = new Application({
         backgroundColor: 0x0B0A0F,
-        resizeTo: window,
+        // resizeTo: window,
         resolution: 1,
     });
     ref.current?.appendChild(app.view);
@@ -199,6 +199,14 @@ export function setupMapViewer({ ref,
     mapContainer.position.set(-initialBounds.x + 8, -initialBounds.y + 8)
     viewport.resize(app.renderer.width, app.renderer.height, initialBounds.width + 16, initialBounds.height + 16);
     viewport.fit()
+
+    const resize = function() {
+        const refBounds = ref.current?.getBoundingClientRect();
+        app.renderer.resize(refBounds?.width ?? app.renderer.width, window.innerHeight - (refBounds?.top ?? 0))
+        viewport.resize(app.renderer.width, app.renderer.height);
+    }
+    window.onresize = resize;
+    resize()
     
     return () => {
         // On unload completely destroy the application and all of it's children
