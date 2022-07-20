@@ -47,7 +47,7 @@ const Map: NextPage = () => {
                     </Col>
                 </div>
             </div>
-            <DynamicMap ttsString={ttsString} key={ttsString} />
+            <DynamicMap ttsString={ttsString} />
         </div >
     )
 }

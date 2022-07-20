@@ -8,7 +8,7 @@ const MapViewer = ({ ttsString }: {
 
     useEffect(() => {
         return setupMapViewer({ ref, ttsString })
-    }, []);
+    }, [ttsString]);
 
     return <div className='fill-height' ref={ref} />;
 }
