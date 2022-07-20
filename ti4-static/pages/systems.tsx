@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import { Container } from 'react-bootstrap'
 import Layout from '../components/layout'
 
-const Home: NextPage = () => {
+const Systems: NextPage = () => {
   return (
     <>
       <Layout></Layout>
@@ -13,4 +13,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default Systems
