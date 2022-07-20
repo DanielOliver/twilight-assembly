@@ -19,10 +19,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
-        working-directory: ./staticfront
+        working-directory: ./ti4-static
         name: NPM install
       - run: npm run build
-        working-directory: ./staticfront
+        working-directory: ./ti4-static
         name: Build Static Frontend
       # - uses: actions/upload-artifact@v3
       #   name: Upload test results
@@ -33,7 +33,7 @@ jobs:
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v1.2
         with:
-          publish-dir: './staticfront/out'
+          publish-dir: './ti4-static/out'
           production-branch: twilight
           # production-deploy: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
