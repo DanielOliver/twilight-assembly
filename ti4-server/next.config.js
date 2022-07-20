@@ -5,4 +5,6 @@ const nextConfig = {
   poweredByHeader: false,
 }
 
+const withTM = require('next-transpile-modules')(['ti4-core']);
+
 module.exports = nextConfig
