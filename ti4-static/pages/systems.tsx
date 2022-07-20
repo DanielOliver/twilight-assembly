@@ -7,7 +7,7 @@ const Systems: NextPage = () => {
     <>
       <Layout></Layout>
       <Container>
-        <p>I strongly hope and expect there'll be something here someday.</p>
+        <p>I strongly hope and expect there will be something here someday.</p>
       </Container>
     </>
   )
