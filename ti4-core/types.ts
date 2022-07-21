@@ -73,3 +73,15 @@ export interface System {
     Unique?: UniqueTile;
     Anomaly?: Anomaly;
 }
+
+export enum GameCreationState {
+    NameTheGame = 1,
+    TellParticipants,
+    TellMap,
+    TellFactions,
+    TellSeatingOrder,
+    TellStrategyCardPickOrder,
+    TellOptionalFactionChoices,
+    PickSecretObjectives,
+    RevealPublicObjectives
+}
