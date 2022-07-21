@@ -27,7 +27,7 @@ const Step1 = ({
 
     return (
         <Container>
-            <h1>New Match</h1>
+            <h1 className="display-4">New Match</h1>
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formMatchName">
                     <Form.Label>Name</Form.Label>
@@ -38,7 +38,7 @@ const Step1 = ({
                         defaultValue={name}
                         placeholder="Enter a short name for the match" />
                     <Form.Text className="text-muted">
-                        Bonus points for style (bonus points don't count toward a win)
+                        Bonus points for style (bonus points do not count toward a win)
                     </Form.Text>
                     <Form.Control.Feedback type="invalid">
                         Please choose a name for the match.
