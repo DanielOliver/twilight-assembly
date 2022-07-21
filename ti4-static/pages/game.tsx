@@ -13,10 +13,14 @@ const Game: NextPage = () => {
     const [state, setState] = useState(GameCreationState.NameTheGame);
 
     useEffect(() => {
-        router.push({ href: router.pathname, query: { step: state } });
+        if (state > 1) {
+            router.push({ href: router.pathname, query: { step: state } });
+        } else {
+            router.push({ href: router.pathname, query: { } });
+        }
     }, [state])
     useEffect(() => {
-        if (router.query.step && Number.isInteger(Number(router.query.step))) {
+        if (router.query.step && Number.isInteger(Number(router.query.step)) && Number(router.query.step) > 1) {
             setState(Number(router.query.step))
         } else {
             gameCreation.reset()
