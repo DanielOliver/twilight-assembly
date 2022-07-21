@@ -19,13 +19,11 @@ export class GameCreation {
     get participants(): string[] { return this._participants }
     get mapTtsString(): string { return this._mapTtsString }
 
-    setName(name: string, description: string) {
+    step1(name: string, description: string, playerCount: number) {
         this._name = name
         this._description = description
-        this._state = GameCreationState.TellParticipants
-    }
-    setPlayerCount(playerCount: number) {
         this._playerCount = playerCount
+        this._state = GameCreationState.TellParticipants
     }
     setParticipants(participants: string[]) {
         this._participants = participants
