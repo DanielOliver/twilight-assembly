@@ -13,7 +13,7 @@ Utilities and tools for Twilight Imperium to assist with a smoother board game n
 ### Running Static Site Locally
 
 1. Make sure Node 17 is installed.
-3. From repo directory, `cd staticfront`
+3. From repo directory, `cd ti4-static`
 4. Run `npm install`
 5. Start static web project with `npm run dev`
 6. Open `http://localhost:3000/`

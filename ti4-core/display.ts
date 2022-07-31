@@ -1,4 +1,4 @@
-import { Planet, PlanetType, Trait, Specialty, System, SystemType, Wormhole, UniqueTile, Anomaly } from "./types"
+import { PlanetType, Trait, Specialty } from "./types"
 
 export function specialtyToText(specialty: Specialty | undefined | null): string {
     switch (specialty) {
