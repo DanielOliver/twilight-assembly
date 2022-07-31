@@ -147,19 +147,97 @@ export interface PlayerI {
     handActionCardCount: number;
     handPromissoryNoteCount: number;
     handSecretObjectiveCount: number;
-    technologyIds: number[];
+    technologyIds?: number[];
     points: number;
-    scoredSecretObjectiveIds: number[];
-    scoredPublicObjectiveIds: number[];
-    faceUpPromissoryNoteIds: number[];
+    scoredSecretObjectiveIds?: number[];
+    scoredPublicObjectiveIds?: number[];
+    faceUpPromissoryNoteIds?: number[];
     strategyCardId: number | null;
+    planetIds?: number[];
+    tacticalTokens: number;
+    strategyTokens: number;
+    fleetTokens: number;
+    fleetCapacity: number;
 }
 
+export interface Force {
+    carriers?: number;
+    cruisers?: number;
+    destroyers?: number;
+    dreadnoughts?: number;
+    factory?: number;
+    fighters?: number;
+    flagship?: number;
+    infantry?: number;
+    mechs?: number;
+    pds?: number;
+    warsuns?: number;
+}
+
+export enum ForceStatus {
+    Defending = 1,
+    Invading
+}
+
+export enum ForceLocation {
+    Space = 1,
+    Ground
+}
+
+export interface ForceI {
+    systemId: number;
+    planetId?: number;
+    playerId: number;
+}
+
+export interface Reinforcements extends Force {
+    tokens: number;
+}
 
 export interface PublicGalaxy {
-    planets: { [n: number]: PlanetI }
-    systems: { [n: number | string]: SystemI }
-    players: { [n: number]: PlayerI }
+    planets: { [planetId: number]: PlanetI; };
+    systems: { [systemId: number | string]: SystemI; };
+    players: { [playerId: number]: PlayerI; };
+    forces: { [systemId: number]: ForceI[]; };
+    // The player tokens on each system.
+    tokens: { [systemId: number]: number[]; };
+    // The player that owns each planet.
+    planetOwnership: { [planetId: number]: number; };
+    //9x9 grid of SystemIds
+    grid: (number | null)[];
+    reinforcements: { [playerId: number]: Reinforcements; };
 }
 
+export interface SecretPlayerGalaxy {
+    playerId: number;
+    secretObjectiveIdsInHand: number[];
+    promissoryNoteIdsInHand: number[];
+    actionCardIdsInHand: number[];
+}
+
+export interface SecretGalaxy {
+    playerSecrets: { [playerId: number]: SecretPlayerGalaxy; };
+}
+
+export interface ActivateSystemEvent {
+    eventType: "activateSystem";
+    playerId: number;
+    systemId: number;
+    before: {
+        containsToken: boolean;
+    };
+    now: {
+        containsToken: boolean;
+    };
+}
+
+export interface StrategyCardPrimaryEvent {
+    eventType: "strategyCardPrimary";
+    playerId: number;
+    strategyCardId: number;
+}
+
+export type CoreEvent =
+    ActivateSystemEvent |
+    StrategyCardPrimaryEvent;
 
