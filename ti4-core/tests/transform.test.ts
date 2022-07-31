@@ -54,6 +54,40 @@ describe('Transform.Test.diff', () => {
         const reversed = removeDiff(updated, changes);
         expect(reversed).toEqual({ x: 5, y: 6 });
     })
+    
+
+    interface NestedPosition {
+        p: Position;
+    }
+    const nestedOriginal: NestedPosition = {
+        p: {
+            x: 1,
+            y: 2
+        }
+    };
+    it('Find difference, one deep prop', () => {
+        const [changes, next] = diff(nestedOriginal, { p: { ...nestedOriginal.p, x: 3 } });
+        expect(next).toEqual( { p: { x: 3, y: 2 }});
+        expect(changes).toEqual({ old: { p: { x: 1, y: 2 } }, next: { p: { x: 3, y: 2 } } });
+
+        const updated = applyDiff(nestedOriginal, changes);
+        expect(updated).toEqual({ p: { x: 3, y: 2 } });
+
+        const reversed = removeDiff(updated, changes);
+        expect(reversed).toEqual({ p: { x: 1, y: 2 } });
+    })
+
+    it('Find difference, no deep prop', () => {
+        const [changes, next] = diff(nestedOriginal, { p: { ...nestedOriginal.p, x: 1 } });
+        expect(next).toEqual( { p: { x: 1, y: 2 }});
+        expect(changes).toEqual({ next: {}, old: {} })
+
+        const updated = applyDiff(nestedOriginal, changes);
+        expect(updated).toEqual({ p: { x: 1, y: 2 } });
+
+        const reversed = removeDiff(updated, changes);
+        expect(reversed).toEqual({ p: { x: 1, y: 2 } });
+    })
 })
 
 describe('Transform.Test.key', () => {

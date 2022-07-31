@@ -1,4 +1,5 @@
 import { Difference, KeyDiff, KeyDiffRemove, KeyDiffSet, KeyDiffUpdate } from "./types";
+import equal from "deep-equal"
 
 export function diff<T>(original: T, props: Partial<T>): [Difference<T>, T] {
   const result: Difference<T> = {
@@ -7,7 +8,7 @@ export function diff<T>(original: T, props: Partial<T>): [Difference<T>, T] {
   };
   let assignments = 0;
   for (const key in props) {
-    if (original[key] === props[key]) {
+    if (equal(original[key], props[key])) {
       delete result.next[key]
     } else {
       assignments++;
