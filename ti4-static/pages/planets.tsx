@@ -14,27 +14,27 @@ const Planets: NextPage = () => {
             {
                 Header: 'Id',
                 Footer: 'Id',
-                accessor: 'PlanetId',
+                accessor: 'planetId',
             },
             {
                 Header: 'Planet Name',
                 Footer: 'Planet Name',
-                accessor: 'Name'
+                accessor: 'name'
             },
             {
                 Header: 'System Id',
                 Footer: 'System Id',
-                accessor: 'SystemId'
+                accessor: 'systemId'
             },
             {
                 Header: 'Resources',
                 Footer: 'Resources',
-                accessor: 'Resources'
+                accessor: 'resources'
             },
             {
                 Header: 'Influence',
                 Footer: 'Influence',
-                accessor: 'Influence'
+                accessor: 'influence'
             },
             {
                 Header: 'Specialty',
