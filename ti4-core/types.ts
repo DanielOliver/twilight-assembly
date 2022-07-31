@@ -241,3 +241,29 @@ export type CoreEvent =
     ActivateSystemEvent |
     StrategyCardPrimaryEvent;
 
+export interface Difference<T> {
+    old: Partial<T>;
+    next: Partial<T>;
+}
+
+export interface KeyDiffUpdate<T, keyT = number> {
+    type: "update";
+    key: keyT;
+    update?: Difference<T>
+}
+
+export interface KeyDiffSet<T, keyT = number> {
+    type: "set";
+    key: keyT;
+    set: T;
+}
+
+export interface KeyDiffRemove<T, keyT = number> {
+    type: "remove";
+    key: keyT;
+}
+
+export type KeyDiff<T, keyT = number> =
+    KeyDiffUpdate<T, keyT> |
+    KeyDiffRemove<T, keyT> |
+    KeyDiffSet<T, keyT>;
