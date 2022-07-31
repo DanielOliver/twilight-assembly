@@ -76,6 +76,7 @@ export interface System {
 
 export enum GameCreationState {
     NameTheGame = 1,
+    TellDraftType,
     TellParticipants,
     TellMap,
     TellFactions,
@@ -85,3 +86,9 @@ export enum GameCreationState {
     PickSecretObjectives,
     RevealPublicObjectives
 }
+
+export enum GameCreationDraftType {
+    TtsString = 1,
+    TtsStringRandomPlacement,
+}
+

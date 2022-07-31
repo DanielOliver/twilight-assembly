@@ -1,7 +1,7 @@
 import { NextPage } from "next"
 import { useEffect, useState } from "react";
 import { GameCreation } from "ti4-core/flow";
-import { GameCreationState } from "ti4-core/types";
+import { GameCreationDraftType, GameCreationState } from "ti4-core/types";
 import Layout from "../components/layout"
 import Step1 from "../components/gameCreation/step1"
 import Step2 from "../components/gameCreation/step2";
@@ -35,8 +35,8 @@ const Game: NextPage = () => {
         gameCreation.step1(name, description, playerCount)
         refreshState()
     }
-    const finishStep2 = (participants: string[]) => {
-        gameCreation.step2(participants)
+    const finishStep2 = (draftType: GameCreationDraftType) => {
+        gameCreation.step2(draftType)
         refreshState()
     }
     const back = () => {
@@ -51,10 +51,10 @@ const Game: NextPage = () => {
                     name={gameCreation.name} description={gameCreation.description} playerCount={gameCreation.playerCount}
                     onFinish={finishStep1} />
             </>)
-        case GameCreationState.TellParticipants:
+        case GameCreationState.TellDraftType:
             return (<><Layout />
                 <Step2
-                    name={gameCreation.name} description={gameCreation.description} playerCount={gameCreation.playerCount}
+                    name={gameCreation.name} availableDraftTypes={gameCreation.availableDraftTypes}
                     onFinish={finishStep2} onBack={back} />
             </>)
         default:

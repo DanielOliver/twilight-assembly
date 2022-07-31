@@ -1,4 +1,12 @@
-import { GameCreationState } from "./types";
+import { GameCreationDraftType, GameCreationState } from "./types";
+
+export class AvailableDraftType {
+    constructor(
+        public readonly draftType: GameCreationDraftType,
+        public readonly name: string,
+        public readonly description: string
+    ) { }
+}
 
 /// use seedrandom in future for RNG
 /// npm install seedrandom
@@ -9,6 +17,7 @@ export class GameCreation {
     private _participants: string[] = []
     private _mapTtsString: string = ""
     private _state: GameCreationState = GameCreationState.NameTheGame;
+    private _draftType: GameCreationDraftType = GameCreationDraftType.TtsString;
 
     constructor() { }
 
@@ -16,8 +25,22 @@ export class GameCreation {
     get description(): string { return this._description }
     get playerCount(): number { return this._playerCount }
     get state(): GameCreationState { return this._state }
+    get draftType(): GameCreationDraftType { return this._draftType }
     get participants(): string[] { return this._participants }
     get mapTtsString(): string { return this._mapTtsString }
+    get availableDraftTypes(): AvailableDraftType[] {
+        let results: AvailableDraftType[] = []
+        results.push(new AvailableDraftType(
+            GameCreationDraftType.TtsString,
+            'TTS map',
+            'Use TTS map string, and then game creator places participants on the map'));
+        results.push(new AvailableDraftType(
+            GameCreationDraftType.TtsStringRandomPlacement,
+            'TTS map randomized',
+            'Use TTS map string, and then randomly places participants on the map'));
+
+        return results
+    }
 
     reset() {
         this._state = GameCreationState.NameTheGame
@@ -36,9 +59,13 @@ export class GameCreation {
         this._name = name
         this._description = description
         this._playerCount = playerCount
+        this._state = GameCreationState.TellDraftType
+    }
+    step2(draftType: GameCreationDraftType) {
+        this._draftType = draftType
         this._state = GameCreationState.TellParticipants
     }
-    step2(participants: string[]) {
+    step3(participants: string[]) {
         this._participants = participants
         this._state = GameCreationState.TellMap
     }

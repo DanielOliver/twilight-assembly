@@ -27,7 +27,7 @@ const Step1 = ({
 
     return (
         <Container>
-            <h1 className="display-4">New Match</h1>
+            <h1 className="display-5">New Match</h1>
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formMatchName">
                     <Form.Label>Name</Form.Label>
