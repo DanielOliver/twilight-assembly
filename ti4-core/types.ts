@@ -246,24 +246,24 @@ export interface Difference<T> {
     next: Partial<T>;
 }
 
-export interface KeyDiffUpdate<T, keyT = number> {
+export interface KeyDiffUpdate<T> extends Difference<T> {
     type: "update";
-    key: keyT;
-    update?: Difference<T>
+    key: number | string;
 }
 
-export interface KeyDiffSet<T, keyT = number> {
+export interface KeyDiffSet<T> {
     type: "set";
-    key: keyT;
-    set: T;
+    key: number | string;
+    next: T;
 }
 
-export interface KeyDiffRemove<T, keyT = number> {
+export interface KeyDiffRemove<T> {
     type: "remove";
-    key: keyT;
+    key: number | string;
+    old: T;
 }
 
-export type KeyDiff<T, keyT = number> =
-    KeyDiffUpdate<T, keyT> |
-    KeyDiffRemove<T, keyT> |
-    KeyDiffSet<T, keyT>;
+export type KeyDiff<T> =
+    KeyDiffUpdate<T> |
+    KeyDiffRemove<T> |
+    KeyDiffSet<T>;

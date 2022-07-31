@@ -1,7 +1,7 @@
-import { applyDiff, diff, removeDiff } from "../transform";
+import { applyDiff, applyKeyDiff, diff, keyRemove, keySet, keyUpdate, removeDiff, removeKeyDiff } from "../transform";
 import { Difference, Position } from "../types"
 
-describe('Transform.Test', () => {
+describe('Transform.Test.diff', () => {
     const original: Position = {
         x: 5,
         y: 6
@@ -53,5 +53,91 @@ describe('Transform.Test', () => {
 
         const reversed = removeDiff(updated, changes);
         expect(reversed).toEqual({ x: 5, y: 6 });
+    })
+})
+
+describe('Transform.Test.key', () => {
+    let collection: { [key: number]: Position } = {};
+    beforeEach(() => {
+        collection = {
+            3: { x: 5, y: 4 },
+            4: { x: 6, y: 7 },
+            5: { x: 8, y: 0 }
+        }
+    })
+
+    it('KeySet.add.new', () => {
+        expect(collection[6]).toBeUndefined()
+        const {
+            changes,
+            old
+        } = keySet(collection, 6, { x: 10, y: 11 })
+        expect(old).toBeNull()
+        expect(collection[6]).toBeDefined()
+        expect(changes.key).toBe(6)
+        expect(changes.type).toBe("set");
+        expect(changes.next).toEqual({ x: 10, y: 11 });
+
+        removeKeyDiff(collection, changes)
+        expect(collection[6]).toBeUndefined()
+    })
+
+    it('KeySet.add.existing', () => {
+        expect(collection[4]).toBeDefined()
+        const {
+            changes,
+            old,
+        } = keySet(collection, 4, { x: 10, y: 11 })
+        expect(old).toEqual({ x: 6, y: 7 })
+        expect(changes.key).toBe(4)
+        expect(changes.type).toBe("update");
+        expect(changes.next).toEqual({ x: 10, y: 11 });
+
+        removeKeyDiff(collection, changes)
+        expect(collection[4]).toEqual({ x: 6, y: 7 })
+    })
+
+    it('KeySet.update', () => {
+        expect(collection[4]).toBeDefined()
+        const {
+            changes,
+            old,
+            next
+        } = keyUpdate(collection, 4, { x: 10 })
+        if (changes === null) {
+            expect(changes).not.toBeNull()
+            return
+        }
+        expect(old).toEqual({ x: 6, y: 7 })
+        expect(next).toEqual({ x: 10, y: 7 })
+        expect(changes.key).toBe(4)
+        expect(changes.type).toBe("update");
+        expect(changes.next).toEqual({ x: 10 });
+        expect(changes.old).toEqual({ x: 6 });
+
+        removeKeyDiff(collection, changes)
+        expect(collection[4]).toEqual({ x: 6, y: 7 })
+    })
+
+    it('KeySet.remove.unknown', () => {
+        expect(collection[60]).toBeUndefined();
+        const result = keyRemove(collection, 60);
+        expect(result).toBeNull();
+    })
+
+    it('KeySet.remove.existing', () => {
+        expect(collection[4]).toBeDefined();
+        const removed = keyRemove(collection, 4);
+        if (removed === null) {
+            expect(removed).not.toBeNull()
+            return
+        }
+        expect(removed?.type).toBe("remove")
+        expect(removed?.key).toBe(4)
+        expect(removed?.old).toEqual({ x: 6, y: 7 })
+        expect(collection[4]).toBeUndefined();
+
+        removeKeyDiff(collection, removed)
+        expect(collection[4]).toEqual({ x: 6, y: 7 })
     })
 })
