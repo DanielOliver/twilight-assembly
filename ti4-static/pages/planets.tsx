@@ -39,17 +39,17 @@ const Planets: NextPage = () => {
             {
                 Header: 'Specialty',
                 Footer: 'Specialty',
-                accessor: row => specialtyToText(row.Specialty),                
+                accessor: row => specialtyToText(row.specialty),                
             },
             {
                 Header: 'Trait',
                 Footer: 'Trait',
-                accessor: row => traitToText(row.Trait),                
+                accessor: row => traitToText(row.trait),                
             },
             {
                 Header: 'Type',
                 Footer: 'Type',
-                accessor: row => planetTypeToText(row.PlanetType),                
+                accessor: row => planetTypeToText(row.planetType),                
             },
         ],
         []
