@@ -103,11 +103,16 @@ export interface SystemI {
     /// Both graphically and logically
     position: Position;
     /// The systems that are adjacent
-    adjacencies?: number[];
+    adjacencies: number[];
     /// Default should be true
-    canOccupy?: boolean;
-    isLegendary?: boolean;
-    planetIds?: number[];
+    canOccupy: boolean;
+    wormholes: Wormhole[];
+    homeSystem: boolean;
+    legendary: boolean;
+    mecatolRex: boolean;
+    emptySystem: boolean;
+    anomalies: Anomaly[];
+    planetIds: number[];
 }
 
 export interface SpaceCannon {
@@ -117,12 +122,12 @@ export interface SpaceCannon {
 
 export interface AttachmentI {
     name: string;
-    extraResources?: number;
-    extraInfluence?: number;
-    extraTraits?: Trait[];
-    canOccupy?: boolean;
-    isLegendary?: boolean;
-    spaceCannon?: SpaceCannon;
+    extraResources: number;
+    extraInfluence: number;
+    extraTraits: Trait[];
+    canOccupy: boolean;
+    legendary: boolean;
+    spaceCannon: SpaceCannon | null;
 }
 
 export interface PlanetI {
@@ -130,14 +135,12 @@ export interface PlanetI {
     systemId: number;
     resources: number;
     influence: number;
-    /// If unspecified, default to underlying planet
-    traitOverride?: Trait[];
-    /// If unspecified, default to underlying planet
-    specialtyOverride?: Specialty[];
-    isLegendaryOverride?: boolean;
-    canOccupy?: boolean;
-    spaceCannon?: SpaceCannon;
-    attachments?: AttachmentI;
+    traits: Trait[];
+    specialties: Specialty[];
+    planetType: PlanetType;
+    canOccupy: boolean;
+    spaceCannon: SpaceCannon[];
+    attachments: AttachmentI[];
 }
 
 export interface PlayerI {
@@ -147,13 +150,13 @@ export interface PlayerI {
     handActionCardCount: number;
     handPromissoryNoteCount: number;
     handSecretObjectiveCount: number;
-    technologyIds?: number[];
+    technologyIds: number[];
     points: number;
-    scoredSecretObjectiveIds?: number[];
-    scoredPublicObjectiveIds?: number[];
-    faceUpPromissoryNoteIds?: number[];
+    scoredSecretObjectiveIds: number[];
+    scoredPublicObjectiveIds: number[];
+    faceUpPromissoryNoteIds: number[];
     strategyCardId: number | null;
-    planetIds?: number[];
+    planetIds: number[];
     tacticalTokens: number;
     strategyTokens: number;
     fleetTokens: number;
