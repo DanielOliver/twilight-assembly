@@ -1,15 +1,21 @@
-import { Difference, KeyDiff, KeyDiffRemove, KeyDiffSet, KeyDiffUpdate } from "./types";
-import equal from "deep-equal"
+import {
+  Difference,
+  KeyDiff,
+  KeyDiffRemove,
+  KeyDiffSet,
+  KeyDiffUpdate,
+} from "./types";
+import equal from "deep-equal";
 
 export function diff<T>(original: T, props: Partial<T>): [Difference<T>, T] {
   const result: Difference<T> = {
     next: props,
-    old: {}
+    old: {},
   };
   let assignments = 0;
   for (const key in props) {
     if (equal(original[key], props[key])) {
-      delete result.next[key]
+      delete result.next[key];
     } else {
       assignments++;
       result.old[key] = original[key];
@@ -29,94 +35,116 @@ export function removeDiff<T>(original: T, diff: Difference<T>): T {
   return Object.assign({}, original, diff.old);
 }
 
-export function keyUpdate<T>(collection: { [key: number | string]: T; },
+export function keyUpdate<T>(
+  collection: { [key: number | string]: T },
   key: number | string,
-  value: Partial<T>):
-  ({ changes: KeyDiffUpdate<T>, next: T, old: T } | { changes: null, next: null, old: null }) {
+  value: Partial<T>
+):
+  | { changes: KeyDiffUpdate<T>; next: T; old: T }
+  | { changes: null; next: null; old: null } {
   const existingValue = collection[key];
   if (existingValue) {
-    const [changes, next] = diff(existingValue, value)
-    collection[key] = next
+    const [changes, next] = diff(existingValue, value);
+    collection[key] = next;
     return {
       changes: {
         type: "update",
         key: key,
-        ...changes
+        ...changes,
       },
       next,
-      old: existingValue
-    }
+      old: existingValue,
+    };
   }
   return {
     changes: null,
     next: null,
-    old: null
+    old: null,
   };
 }
 
-export function keySet<T>(collection: { [key: number | string]: T; }, key: number | string, value: T): { changes: KeyDiffSet<T> | KeyDiffUpdate<T>, old: T | null } {
+export function keySet<T>(
+  collection: { [key: number | string]: T },
+  key: number | string,
+  value: T
+): { changes: KeyDiffSet<T> | KeyDiffUpdate<T>; old: T | null } {
   const existingValue = collection[key];
   collection[key] = value;
   if (existingValue) {
-    const [changes, _] = diff(existingValue, value)
+    const [changes, _] = diff(existingValue, value);
     return {
       changes: {
         type: "update",
         key: key,
-        ...changes
+        ...changes,
       },
-      old: existingValue
-    }
+      old: existingValue,
+    };
   }
   return {
     changes: {
       type: "set",
       key: key,
-      next: value
+      next: value,
     },
-    old: null
+    old: null,
   };
 }
 
-export function keyRemove<T>(collection: { [key: number | string]: T; }, key: number | string): KeyDiffRemove<T> | null {
+export function keyRemove<T>(
+  collection: { [key: number | string]: T },
+  key: number | string
+): KeyDiffRemove<T> | null {
   const existingValue = collection[key];
   delete collection[key];
   if (existingValue) {
     return {
       type: "remove",
       key: key,
-      old: existingValue
-    }
+      old: existingValue,
+    };
   }
   return null;
 }
 
-export function applyKeyDiff<T>(collection: { [key: number | string]: T; }, operation: KeyDiff<T>) {
+export function applyKeyDiff<T>(
+  collection: { [key: number | string]: T },
+  operation: KeyDiff<T>
+) {
   switch (operation.type) {
     case "remove":
-      delete collection[operation.key]
+      delete collection[operation.key];
       break;
     case "set":
-      collection[operation.key] = operation.next
+      collection[operation.key] = operation.next;
       break;
     case "update":
-      collection[operation.key] = applyDiff(collection[operation.key], operation);
+      collection[operation.key] = applyDiff(
+        collection[operation.key],
+        operation
+      );
       break;
     default:
       break;
   }
 }
 
-export function removeKeyDiff<T>(collection: { [key: number | string]: T; }, operation: KeyDiff<T>) {
+export function removeKeyDiff<T>(
+  collection: { [key: number | string]: T },
+  operation: KeyDiff<T>
+) {
   switch (operation.type) {
     case "remove":
-      collection[operation.key] = operation.old
+      collection[operation.key] = operation.old;
       break;
     case "set":
-      delete collection[operation.key]
+      delete collection[operation.key];
       break;
     case "update":
-      collection[operation.key] = removeDiff(collection[operation.key], operation);
+      collection[operation.key] = removeDiff(
+        collection[operation.key],
+        operation
+      );
       break;
     default:
       break;
