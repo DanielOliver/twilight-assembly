@@ -98,6 +98,17 @@ export enum GameCreationDraftType {
   TtsStringRandomPlacement,
 }
 
+export enum StrategyCard {
+  Leadership = 1,
+  Diplomacy,
+  Politics,
+  Trade,
+  Construction,
+  Warfare,
+  Technology,
+  Imperial,
+}
+
 export interface Position {
   x: number;
   y: number;
@@ -222,6 +233,11 @@ export interface Reinforcements extends Force {
   tokens: number;
 }
 
+export interface StrategyCardI {
+  cardId: StrategyCard;
+  tradeGoods: number;
+}
+
 export interface PublicGalaxy {
   planets: { [planetId: number]: PlanetI };
   systems: { [systemId: number | string]: SystemI };
@@ -230,12 +246,13 @@ export interface PublicGalaxy {
   /**  The player tokens on each system. */
   tokens: { [systemId: number]: number[] };
   /** 9x9 grid of SystemIds */
-  grid: (number | null)[];
+  // grid: (number | null)[];
   reinforcements: { [playerId: number]: Reinforcements };
   activeLawIds: number[];
   speakerOrder: number[];
   initiativeOrder: number[];
   status: GalaxyStatus;
+  strategyCards: { [strategyCardId: number]: StrategyCardI };
 }
 
 export interface SecretPlayerGalaxy {
@@ -264,9 +281,38 @@ export enum Phase {
   Agenda,
 }
 
+export enum StrategyPhaseTimingWindow {
+  Init = 1,
+  WhenPlayerChooses,
+  StartOfPhase,
+}
+
+export interface StrategyPhaseTimingStartOfPhase {
+  window: StrategyPhaseTimingWindow.StartOfPhase;
+  remainingPlayerIds: number[];
+}
+
+export interface StrategyPhaseTimingWhenPlayerChooses {
+  window: StrategyPhaseTimingWindow.WhenPlayerChooses;
+  strategyCardId: number;
+  playerId: number;
+  remainingPlayerIds: number[];
+}
+
+export interface StrategyPhaseTimingInit {
+  window: StrategyPhaseTimingWindow.Init;
+}
+
+export type StrategyPhaseTiming =
+  | StrategyPhaseTimingWhenPlayerChooses
+  | StrategyPhaseTimingStartOfPhase;
+
 export interface StrategyPhaseStatus {
   phase: Phase.Strategy;
+  timing: StrategyPhaseTiming;
   waitingOnPlayerId: number;
+  remainingStrategyCardIds: number[];
+  remainingPlayerIds: number[];
 }
 
 export interface ActionPhaseStatus {
