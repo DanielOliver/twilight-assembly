@@ -3,6 +3,7 @@ import {
   KeyDiff,
   KeyDiffRemove,
   KeyDiffSet,
+  KeyDiffType,
   KeyDiffUpdate,
 } from "./types";
 import equal from "deep-equal";
@@ -48,7 +49,7 @@ export function keyUpdate<T>(
     collection[key] = next;
     return {
       changes: {
-        type: "update",
+        type: KeyDiffType.Update,
         key: key,
         ...changes,
       },
@@ -74,7 +75,7 @@ export function keySet<T>(
     const [changes, _] = diff(existingValue, value);
     return {
       changes: {
-        type: "update",
+        type: KeyDiffType.Update,
         key: key,
         ...changes,
       },
@@ -83,7 +84,7 @@ export function keySet<T>(
   }
   return {
     changes: {
-      type: "set",
+      type: KeyDiffType.Set,
       key: key,
       next: value,
     },
@@ -99,7 +100,7 @@ export function keyRemove<T>(
   delete collection[key];
   if (existingValue) {
     return {
-      type: "remove",
+      type: KeyDiffType.Remove,
       key: key,
       old: existingValue,
     };
@@ -112,13 +113,13 @@ export function applyKeyDiff<T>(
   operation: KeyDiff<T>
 ) {
   switch (operation.type) {
-    case "remove":
+    case KeyDiffType.Remove:
       delete collection[operation.key];
       break;
-    case "set":
+    case KeyDiffType.Set:
       collection[operation.key] = operation.next;
       break;
-    case "update":
+    case KeyDiffType.Update:
       collection[operation.key] = applyDiff(
         collection[operation.key],
         operation
@@ -134,13 +135,13 @@ export function removeKeyDiff<T>(
   operation: KeyDiff<T>
 ) {
   switch (operation.type) {
-    case "remove":
+    case KeyDiffType.Remove:
       collection[operation.key] = operation.old;
       break;
-    case "set":
+    case KeyDiffType.Set:
       delete collection[operation.key];
       break;
-    case "update":
+    case KeyDiffType.Update:
       collection[operation.key] = removeDiff(
         collection[operation.key],
         operation

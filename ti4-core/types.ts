@@ -18,6 +18,9 @@ export enum Specialty {
   Warfare,
 }
 
+/**
+ * Static definition not sent over wire.
+ */
 export interface Planet {
   systemId: number;
   planetId: number;
@@ -61,6 +64,9 @@ export enum UniqueTile {
   Mirage,
 }
 
+/**
+ * Static definition not sent over wire.
+ */
 export interface System {
   systemId: number | string;
   factionId?: number;
@@ -97,6 +103,7 @@ export interface Position {
   y: number;
 }
 
+/** Wire serialized */
 export interface SystemI {
   /// The System data identifier
   systemId: string | number;
@@ -133,6 +140,7 @@ export interface AttachmentI {
 export interface PlanetI {
   planetId: number;
   systemId: number;
+  PlayerId: number | null;
   resources: number;
   influence: number;
   traits: Trait[];
@@ -143,6 +151,20 @@ export interface PlanetI {
   attachments: AttachmentI[];
 }
 
+export interface UnitTechnologyI {
+  carriers: number;
+  cruisers: number;
+  destroyers: number;
+  dreadnoughts: number;
+  factory: number;
+  fighters: number;
+  flagship: number;
+  infantry: number;
+  mechs: number;
+  pds: number;
+  warsuns: number;
+}
+
 export interface PlayerI {
   playerId: number;
   factionId: number;
@@ -151,10 +173,13 @@ export interface PlayerI {
   handPromissoryNoteCount: number;
   handSecretObjectiveCount: number;
   technologyIds: number[];
+  unitTechnology: UnitTechnologyI;
+  reinforcements: Reinforcements;
   points: number;
   scoredSecretObjectiveIds: number[];
   scoredPublicObjectiveIds: number[];
   faceUpPromissoryNoteIds: number[];
+  faceUpRelicIds: number[];
   strategyCardId: number | null;
   planetIds: number[];
   tacticalTokens: number;
@@ -187,7 +212,7 @@ export enum ForceLocation {
   Ground,
 }
 
-export interface ForceI {
+export interface ForceI extends Force {
   systemId: number;
   planetId: number | null;
   playerId: number;
@@ -202,13 +227,15 @@ export interface PublicGalaxy {
   systems: { [systemId: number | string]: SystemI };
   players: { [playerId: number]: PlayerI };
   forces: { [systemId: number]: ForceI[] };
-  // The player tokens on each system.
+  /**  The player tokens on each system. */
   tokens: { [systemId: number]: number[] };
-  // The player that owns each planet.
-  planetOwnership: { [planetId: number]: number };
-  //9x9 grid of SystemIds
+  /** 9x9 grid of SystemIds */
   grid: (number | null)[];
   reinforcements: { [playerId: number]: Reinforcements };
+  activeLawIds: number[];
+  speakerOrder: number[];
+  initiativeOrder: number[];
+  status: GalaxyStatus;
 }
 
 export interface SecretPlayerGalaxy {
@@ -220,10 +247,63 @@ export interface SecretPlayerGalaxy {
 
 export interface SecretGalaxy {
   playerSecrets: { [playerId: number]: SecretPlayerGalaxy };
+  explorationDeckIds: number[];
+  actionCardDeckIds: number[];
+  relicDeckIds: number[];
+  secretObjectiveDeckIds: number[];
+  publicObjectiveDeckIds: number[];
+  agendaDeckIds: number[];
+  /** Use this in the future: https://github.com/davidbau/seedrandom */
+  randomState: object;
 }
 
+export enum Phase {
+  Strategy = 1,
+  Action,
+  Status,
+  Agenda,
+}
+
+export interface StrategyPhaseStatus {
+  phase: Phase.Strategy;
+  waitingOnPlayerId: number;
+}
+
+export interface ActionPhaseStatus {
+  phase: Phase.Action;
+  waitingOnPlayerId: number;
+}
+
+export interface StatusPhaseStatus {
+  phase: Phase.Status;
+  waitingOnPlayerId: number;
+}
+
+export interface AgendaPhaseStatus {
+  phase: Phase.Agenda;
+  waitingOnPlayerId: number;
+}
+
+export type GalaxyStatus =
+  | StrategyPhaseStatus
+  | ActionPhaseStatus
+  | StatusPhaseStatus
+  | AgendaPhaseStatus;
+
+export enum Requests {
+  ActivateSystem = 1,
+}
+
+export interface RequestActivateSystem {
+  type: Requests.ActivateSystem;
+  systemId: number;
+  playerId: number;
+}
+
+export type RequestGalaxy = RequestActivateSystem;
+
 export interface ActivateSystemEvent {
-  eventType: "activateSystem";
+  eventType: Requests.ActivateSystem;
   playerId: number;
   systemId: number;
   before: {
@@ -247,19 +327,25 @@ export interface Difference<T> {
   next: Partial<T>;
 }
 
+export enum KeyDiffType {
+  Update = 1,
+  Set,
+  Remove,
+}
+
 export interface KeyDiffUpdate<T> extends Difference<T> {
-  type: "update";
+  type: KeyDiffType.Update;
   key: number | string;
 }
 
 export interface KeyDiffSet<T> {
-  type: "set";
+  type: KeyDiffType.Set;
   key: number | string;
   next: T;
 }
 
 export interface KeyDiffRemove<T> {
-  type: "remove";
+  type: KeyDiffType.Remove;
   key: number | string;
   old: T;
 }

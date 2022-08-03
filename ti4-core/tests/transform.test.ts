@@ -8,7 +8,7 @@ import {
   removeDiff,
   removeKeyDiff,
 } from "../transform";
-import { Difference, Position } from "../types";
+import { Difference, KeyDiffType, Position } from "../types";
 
 describe("Transform.Test.diff", () => {
   const original: Position = {
@@ -132,7 +132,7 @@ describe("Transform.Test.key", () => {
     expect(old).toBeNull();
     expect(collection[6]).toBeDefined();
     expect(changes.key).toBe(6);
-    expect(changes.type).toBe("set");
+    expect(changes.type).toBe(KeyDiffType.Set);
     expect(changes.next).toEqual({ x: 10, y: 11 });
 
     removeKeyDiff(collection, changes);
@@ -144,7 +144,7 @@ describe("Transform.Test.key", () => {
     const { changes, old } = keySet(collection, 4, { x: 10, y: 11 });
     expect(old).toEqual({ x: 6, y: 7 });
     expect(changes.key).toBe(4);
-    expect(changes.type).toBe("update");
+    expect(changes.type).toBe(KeyDiffType.Update);
     expect(changes.next).toEqual({ x: 10, y: 11 });
 
     removeKeyDiff(collection, changes);
@@ -161,7 +161,7 @@ describe("Transform.Test.key", () => {
     expect(old).toEqual({ x: 6, y: 7 });
     expect(next).toEqual({ x: 10, y: 7 });
     expect(changes.key).toBe(4);
-    expect(changes.type).toBe("update");
+    expect(changes.type).toBe(KeyDiffType.Update);
     expect(changes.next).toEqual({ x: 10 });
     expect(changes.old).toEqual({ x: 6 });
 
@@ -182,7 +182,7 @@ describe("Transform.Test.key", () => {
       expect(removed).not.toBeNull();
       return;
     }
-    expect(removed?.type).toBe("remove");
+    expect(removed?.type).toBe(KeyDiffType.Remove);
     expect(removed?.key).toBe(4);
     expect(removed?.old).toEqual({ x: 6, y: 7 });
     expect(collection[4]).toBeUndefined();
