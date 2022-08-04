@@ -191,9 +191,15 @@ export interface PlayerI {
   handPromissoryNoteCount: number;
   handSecretObjectiveCount: number;
   technologyIds: number[];
+  exhaustedTechnologyIds: number[];
+  unlockedLeaderIds: number[];
+  exhaustedLeaderIds: number[];
   unitTechnology: UnitTechnologyI;
   reinforcements: Reinforcements;
   points: number;
+  currentCommodity: number;
+  maxCommodity: number;
+  maxSecretObjectives: number;
   scoredSecretObjectiveIds: number[];
   scoredPublicObjectiveIds: number[];
   faceUpPromissoryNoteIds: number[];
@@ -294,6 +300,12 @@ export type PublicGalaxyDiff =
   | ({ c: PublicGalaxyField.Status } & Difference<GalaxyStatus>)
   | ({ c: PublicGalaxyField.StrategyCard } & Difference<StrategyCardI>);
 
+export interface PublicGalaxyChanges {
+  diffs: PublicGalaxyDiff[];
+  event: PublicGalaxyEvent;
+  galaxyVersion: number;
+}
+
 export interface SecretPlayerGalaxy {
   playerId: number;
   secretObjectiveIdsInHand: number[];
@@ -359,21 +371,25 @@ export interface StrategyPhaseStatus {
   timing: StrategyPhaseTiming;
   remainingStrategyCardIds: number[];
   remainingPlayerIds: number[];
+  galaxyVersion: number;
 }
 
 export interface ActionPhaseStatus {
   phase: Phase.Action;
   waitingOnPlayerId: number;
+  galaxyVersion: number;
 }
 
 export interface StatusPhaseStatus {
   phase: Phase.Status;
   waitingOnPlayerId: number;
+  galaxyVersion: number;
 }
 
 export interface AgendaPhaseStatus {
   phase: Phase.Agenda;
   waitingOnPlayerId: number;
+  galaxyVersion: number;
 }
 
 export type GalaxyStatus =
@@ -412,7 +428,7 @@ export interface StrategyCardPrimaryEvent {
   strategyCardId: number;
 }
 
-export type CoreEvent = ActivateSystemEvent | StrategyCardPrimaryEvent;
+export type PublicGalaxyEvent = ActivateSystemEvent | StrategyCardPrimaryEvent;
 
 export interface Difference<T> {
   old: Partial<T>;
