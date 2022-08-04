@@ -116,6 +116,23 @@ export interface Position {
   y: number;
 }
 
+export interface GalaxyCreationSimpleParameters {
+  players: [
+    {
+      factionId: number;
+      playerId: number;
+      position: Position;
+      speakerOrder: number;
+    }
+  ];
+  map: [
+    {
+      systemId: number;
+      position: Position;
+    }
+  ];
+}
+
 /** Wire serialized */
 export interface SystemI {
   systemId: number;
@@ -192,6 +209,7 @@ export interface PlayerI {
   handSecretObjectiveCount: number;
   technologyIds: number[];
   exhaustedTechnologyIds: number[];
+  leaderIds: number[];
   unlockedLeaderIds: number[];
   exhaustedLeaderIds: number[];
   unitTechnology: UnitTechnologyI;
@@ -258,23 +276,17 @@ export interface AdjacencyOverride {
 }
 
 export interface PublicGalaxy {
-  planets: { [planetId: number]: PlanetI; _c: PublicGalaxyField.Planet };
-  systems: {
-    _c: PublicGalaxyField.System;
-    [systemId: number]: SystemI;
-  };
-  players: { [playerId: number]: PlayerI; _c: PublicGalaxyField.Player };
-  forces: { [systemId: number]: ForceI[]; _c: PublicGalaxyField.Force };
+  planets: { [planetId: number]: PlanetI };
+  systems: { [systemId: number]: SystemI };
+  players: { [playerId: number]: PlayerI };
+  forces: { [systemId: number]: ForceI[] };
   // /** 9x9 grid of SystemIds */
   // grid: (number | null)[];
   activeLawIds: number[];
   speakerOrder: number[];
   initiativeOrder: number[];
   status: GalaxyStatus;
-  strategyCards: {
-    [strategyCardId: number]: StrategyCardI;
-    _c: PublicGalaxyField.StrategyCard;
-  };
+  strategyCards: { [strategyCardId: number]: StrategyCardI };
 }
 
 export enum PublicGalaxyField {
@@ -368,6 +380,7 @@ export type StrategyPhaseTiming =
 
 export interface StrategyPhaseStatus {
   phase: Phase.Strategy;
+  round: number;
   timing: StrategyPhaseTiming;
   remainingStrategyCardIds: number[];
   remainingPlayerIds: number[];
@@ -376,18 +389,21 @@ export interface StrategyPhaseStatus {
 
 export interface ActionPhaseStatus {
   phase: Phase.Action;
+  round: number;
   waitingOnPlayerId: number;
   galaxyVersion: number;
 }
 
 export interface StatusPhaseStatus {
   phase: Phase.Status;
+  round: number;
   waitingOnPlayerId: number;
   galaxyVersion: number;
 }
 
 export interface AgendaPhaseStatus {
   phase: Phase.Agenda;
+  round: number;
   waitingOnPlayerId: number;
   galaxyVersion: number;
 }

@@ -129,7 +129,7 @@ describe("Transform.Test.key", () => {
 
   it("KeySet.add.new", () => {
     expect(collection[6]).toBeUndefined();
-    const { changes, old } = keySet(collection, 6, { x: 10, y: 11 });
+    const { changes, old } = keySet(collection, 6, 0, { x: 10, y: 11 });
     expect(old).toBeNull();
     expect(collection[6]).toBeDefined();
     expect(changes.key).toBe(6);
@@ -142,7 +142,7 @@ describe("Transform.Test.key", () => {
 
   it("KeySet.add.existing", () => {
     expect(collection[4]).toBeDefined();
-    const { changes, old } = keySet(collection, 4, { x: 10, y: 11 });
+    const { changes, old } = keySet(collection, 4, 0, { x: 10, y: 11 });
     expect(old).toEqual({ x: 6, y: 7 });
     expect(changes.key).toBe(4);
     expect(changes.type).toBe(KeyDiffType.Update);
@@ -154,7 +154,7 @@ describe("Transform.Test.key", () => {
 
   it("KeySet.update", () => {
     expect(collection[4]).toBeDefined();
-    const { changes, old, next } = keyUpdate(collection, 4, { x: 10 });
+    const { changes, old, next } = keyUpdate(collection, 4, 0, { x: 10 });
     if (changes === null) {
       expect(changes).not.toBeNull();
       return;
@@ -172,13 +172,13 @@ describe("Transform.Test.key", () => {
 
   it("KeySet.remove.unknown", () => {
     expect(collection[60]).toBeUndefined();
-    const result = keyRemove(collection, 60);
+    const result = keyRemove(collection, 60, 0);
     expect(result).toBeNull();
   });
 
   it("KeySet.remove.existing", () => {
     expect(collection[4]).toBeDefined();
-    const removed = keyRemove(collection, 4);
+    const removed = keyRemove(collection, 4, 0);
     if (removed === null) {
       expect(removed).not.toBeNull();
       return;
