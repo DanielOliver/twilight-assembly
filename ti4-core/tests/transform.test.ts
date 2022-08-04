@@ -117,12 +117,13 @@ describe("Transform.Test.diff", () => {
 });
 
 describe("Transform.Test.key", () => {
-  let collection: { [key: number]: Position } = {};
+  let collection: { [key: number]: Position; c: number } = { c: 0 };
   beforeEach(() => {
     collection = {
       3: { x: 5, y: 4 },
       4: { x: 6, y: 7 },
       5: { x: 8, y: 0 },
+      c: 0,
     };
   });
 

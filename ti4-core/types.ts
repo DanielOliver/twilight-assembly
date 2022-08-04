@@ -37,6 +37,8 @@ export enum Wormhole {
   Beta,
   Delta,
   Gamma,
+  IonStormAlpha,
+  IonStormBeta,
 }
 
 export enum SystemType {
@@ -116,13 +118,16 @@ export interface Position {
 
 /** Wire serialized */
 export interface SystemI {
-  /// The System data identifier
-  systemId: string | number;
-  /// Both graphically and logically
+  systemId: number;
+  /** Both graphically and logically */
   position: Position;
-  /// The systems that are adjacent
+  /** The systems that are adjacent for movement purposes */
   adjacencies: number[];
-  /// Default should be true
+  /** Virtual adjacencies are not supportable for movement purposes but support neighbors. */
+  neighbors: number[];
+  /** Some factions may do weird things, cough cough GHOSTS! */
+  adjacencyOverride: AdjacencyOverride[];
+  /** Default should be true */
   canOccupy: boolean;
   wormholes: Wormhole[];
   homeSystem: boolean;
@@ -131,6 +136,8 @@ export interface SystemI {
   emptySystem: boolean;
   anomalies: Anomaly[];
   planetIds: number[];
+  /** PlayerIds with tokens */
+  tokens: number[];
 }
 
 export interface SpaceCannon {
@@ -238,22 +245,54 @@ export interface StrategyCardI {
   tradeGoods: number;
 }
 
+export interface AdjacencyOverride {
+  playerId: number;
+  adjacencies: number[];
+  neighbors: number[];
+}
+
 export interface PublicGalaxy {
-  planets: { [planetId: number]: PlanetI };
-  systems: { [systemId: number | string]: SystemI };
-  players: { [playerId: number]: PlayerI };
-  forces: { [systemId: number]: ForceI[] };
-  /**  The player tokens on each system. */
-  tokens: { [systemId: number]: number[] };
-  /** 9x9 grid of SystemIds */
+  planets: { [planetId: number]: PlanetI; _c: PublicGalaxyField.Planet };
+  systems: {
+    _c: PublicGalaxyField.System;
+    [systemId: number]: SystemI;
+  };
+  players: { [playerId: number]: PlayerI; _c: PublicGalaxyField.Player };
+  forces: { [systemId: number]: ForceI[]; _c: PublicGalaxyField.Force };
+  // /** 9x9 grid of SystemIds */
   // grid: (number | null)[];
-  reinforcements: { [playerId: number]: Reinforcements };
   activeLawIds: number[];
   speakerOrder: number[];
   initiativeOrder: number[];
   status: GalaxyStatus;
-  strategyCards: { [strategyCardId: number]: StrategyCardI };
+  strategyCards: {
+    [strategyCardId: number]: StrategyCardI;
+    _c: PublicGalaxyField.StrategyCard;
+  };
 }
+
+export enum PublicGalaxyField {
+  Planet = 1,
+  System,
+  Player,
+  Force,
+  ActiveLaw,
+  SpeakerOrder,
+  InitiativeOrder,
+  Status,
+  StrategyCard,
+}
+
+export type PublicGalaxyDiff =
+  | KeyDiff<PlanetI, PublicGalaxyField.Planet>
+  | KeyDiff<SystemI, PublicGalaxyField.System>
+  | KeyDiff<PlayerI, PublicGalaxyField.Player>
+  | KeyDiff<Force, PublicGalaxyField.Force>
+  | ({ c: PublicGalaxyField.ActiveLaw } & Difference<number[]>)
+  | ({ c: PublicGalaxyField.SpeakerOrder } & Difference<number[]>)
+  | ({ c: PublicGalaxyField.InitiativeOrder } & Difference<number[]>)
+  | ({ c: PublicGalaxyField.Status } & Difference<GalaxyStatus>)
+  | ({ c: PublicGalaxyField.StrategyCard } & Difference<StrategyCardI>);
 
 export interface SecretPlayerGalaxy {
   playerId: number;
@@ -285,6 +324,7 @@ export enum StrategyPhaseTimingWindow {
   Init = 1,
   WhenPlayerChooses,
   StartOfPhase,
+  WaitingOnPlayerChoice,
 }
 
 export interface StrategyPhaseTimingStartOfPhase {
@@ -303,14 +343,20 @@ export interface StrategyPhaseTimingInit {
   window: StrategyPhaseTimingWindow.Init;
 }
 
+export interface StrategyPhaseTimingWaitingOnPlayerChoice {
+  window: StrategyPhaseTimingWindow.WaitingOnPlayerChoice;
+  playerId: number;
+}
+
 export type StrategyPhaseTiming =
   | StrategyPhaseTimingWhenPlayerChooses
-  | StrategyPhaseTimingStartOfPhase;
+  | StrategyPhaseTimingStartOfPhase
+  | StrategyPhaseTimingInit
+  | StrategyPhaseTimingWaitingOnPlayerChoice;
 
 export interface StrategyPhaseStatus {
   phase: Phase.Strategy;
   timing: StrategyPhaseTiming;
-  waitingOnPlayerId: number;
   remainingStrategyCardIds: number[];
   remainingPlayerIds: number[];
 }
@@ -379,21 +425,27 @@ export enum KeyDiffType {
   Remove,
 }
 
-export interface KeyDiffUpdate<T> extends Difference<T> {
+export interface KeyDiffUpdate<T, TColl> extends Difference<T> {
+  c: TColl;
   type: KeyDiffType.Update;
   key: number | string;
 }
 
-export interface KeyDiffSet<T> {
+export interface KeyDiffSet<T, TColl> {
+  c: TColl;
   type: KeyDiffType.Set;
   key: number | string;
   next: T;
 }
 
-export interface KeyDiffRemove<T> {
+export interface KeyDiffRemove<T, TColl> {
+  c: TColl;
   type: KeyDiffType.Remove;
   key: number | string;
   old: T;
 }
 
-export type KeyDiff<T> = KeyDiffUpdate<T> | KeyDiffRemove<T> | KeyDiffSet<T>;
+export type KeyDiff<T, TColl> =
+  | KeyDiffUpdate<T, TColl>
+  | KeyDiffRemove<T, TColl>
+  | KeyDiffSet<T, TColl>;

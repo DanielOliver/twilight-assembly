@@ -36,19 +36,20 @@ export function removeDiff<T>(original: T, diff: Difference<T>): T {
   return Object.assign({}, original, diff.old);
 }
 
-export function keyUpdate<T>(
-  collection: { [key: number | string]: T },
-  key: number | string,
+export function keyUpdate<T, TColl>(
+  collection: { [key: number]: T; c: TColl },
+  key: number,
   value: Partial<T>
 ):
-  | { changes: KeyDiffUpdate<T>; next: T; old: T }
-  | { changes: null; next: null; old: null } {
+  | { changes: KeyDiffUpdate<T, TColl>; next: T; old: T }
+  | { changes: null; next: null; old: null; c: TColl } {
   const existingValue = collection[key];
   if (existingValue) {
     const [changes, next] = diff(existingValue, value);
     collection[key] = next;
     return {
       changes: {
+        c: collection.c,
         type: KeyDiffType.Update,
         key: key,
         ...changes,
@@ -61,20 +62,22 @@ export function keyUpdate<T>(
     changes: null,
     next: null,
     old: null,
+    c: collection.c,
   };
 }
 
-export function keySet<T>(
-  collection: { [key: number | string]: T },
-  key: number | string,
+export function keySet<T, TColl>(
+  collection: { [key: number]: T; c: TColl },
+  key: number,
   value: T
-): { changes: KeyDiffSet<T> | KeyDiffUpdate<T>; old: T | null } {
+): { changes: KeyDiffSet<T, TColl> | KeyDiffUpdate<T, TColl>; old: T | null } {
   const existingValue = collection[key];
   collection[key] = value;
   if (existingValue) {
     const [changes, _] = diff(existingValue, value);
     return {
       changes: {
+        c: collection.c,
         type: KeyDiffType.Update,
         key: key,
         ...changes,
@@ -84,6 +87,7 @@ export function keySet<T>(
   }
   return {
     changes: {
+      c: collection.c,
       type: KeyDiffType.Set,
       key: key,
       next: value,
@@ -92,14 +96,15 @@ export function keySet<T>(
   };
 }
 
-export function keyRemove<T>(
-  collection: { [key: number | string]: T },
-  key: number | string
-): KeyDiffRemove<T> | null {
+export function keyRemove<T, TColl>(
+  collection: { [key: number]: T; c: TColl },
+  key: number
+): KeyDiffRemove<T, TColl> | null {
   const existingValue = collection[key];
   delete collection[key];
   if (existingValue) {
     return {
+      c: collection.c,
       type: KeyDiffType.Remove,
       key: key,
       old: existingValue,
@@ -108,9 +113,9 @@ export function keyRemove<T>(
   return null;
 }
 
-export function applyKeyDiff<T>(
+export function applyKeyDiff<T, TColl>(
   collection: { [key: number | string]: T },
-  operation: KeyDiff<T>
+  operation: KeyDiff<T, TColl>
 ) {
   switch (operation.type) {
     case KeyDiffType.Remove:
@@ -130,9 +135,9 @@ export function applyKeyDiff<T>(
   }
 }
 
-export function removeKeyDiff<T>(
+export function removeKeyDiff<T, TColl>(
   collection: { [key: number | string]: T },
-  operation: KeyDiff<T>
+  operation: KeyDiff<T, TColl>
 ) {
   switch (operation.type) {
     case KeyDiffType.Remove:
