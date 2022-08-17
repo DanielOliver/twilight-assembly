@@ -14,42 +14,42 @@ const Planets: NextPage = () => {
             {
                 Header: 'Id',
                 Footer: 'Id',
-                accessor: 'PlanetId',
+                accessor: 'planetId',
             },
             {
                 Header: 'Planet Name',
                 Footer: 'Planet Name',
-                accessor: 'Name'
+                accessor: 'name'
             },
             {
                 Header: 'System Id',
                 Footer: 'System Id',
-                accessor: 'SystemId'
+                accessor: 'systemId'
             },
             {
                 Header: 'Resources',
                 Footer: 'Resources',
-                accessor: 'Resources'
+                accessor: 'resources'
             },
             {
                 Header: 'Influence',
                 Footer: 'Influence',
-                accessor: 'Influence'
+                accessor: 'influence'
             },
             {
                 Header: 'Specialty',
                 Footer: 'Specialty',
-                accessor: row => specialtyToText(row.Specialty),                
+                accessor: row => specialtyToText(row.specialty),                
             },
             {
                 Header: 'Trait',
                 Footer: 'Trait',
-                accessor: row => traitToText(row.Trait),                
+                accessor: row => traitToText(row.trait),                
             },
             {
                 Header: 'Type',
                 Footer: 'Type',
-                accessor: row => planetTypeToText(row.PlanetType),                
+                accessor: row => planetTypeToText(row.planetType),                
             },
         ],
         []
