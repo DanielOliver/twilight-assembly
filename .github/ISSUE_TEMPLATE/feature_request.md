@@ -3,8 +3,7 @@ name: Feature request
 about: Suggest an idea for this project
 title: "[FEATURE] could be great"
 labels: enhancement, triage
-assignees: ''
-
+assignees: ""
 ---
 
 **Is your feature request related to a problem? Please describe.**

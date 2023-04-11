@@ -7,8 +7,10 @@ import {
   keyUpdate,
   removeDiff,
   removeKeyDiff,
-} from "../transform";
-import { Difference, KeyDiffType, Position } from "../types";
+} from "../diff_transform";
+import { Position } from "../types";
+import { Difference, KeyDiffType } from "../types_diff";
+import { describe, it, expect, beforeEach } from "vitest";
 
 describe("Transform.Test.diff", () => {
   const original: Position = {
@@ -168,6 +170,9 @@ describe("Transform.Test.key", () => {
 
     removeKeyDiff(collection, changes);
     expect(collection[4]).toEqual({ x: 6, y: 7 });
+
+    applyKeyDiff(collection, changes);
+    expect(collection[4]).toEqual({ x: 10, y: 7 });
   });
 
   it("KeySet.remove.unknown", () => {
