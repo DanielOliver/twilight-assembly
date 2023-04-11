@@ -1,86 +1,13 @@
-export enum PlanetType {
-  Home = 1,
-  Normal,
-  MecatolRex,
-  Legendary,
-}
-
-export enum Trait {
-  Cultural = 1,
-  Industrial,
-  Hazardous,
-}
-
-export enum Specialty {
-  Cybernetics = 1,
-  Biotic,
-  Propulsion,
-  Warfare,
-}
-
-/**
- * Static definition not sent over wire.
- */
-export interface Planet {
-  systemId: number;
-  planetId: number;
-  name: string;
-  resources: number;
-  influence: number;
-  planetType: PlanetType;
-  trait?: Trait;
-  specialty?: Specialty;
-}
-
-export enum Wormhole {
-  Alpha = 1,
-  Beta,
-  Delta,
-  Gamma,
-  IonStormAlpha,
-  IonStormBeta,
-}
-
-export enum SystemType {
-  Blue = 1,
-  Red,
-  Green,
-}
-
-export enum Anomaly {
-  AsteroidField = 1,
-  Nebula,
-  Supernova,
-  GravityRift,
-  MuaatSupernova,
-}
-
-export enum UniqueTile {
-  MecatolRex = 1,
-  GhostsHomeSystem,
-  GhostsSliceSystem,
-  MalliceStartingSide,
-  MalliceFlippedSide,
-  HopesEnd,
-  Primor,
-  Mirage,
-}
-
-/**
- * Static definition not sent over wire.
- */
-export interface System {
-  systemId: number | string;
-  factionId?: number;
-  name: string;
-  baseGame: boolean;
-  pok: boolean;
-  wormholes: Wormhole[];
-  systemType: SystemType;
-  emptySystem: boolean;
-  unique?: UniqueTile;
-  anomaly?: Anomaly;
-}
+import { KeyDiff, Difference } from "./types_diff";
+import {
+  PlanetType,
+  Trait,
+  Specialty,
+  Wormhole,
+  Anomaly,
+  Phase,
+  StrategyCard,
+} from "./types_const";
 
 export enum GameCreationState {
   NameTheGame = 1,
@@ -98,17 +25,6 @@ export enum GameCreationState {
 export enum GameCreationDraftType {
   TtsString = 1,
   TtsStringRandomPlacement,
-}
-
-export enum StrategyCard {
-  Leadership = 1,
-  Diplomacy,
-  Politics,
-  Trade,
-  Construction,
-  Warfare,
-  Technology,
-  Imperial,
 }
 
 export interface Position {
@@ -280,8 +196,6 @@ export interface PublicGalaxy {
   systems: { [systemId: number]: SystemI };
   players: { [playerId: number]: PlayerI };
   forces: { [systemId: number]: ForceI[] };
-  // /** 9x9 grid of SystemIds */
-  // grid: (number | null)[];
   activeLawIds: number[];
   speakerOrder: number[];
   initiativeOrder: number[];
@@ -335,13 +249,6 @@ export interface SecretGalaxy {
   agendaDeckIds: number[];
   /** Use this in the future: https://github.com/davidbau/seedrandom */
   randomState: object;
-}
-
-export enum Phase {
-  Strategy = 1,
-  Action,
-  Status,
-  Agenda,
 }
 
 export enum StrategyPhaseTimingWindow {
@@ -415,7 +322,7 @@ export type GalaxyStatus =
   | AgendaPhaseStatus;
 
 export enum Requests {
-  ActivateSystem = 1,
+  ActivateSystem = "ActivateSystem",
 }
 
 export interface RequestActivateSystem {
@@ -445,39 +352,3 @@ export interface StrategyCardPrimaryEvent {
 }
 
 export type PublicGalaxyEvent = ActivateSystemEvent | StrategyCardPrimaryEvent;
-
-export interface Difference<T> {
-  old: Partial<T>;
-  next: Partial<T>;
-}
-
-export enum KeyDiffType {
-  Update = 1,
-  Set,
-  Remove,
-}
-
-export interface KeyDiffUpdate<T, TColl> extends Difference<T> {
-  c: TColl;
-  type: KeyDiffType.Update;
-  key: number | string;
-}
-
-export interface KeyDiffSet<T, TColl> {
-  c: TColl;
-  type: KeyDiffType.Set;
-  key: number | string;
-  next: T;
-}
-
-export interface KeyDiffRemove<T, TColl> {
-  c: TColl;
-  type: KeyDiffType.Remove;
-  key: number | string;
-  old: T;
-}
-
-export type KeyDiff<T, TColl> =
-  | KeyDiffUpdate<T, TColl>
-  | KeyDiffRemove<T, TColl>
-  | KeyDiffSet<T, TColl>;

@@ -1,4 +1,4 @@
-import { PlanetType, Trait, Specialty } from "./types";
+import { PlanetType, Trait, Specialty } from "./types_const";
 
 export function specialtyToText(
   specialty: Specialty | undefined | null

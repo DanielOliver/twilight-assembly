@@ -7,8 +7,9 @@ import {
   keyUpdate,
   removeDiff,
   removeKeyDiff,
-} from "../transform";
-import { Difference, KeyDiffType, Position } from "../types";
+} from "../diff_transform";
+import { Position } from "../types";
+import { Difference, KeyDiffType } from "../types_diff";
 import { describe, it, expect, beforeEach } from "vitest";
 
 describe("Transform.Test.diff", () => {

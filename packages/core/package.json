@@ -11,8 +11,7 @@
     },
     "scripts": {
         "test": "vitest",
-        "test:watch": "vitest --watch",
-        "pretty": "npx prettier --write ."
+        "test:watch": "vitest --watch"
     },
     "dependencies": {
         "deep-equal": "^2.0.5"
