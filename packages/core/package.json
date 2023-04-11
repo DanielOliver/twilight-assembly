@@ -1,0 +1,20 @@
+{
+    "name": "@twilight-assembly/core",
+    "private": true,
+    "version": "0.0.1",
+    "devDependencies": {
+        "@types/deep-equal": "^1.0.1",
+        "eslint-config-custom": "*",
+        "tsconfig": "*",
+        "typescript": "^5.0.4",
+        "vitest": "^0.30.0"
+    },
+    "scripts": {
+        "test": "vitest",
+        "test:watch": "vitest --watch",
+        "pretty": "npx prettier --write ."
+    },
+    "dependencies": {
+        "deep-equal": "^2.0.5"
+    }
+}
