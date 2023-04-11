@@ -8,7 +8,7 @@ import {
   SecretGalaxy,
   StrategyPhaseTimingWindow,
   UnitTechnologyI,
-} from "./types";
+} from "./types_engine";
 
 const defaultReinforcements: Reinforcements = {
   tokens: 8,

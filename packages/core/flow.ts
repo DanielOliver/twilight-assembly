@@ -1,4 +1,4 @@
-import { GameCreationDraftType, GameCreationState } from "./types";
+import { GameCreationDraftType, GameCreationState } from "./types_engine";
 
 export class AvailableDraftType {
   constructor(
