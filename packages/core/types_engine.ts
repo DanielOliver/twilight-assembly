@@ -29,21 +29,28 @@ export enum GameCreationDraftType {
 }
 
 export interface GalaxyCreationSimpleParameters {
+  players: {
+    factionId: number;
+    playerId: number;
+    position: Position;
+    speakerOrder: number;
+  }[];
+  map: {
+    systemId: number;
+    position: Position;
+  }[];
+}
+
+export interface GalaxyCreationSimpleSixPlayerParameters {
   players: [
     {
       factionId: number;
       playerId: number;
-      position: Position;
-      speakerOrder: number;
     }
   ];
-  map: [
-    {
-      systemId: number;
-      position: Position;
-    }
-  ];
+  ttsString: string;
 }
+
 export enum ForceStatus {
   Defending = 1,
   Invading,

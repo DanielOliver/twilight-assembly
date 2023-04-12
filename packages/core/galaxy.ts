@@ -1,5 +1,6 @@
 import {
   GalaxyCreationSimpleParameters,
+  GalaxyCreationSimpleSixPlayerParameters,
   Phase,
   PlayerI,
   PublicGalaxy,
@@ -9,6 +10,7 @@ import {
   StrategyPhaseTimingWindow,
   UnitTechnologyI,
 } from "./types_engine";
+import { Position } from "./types_galaxy";
 
 const defaultReinforcements: Reinforcements = {
   tokens: 8,
@@ -57,6 +59,112 @@ const defaultPlayerSettings = {
   faceUpRelicIds: [],
   handActionCardCount: 0,
 };
+
+export function ttsStringtoTilePositions(ttsString: string): {
+  systemId: number;
+  position: Position;
+}[] {
+  // const mapWidth = 9;
+  // const mapHeight = 9;
+
+  const tileIds = ttsString.split(" ").map((x) => Number(x));
+  const tilePositions = [
+    //Ring 1
+    [4, 3],
+    [5, 4],
+    [5, 5],
+    [4, 5],
+    [3, 5],
+    [3, 4],
+    //Ring 2
+    [4, 2],
+    [5, 3],
+    [6, 3],
+    [6, 4],
+    [6, 5],
+    [5, 6],
+
+    [4, 6],
+    [3, 6],
+    [2, 5],
+    [2, 4],
+    [2, 3],
+    [3, 3],
+    //Ring 3
+    [4, 1],
+    [5, 2],
+    [6, 2],
+    [7, 3],
+    [7, 4],
+    [7, 5],
+
+    [7, 6],
+    [6, 6],
+    [5, 7],
+    [4, 7],
+    [3, 7],
+    [2, 6],
+
+    [1, 6],
+    [1, 5],
+    [1, 4],
+    [1, 3],
+    [2, 2],
+    [3, 2],
+  ];
+
+  return tilePositions
+    .map((e, i) => {
+      return {
+        position: {
+          x: e[0],
+          y: e[1],
+        },
+        systemId: tileIds[i],
+      };
+    })
+    .concat({
+      // Mecatol Rex
+      position: {
+        x: 4,
+        y: 4,
+      },
+      systemId: 18,
+    });
+}
+
+export function createSixPlayerGalaxy(
+  creation: GalaxyCreationSimpleSixPlayerParameters
+): {
+  public: PublicGalaxy;
+  secret: SecretGalaxy;
+} {
+  const playerPositions = [
+    [1, 6],
+    [1, 5],
+    [1, 4],
+    [1, 3],
+    [2, 2],
+    [3, 2],
+  ];
+  const players = creation.players.map((x, index) => {
+    const playerPosition = playerPositions[index];
+    return {
+      factionId: x.factionId,
+      playerId: x.playerId,
+      speakerOrder: index,
+      position: {
+        x: playerPosition[0],
+        y: playerPosition[1],
+      },
+    };
+  });
+  const map = ttsStringtoTilePositions(creation.ttsString);
+  return createGalaxy({
+    players: players,
+    map: map,
+  });
+}
 
 export function createGalaxy(creation: GalaxyCreationSimpleParameters): {
   public: PublicGalaxy;
