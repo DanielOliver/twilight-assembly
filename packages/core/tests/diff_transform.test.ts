@@ -8,7 +8,7 @@ import {
   removeDiff,
   removeKeyDiff,
 } from "../diff_transform";
-import { Position } from "../types";
+import { Position } from "../types_engine";
 import { Difference, KeyDiffType } from "../types_diff";
 import { describe, it, expect, beforeEach } from "vitest";
 

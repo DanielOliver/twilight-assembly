@@ -4,7 +4,7 @@ import {
   RequestGalaxy,
   SecretGalaxy,
   SecretPlayerGalaxy,
-} from "./types";
+} from "./types_engine";
 
 export class GravitasDrive {
   constructor(private galaxy: PublicGalaxy, private secret: SecretGalaxy) {}
