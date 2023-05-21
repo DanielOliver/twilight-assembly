@@ -2,6 +2,8 @@
     "name": "@twilight-assembly/core",
     "private": true,
     "version": "0.0.1",
+    "main": "./index.ts",
+    "types": "./index.ts",
     "devDependencies": {
         "@types/deep-equal": "^1.0.1",
         "eslint-config-custom": "*",

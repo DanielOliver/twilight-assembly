@@ -7,6 +7,11 @@
   "scripts": {
     "lint": "eslint \"**/*.ts*\""
   },
+  "dependencies": {
+    "@twilight-assembly/core": "*",
+    "pixi-viewport": "^5.0.1",
+    "pixi.js": "^7.2.4"
+  },
   "devDependencies": {
     "@types/react": "^18.0.22",
     "eslint": "^7.32.0",
