@@ -42,12 +42,10 @@ export interface GalaxyCreationSimpleParameters {
 }
 
 export interface GalaxyCreationSimpleSixPlayerParameters {
-  players: [
-    {
-      factionId: number;
-      playerId: number;
-    }
-  ];
+  players: {
+    factionId: number;
+    playerId: number;
+  }[];
   ttsString: string;
 }
 

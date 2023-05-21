@@ -113,11 +113,12 @@ export interface PlayerI {
   scoredPublicObjectiveIds: number[];
   faceUpPromissoryNoteIds: number[];
   faceUpRelicIds: number[];
-  strategyCardId: number | null;
+  strategyCardIds: number[];
+  exhaustedStrategyCardIds: number[];
   planetIds: number[];
-  tacticalTokens: number;
-  strategyTokens: number;
-  fleetTokens: number;
+  tacticalTokens: Tokens[];
+  strategyTokens: Tokens[];
+  fleetTokens: Tokens[];
   fleetCapacity: number;
 }
 
@@ -143,6 +144,11 @@ export interface ForceI extends Force {
 
 export interface Reinforcements extends Force {
   tokens: number;
+}
+
+export interface Tokens {
+  playerId: number;
+  count: number;
 }
 
 export interface PublicGalaxy {

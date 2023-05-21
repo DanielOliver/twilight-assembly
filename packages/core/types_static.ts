@@ -7,6 +7,7 @@ import {
   UniqueTile,
   Anomaly,
   Expansion,
+  FactionAttributes,
 } from "./types_const";
 
 /**
@@ -37,4 +38,12 @@ export interface System {
   emptySystem: boolean;
   unique?: UniqueTile;
   anomaly?: Anomaly;
+}
+
+export interface Faction {
+  factionId: number;
+  name: string;
+  short: string;
+  game: Expansion;
+  attributes: FactionAttributes[];
 }

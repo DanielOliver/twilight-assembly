@@ -1,4 +1,4 @@
-import { Planet, System } from "./types_static";
+import { Faction, Planet, System } from "./types_static";
 import {
   PlanetType,
   Trait,
@@ -9,6 +9,184 @@ import {
   UniqueTile,
   Expansion,
 } from "./types_const";
+
+const FactionData: Faction[] = [
+  {
+    factionId: 1,
+    game: Expansion.BaseGame,
+    name: "The Arborec",
+    attributes: [],
+    short: "Arborec",
+  },
+  {
+    factionId: 2,
+    game: Expansion.BaseGame,
+    name: "The Barony of Letnev",
+    attributes: [],
+    short: "Barony",
+  },
+  {
+    factionId: 3,
+    game: Expansion.BaseGame,
+    name: "The Clan of Saar",
+    attributes: [],
+    short: "Saar",
+  },
+  {
+    factionId: 4,
+    game: Expansion.BaseGame,
+    name: "The Embers of Muaat",
+    attributes: [],
+    short: "Muaat",
+  },
+  {
+    factionId: 5,
+    game: Expansion.BaseGame,
+    name: "The Emirates of Hacan",
+    attributes: [],
+    short: "Hacan",
+  },
+  {
+    factionId: 6,
+    game: Expansion.BaseGame,
+    name: "The Federation of Sol",
+    attributes: [],
+    short: "Sol",
+  },
+  {
+    factionId: 7,
+    game: Expansion.BaseGame,
+    name: "The Ghosts of Creuss",
+    attributes: [],
+    short: "Ghosts",
+  },
+  {
+    factionId: 8,
+    game: Expansion.BaseGame,
+    name: "The L1Z1X Mindnet",
+    attributes: [],
+    short: "L1Z1X",
+  },
+  {
+    factionId: 9,
+    game: Expansion.BaseGame,
+    name: "The Mentak Coalition",
+    attributes: [],
+    short: "Mentak",
+  },
+  {
+    factionId: 10,
+    game: Expansion.BaseGame,
+    name: "The Naalu Collective",
+    attributes: [],
+    short: "Naalu",
+  },
+  {
+    factionId: 11,
+    game: Expansion.BaseGame,
+    name: "The Nekro Virus",
+    attributes: [],
+    short: "Nekro",
+  },
+  {
+    factionId: 12,
+    game: Expansion.BaseGame,
+    name: "Sardakk N’orr",
+    attributes: [],
+    short: "Sardakk",
+  },
+  {
+    factionId: 13,
+    game: Expansion.BaseGame,
+    name: "The Universities of Jol-Nar",
+    attributes: [],
+    short: "Universities",
+  },
+  {
+    factionId: 14,
+    game: Expansion.BaseGame,
+    name: "The Winnu",
+    attributes: [],
+    short: "Winnu",
+  },
+  {
+    factionId: 15,
+    game: Expansion.BaseGame,
+    name: "The Xxcha Kingdom",
+    attributes: [],
+    short: "Xxcha",
+  },
+  {
+    factionId: 16,
+    game: Expansion.BaseGame,
+    name: "The Yin Brotherhood",
+    attributes: [],
+    short: "Yin",
+  },
+  {
+    factionId: 17,
+    game: Expansion.BaseGame,
+    name: "The Yssaril Tribes",
+    attributes: [],
+    short: "Yssaril",
+  },
+  {
+    factionId: 18,
+    game: Expansion.ProphecyOfKings,
+    name: "The Argent Flight",
+    attributes: [],
+    short: "Argent",
+  },
+  {
+    factionId: 19,
+    game: Expansion.ProphecyOfKings,
+    name: "The Empyrean",
+    attributes: [],
+    short: "Empyrean",
+  },
+  {
+    factionId: 20,
+    game: Expansion.ProphecyOfKings,
+    name: "The Mahact Gene-Sorcerers",
+    attributes: [],
+    short: "Mahact",
+  },
+  {
+    factionId: 21,
+    game: Expansion.ProphecyOfKings,
+    name: "The Naaz-Rokha Alliance",
+    attributes: [],
+    short: "Naaz-Rokha",
+  },
+  {
+    factionId: 22,
+    game: Expansion.ProphecyOfKings,
+    name: "The Nomad",
+    attributes: [],
+    short: "Nomad",
+  },
+  {
+    factionId: 23,
+    game: Expansion.ProphecyOfKings,
+    name: "The Titans of Ul",
+    attributes: [],
+    short: "Titans",
+  },
+  {
+    factionId: 24,
+    game: Expansion.ProphecyOfKings,
+    name: "The Vuil'Raith Cabal",
+    attributes: [],
+    short: "Cabal",
+  },
+  {
+    factionId: 25,
+    game: Expansion.ProphecyOfKings,
+    name: "The Council Keleres",
+    attributes: [],
+    short: "Keleres",
+  },
+];
 
 const PlanetData: Planet[] = [
   {
@@ -886,7 +1064,7 @@ const PlanetData: Planet[] = [
 const SystemData: System[] = [
   {
     systemId: 1,
-    factionId: 1,
+    factionId: 6,
     name: "The Federation of Sol",
     game: Expansion.BaseGame,
     wormholes: [],
@@ -895,7 +1073,7 @@ const SystemData: System[] = [
   },
   {
     systemId: 2,
-    factionId: 2,
+    factionId: 9,
     name: "The Mentak Coalition",
     game: Expansion.BaseGame,
     wormholes: [],
@@ -904,7 +1082,7 @@ const SystemData: System[] = [
   },
   {
     systemId: 3,
-    factionId: 3,
+    factionId: 16,
     name: "The Yin Brotherhood",
     game: Expansion.BaseGame,
     wormholes: [],
@@ -922,7 +1100,7 @@ const SystemData: System[] = [
   },
   {
     systemId: 5,
-    factionId: 5,
+    factionId: 1,
     name: "The Arborec",
     game: Expansion.BaseGame,
     wormholes: [],
@@ -931,8 +1109,8 @@ const SystemData: System[] = [
   },
   {
     systemId: 6,
-    factionId: 6,
-    name: "The Lizix Mindnet",
+    factionId: 8,
+    name: "The L1Z1X Mindnet",
     game: Expansion.BaseGame,
     wormholes: [],
     systemType: SystemType.Green,
@@ -940,7 +1118,7 @@ const SystemData: System[] = [
   },
   {
     systemId: 7,
-    factionId: 7,
+    factionId: 14,
     name: "The Winnu",
     game: Expansion.BaseGame,
     wormholes: [],
@@ -949,7 +1127,7 @@ const SystemData: System[] = [
   },
   {
     systemId: 8,
-    factionId: 8,
+    factionId: 11,
     name: "The Nekro Virus",
     game: Expansion.BaseGame,
     wormholes: [],
@@ -958,7 +1136,7 @@ const SystemData: System[] = [
   },
   {
     systemId: 9,
-    factionId: 9,
+    factionId: 10,
     name: "The Naalu Collective",
     game: Expansion.BaseGame,
     wormholes: [],
@@ -967,7 +1145,7 @@ const SystemData: System[] = [
   },
   {
     systemId: 10,
-    factionId: 10,
+    factionId: 2,
     name: "The Barony of Letnev",
     game: Expansion.BaseGame,
     wormholes: [],
@@ -976,7 +1154,7 @@ const SystemData: System[] = [
   },
   {
     systemId: 11,
-    factionId: 11,
+    factionId: 3,
     name: "The Clan of Saar",
     game: Expansion.BaseGame,
     wormholes: [],
@@ -985,7 +1163,7 @@ const SystemData: System[] = [
   },
   {
     systemId: 12,
-    factionId: 12,
+    factionId: 13,
     name: "The Universities of Jol-Nar",
     game: Expansion.BaseGame,
     wormholes: [],
@@ -994,7 +1172,7 @@ const SystemData: System[] = [
   },
   {
     systemId: 13,
-    factionId: 13,
+    factionId: 12,
     name: "Sardakk N'orr",
     game: Expansion.BaseGame,
     wormholes: [],
@@ -1003,7 +1181,7 @@ const SystemData: System[] = [
   },
   {
     systemId: 14,
-    factionId: 14,
+    factionId: 15,
     name: "The Xxcha Kingdom",
     game: Expansion.BaseGame,
     wormholes: [],
@@ -1012,7 +1190,7 @@ const SystemData: System[] = [
   },
   {
     systemId: 15,
-    factionId: 15,
+    factionId: 17,
     name: "The Yssaril Tribes",
     game: Expansion.BaseGame,
     wormholes: [],
@@ -1021,7 +1199,7 @@ const SystemData: System[] = [
   },
   {
     systemId: 16,
-    factionId: 16,
+    factionId: 5,
     name: "The Emirates of Hacan",
     game: Expansion.BaseGame,
     wormholes: [],
@@ -1030,7 +1208,7 @@ const SystemData: System[] = [
   },
   {
     systemId: 17,
-    factionId: 17,
+    factionId: 7,
     name: "The Ghosts of Creuss",
     game: Expansion.BaseGame,
     wormholes: [Wormhole.Delta],
@@ -1040,7 +1218,7 @@ const SystemData: System[] = [
   },
   {
     systemId: 51,
-    factionId: 51,
+    factionId: 7,
     name: "The Ghosts of Creuss",
     game: Expansion.BaseGame,
     wormholes: [Wormhole.Delta],
@@ -1050,7 +1228,7 @@ const SystemData: System[] = [
   },
   {
     systemId: 52,
-    factionId: 52,
+    factionId: 20,
     name: "The Mahact Gene-sorcerers",
     game: Expansion.ProphecyOfKings,
     wormholes: [],
@@ -1059,7 +1237,7 @@ const SystemData: System[] = [
   },
   {
     systemId: 53,
-    factionId: 53,
+    factionId: 22,
     name: "The Nomad",
     game: Expansion.ProphecyOfKings,
     wormholes: [],
@@ -1068,7 +1246,7 @@ const SystemData: System[] = [
   },
   {
     systemId: 54,
-    factionId: 54,
+    factionId: 24,
     name: "The Vuil'raith Cabal",
     game: Expansion.ProphecyOfKings,
     wormholes: [],
@@ -1077,7 +1255,7 @@ const SystemData: System[] = [
   },
   {
     systemId: 55,
-    factionId: 55,
+    factionId: 23,
     name: "The Titans of Ul",
     game: Expansion.ProphecyOfKings,
     wormholes: [],
@@ -1086,7 +1264,7 @@ const SystemData: System[] = [
   },
   {
     systemId: 56,
-    factionId: 56,
+    factionId: 19,
     name: "The Empyrean",
     game: Expansion.ProphecyOfKings,
     anomaly: Anomaly.Nebula,
@@ -1096,7 +1274,7 @@ const SystemData: System[] = [
   },
   {
     systemId: 57,
-    factionId: 57,
+    factionId: 21,
     name: "The Naaz-Rokha Alliance",
     game: Expansion.ProphecyOfKings,
     wormholes: [],
@@ -1105,7 +1283,7 @@ const SystemData: System[] = [
   },
   {
     systemId: 58,
-    factionId: 58,
+    factionId: 18,
     name: "The Argent Flight",
     game: Expansion.ProphecyOfKings,
     wormholes: [],

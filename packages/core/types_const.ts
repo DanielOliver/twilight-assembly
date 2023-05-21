@@ -74,3 +74,7 @@ export enum StrategyCard {
   Technology = "technology",
   Imperial = "imperial",
 }
+
+export enum FactionAttributes {
+  ExternalGhostSystem = 1,
+}

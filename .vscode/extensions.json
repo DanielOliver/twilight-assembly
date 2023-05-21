@@ -3,6 +3,7 @@
     "esbenp.prettier-vscode",
     "aaron-bond.better-comments",
     "dbaeumer.vscode-eslint",
-    "editorconfig.editorconfig"
+    "editorconfig.editorconfig",
+    "yoavbls.pretty-ts-errors"
   ]
 }

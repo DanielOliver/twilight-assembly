@@ -1,16 +1,17 @@
+import { Phase } from "./types_const";
 import {
   GalaxyCreationSimpleParameters,
   GalaxyCreationSimpleSixPlayerParameters,
-  Phase,
+  StrategyPhaseTimingWindow,
+} from "./types_engine";
+import {
   PlayerI,
+  Position,
   PublicGalaxy,
-  PublicGalaxyField,
   Reinforcements,
   SecretGalaxy,
-  StrategyPhaseTimingWindow,
   UnitTechnologyI,
-} from "./types_engine";
-import { Position } from "./types_galaxy";
+} from "./types_galaxy";
 
 const defaultReinforcements: Reinforcements = {
   tokens: 8,
@@ -49,9 +50,6 @@ const defaultPlayerSettings = {
   strategyCardId: null,
 
   fleetCapacity: 3,
-  fleetTokens: 3,
-  strategyTokens: 2,
-  tacticalTokens: 3,
 
   exhaustedTechnologyIds: [],
   exhaustedLeaderIds: [],
@@ -133,11 +131,12 @@ export function ttsStringtoTilePositions(ttsString: string): {
     });
 }
 
+/// Assume a standard 6p galaxy
 export function createSixPlayerGalaxy(
   creation: GalaxyCreationSimpleSixPlayerParameters
 ): {
-  public: PublicGalaxy;
-  secret: SecretGalaxy;
+  publicGalaxy: PublicGalaxy;
+  secretGalaxy: SecretGalaxy;
 } {
   const playerPositions = [
     [1, 6],
@@ -147,6 +146,7 @@ export function createSixPlayerGalaxy(
     [2, 2],
     [3, 2],
   ];
+
   const players = creation.players.map((x, index) => {
     const playerPosition = playerPositions[index];
     return {
@@ -159,7 +159,20 @@ export function createSixPlayerGalaxy(
       },
     };
   });
-  const map = ttsStringtoTilePositions(creation.ttsString);
+  let map = ttsStringtoTilePositions(creation.ttsString);
+  if (players.some((x) => x.factionId === 7)) {
+    // TODO: make ghost placement nice.
+    map = map.concat({
+      position: { x: 0, y: 0 },
+      systemId: 51,
+    });
+  }
+
+  map = map.concat({
+    position: { x: 8, y: 8 },
+    systemId: 82,
+  });
+
   return createGalaxy({
     players: players,
     map: map,
@@ -167,8 +180,8 @@ export function createSixPlayerGalaxy(
 }
 
 export function createGalaxy(creation: GalaxyCreationSimpleParameters): {
-  public: PublicGalaxy;
-  secret: SecretGalaxy;
+  publicGalaxy: PublicGalaxy;
+  secretGalaxy: SecretGalaxy;
 } {
   const secretGalaxy: SecretGalaxy = {
     actionCardDeckIds: [],
@@ -201,12 +214,40 @@ export function createGalaxy(creation: GalaxyCreationSimpleParameters): {
       technologyIds: [],
       handPromissoryNoteCount: 0,
       handSecretObjectiveCount: 0,
+
+      strategyCardIds: [],
+      exhaustedStrategyCardIds: [],
+
+      fleetTokens: [
+        {
+          playerId: x.playerId,
+          count: 3,
+        },
+      ],
+      strategyTokens: [
+        {
+          playerId: x.playerId,
+          count: 3,
+        },
+      ],
+
+      tacticalTokens: [
+        {
+          playerId: x.playerId,
+          count: 2,
+        },
+      ],
     };
   });
 
   let speakerOrder = creation.players
     .sort((a, b) => a.speakerOrder - b.speakerOrder)
     .map((x) => x.playerId);
+
+  // let systems = {};
+  // creation.map.forEach((x) => {
+  //   systems[x.systemId] = {};
+  // });
 
   let publicGalaxy: PublicGalaxy = {
     activeLawIds: [],
@@ -216,19 +257,31 @@ export function createGalaxy(creation: GalaxyCreationSimpleParameters): {
     players: Object.fromEntries(players.map((x) => [x.playerId, x])),
     speakerOrder: speakerOrder,
     strategyCards: {},
-    status: {
-      galaxyVersion: 1,
-      phase: Phase.Strategy,
-      round: 1,
-      remainingPlayerIds: [],
-      remainingStrategyCardIds: [],
-      timing: { window: StrategyPhaseTimingWindow.Init },
-    },
-    systems: {},
+    systems: Object.fromEntries(
+      creation.map.map((x) => [
+        x.systemId,
+        {
+          systemId: x.systemId,
+          position: x.position,
+          adjacencies: [],
+          neighbors: [],
+          adjacencyOverride: [],
+          canOccupy: true,
+          wormholes: [],
+          homeSystem: false,
+          legendary: false,
+          mecatolRex: false,
+          emptySystem: false,
+          anomalies: [],
+          planetIds: [],
+          tokens: [],
+        },
+      ])
+    ),
   };
 
   return {
-    public: publicGalaxy,
-    secret: secretGalaxy,
+    publicGalaxy,
+    secretGalaxy,
   };
 }
