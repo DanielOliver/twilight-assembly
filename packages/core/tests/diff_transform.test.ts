@@ -8,9 +8,9 @@ import {
   removeDiff,
   removeKeyDiff,
 } from "../diff_transform";
-import { Difference, KeyDiffType } from "../types_diff";
+import { Difference, KeyDiffType } from "../types/diff";
 import { describe, it, expect, beforeEach } from "vitest";
-import { Position } from "../types_galaxy";
+import { Position } from "../types/galaxy";
 
 describe("Transform.Test.diff", () => {
   const original: Position = {

@@ -8,7 +8,7 @@ import {
   Anomaly,
   Expansion,
   FactionAttributes,
-} from "./types_const";
+} from "./const";
 
 /**
  * Static definition not sent over wire.

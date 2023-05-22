@@ -5,7 +5,7 @@ import {
   StrategyCard,
   Trait,
   Wormhole,
-} from "./types_const";
+} from "./const";
 
 export interface Position {
   x: number;

@@ -1,5 +1,5 @@
-import { KeyDiff, Difference } from "./types_diff";
-import { Phase } from "./types_const";
+import { KeyDiff, Difference } from "./diff";
+import { Phase } from "./const";
 import {
   Force,
   ForceI,
@@ -8,7 +8,7 @@ import {
   Position,
   StrategyCardI,
   SystemI,
-} from "./types_galaxy";
+} from "./galaxy";
 
 export enum GameCreationState {
   NameTheGame = 1,

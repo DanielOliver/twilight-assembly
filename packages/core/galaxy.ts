@@ -1,9 +1,7 @@
-import { Phase } from "./types_const";
 import {
   GalaxyCreationSimpleParameters,
   GalaxyCreationSimpleSixPlayerParameters,
-  StrategyPhaseTimingWindow,
-} from "./types_engine";
+} from "./types/engine";
 import {
   PlayerI,
   Position,
@@ -11,7 +9,7 @@ import {
   Reinforcements,
   SecretGalaxy,
   UnitTechnologyI,
-} from "./types_galaxy";
+} from "./types/galaxy";
 
 const defaultReinforcements: Reinforcements = {
   tokens: 8,
@@ -163,13 +161,13 @@ export function createSixPlayerGalaxy(
   if (players.some((x) => x.factionId === 7)) {
     // TODO: make ghost placement nice.
     map = map.concat({
-      position: { x: 0, y: 0 },
+      position: { x: 1, y: 1 },
       systemId: 51,
     });
   }
 
   map = map.concat({
-    position: { x: 8, y: 8 },
+    position: { x: 7, y: 8 },
     systemId: 82,
   });
 

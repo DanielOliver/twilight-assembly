@@ -8,13 +8,15 @@ export const GalaxySystemTile = (props: {
 }) => {
   const pxTileWidth = 364;
   const pxTileHeight = 317;
+  /// Large tile size
+  const pxTileHeightStretch = 340;
+
   const hexMagicY = 0.7555;
   const xOffset = (props.position.x * hexMagicY + 0.5) * pxTileWidth;
   const yOffset =
     (props.position.x % 2 == 0
       ? 1 + props.position.y
       : 0.5 + props.position.y) * pxTileHeight;
-  console.log("x, y", xOffset, yOffset);
 
   return (
     <Sprite

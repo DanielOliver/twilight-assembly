@@ -36,7 +36,7 @@ export default function GalaxyMap() {
   });
 
   return (
-    <div style={{ width: 100 }}>
+    <div>
       <PublicGalaxyMap publicGalaxy={publicGalaxy} />
     </div>
   );

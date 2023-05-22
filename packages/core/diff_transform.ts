@@ -5,7 +5,7 @@ import {
   KeyDiffSet,
   KeyDiffType,
   KeyDiffUpdate,
-} from "./types_diff";
+} from "./types/diff";
 import equal from "deep-equal";
 
 export function diff<T>(original: T, props: Partial<T>): [Difference<T>, T] {

@@ -24,8 +24,6 @@ const PixiComponentViewport = PixiComponent("Viewport", {
       props.app.renderer.addSystem(PIXI.EventSystem, "events");
 
     const viewport = new Viewport({
-      screenWidth: props.mapWidth,
-      screenHeight: props.mapHeight,
       worldWidth: props.mapWidth,
       worldHeight: props.mapHeight,
       events: app.renderer.events,
@@ -48,8 +46,15 @@ const PixiComponentViewport = PixiComponent("Viewport", {
         minScale: 0.4,
         maxScale: 8,
       });
-
     return viewport;
+  },
+  applyProps(instance, oldProps, newProps) {
+    if (
+      oldProps.screenHeight !== newProps.screenHeight ||
+      oldProps.screenWidth !== newProps.screenHeight
+    ) {
+      instance.resize(newProps.screenWidth, newProps.screenHeight);
+    }
   },
 });
 
