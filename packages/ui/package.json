@@ -10,7 +10,9 @@
   "dependencies": {
     "@twilight-assembly/core": "*",
     "pixi-viewport": "^5.0.1",
-    "pixi.js": "^7.2.4"
+    "pixi.js": "^7.2.4",
+    "@pixi/events": "7.2.4",
+    "@pixi/react": "^7.1.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.22",
