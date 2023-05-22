@@ -62,6 +62,7 @@ export function ttsStringtoTilePositions(ttsString: string): {
 }[] {
   // const mapWidth = 9;
   // const mapHeight = 9;
+  const offset = -2;
 
   const tileIds = ttsString.split(" ").map((x) => Number(x));
   const tilePositions = [
@@ -167,7 +168,7 @@ export function createSixPlayerGalaxy(
   }
 
   map = map.concat({
-    position: { x: 7, y: 8 },
+    position: { x: 7, y: 1 },
     systemId: 82,
   });
 

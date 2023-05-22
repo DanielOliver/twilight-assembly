@@ -47,3 +47,9 @@ export interface Faction {
   game: Expansion;
   attributes: FactionAttributes[];
 }
+
+export interface SetupInfo {
+  factions: Faction[];
+  systems: System[];
+  planets: Planet[];
+}

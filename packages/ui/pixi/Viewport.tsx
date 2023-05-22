@@ -3,12 +3,14 @@ import * as PIXI from "pixi.js";
 import { Viewport } from "pixi-viewport";
 import { PixiComponent, useApp } from "@pixi/react";
 import { EventSystem } from "@pixi/events";
+import { BoundingBox } from "@twilight-assembly/core";
 
 export interface ViewportProps {
   screenWidth: number;
   screenHeight: number;
   mapWidth: number;
   mapHeight: number;
+  mapBounds: BoundingBox;
   children?: React.ReactNode;
 }
 
@@ -30,23 +32,23 @@ const PixiComponentViewport = PixiComponent("Viewport", {
       ticker: app.ticker,
       passiveWheel: false,
     });
-    viewport
+    return viewport
       .drag()
       .pinch()
       .wheel()
       .decelerate()
       .clamp({
         direction: "all",
-        bottom: props.mapHeight,
-        top: 0,
-        left: -80,
-        right: props.mapWidth,
+        bottom: props.mapBounds.maxY,
+        top: props.mapBounds.minY,
+        left: props.mapBounds.minX,
+        right: props.mapBounds.maxX,
       })
       .clampZoom({
         minScale: 0.4,
         maxScale: 8,
       });
-    return viewport;
+    // return viewport;
   },
   applyProps(instance, oldProps, newProps) {
     if (
