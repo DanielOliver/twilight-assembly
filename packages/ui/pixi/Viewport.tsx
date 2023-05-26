@@ -22,8 +22,10 @@ const PixiComponentViewport = PixiComponent("Viewport", {
   create: (props: PixiComponentViewportProps) => {
     const { app } = props;
 
-    if (!("events" in props.app.renderer))
+    if (!("events" in props.app.renderer)) {
+      //@ts-ignore
       props.app.renderer.addSystem(PIXI.EventSystem, "events");
+    }
 
     const viewport = new Viewport({
       worldWidth: props.mapWidth,
