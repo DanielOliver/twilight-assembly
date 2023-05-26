@@ -9,4 +9,4 @@ const DefaultSetupInfo: SetupInfo = {
   systems: SystemData,
 };
 
-export { FactionData, PlanetData, SystemData };
+export { FactionData, PlanetData, SystemData, DefaultSetupInfo };

@@ -872,6 +872,23 @@ const PlanetData: Planet[] = [
     planetType: PlanetType.Legendary,
     trait: Trait.Cultural,
   },
+  {
+    systemId: -1,
+    planetId: 100,
+    name: "Mirage",
+    resources: 1,
+    influence: 2,
+    planetType: PlanetType.Legendary,
+    trait: Trait.Cultural,
+  },
+  {
+    systemId: -1,
+    planetId: 101,
+    name: "Custodia Vigilia",
+    resources: 2,
+    influence: 3,
+    planetType: PlanetType.Legendary,
+  },
 ];
 
 export default PlanetData;

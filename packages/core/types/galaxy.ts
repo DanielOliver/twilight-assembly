@@ -34,10 +34,11 @@ export interface SystemI {
   /** Virtual adjacencies are not supportable for movement purposes but support neighbors. */
   neighbors: number[];
   /** Some factions may do weird things, cough cough GHOSTS! */
-  adjacencyOverride: AdjacencyOverride[];
+  // adjacencyOverride: AdjacencyOverride[];
   /** Default should be true */
   canOccupy: boolean;
   wormholes: Wormhole[];
+  frontierToken: boolean;
   homeSystem: boolean;
   legendary: boolean;
   mecatolRex: boolean;
