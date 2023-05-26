@@ -6,6 +6,7 @@ import {
   Trait,
   Wormhole,
 } from "./const";
+import { Force, Reinforcements } from "./static";
 
 export interface Position {
   x: number;
@@ -124,28 +125,10 @@ export interface PlayerI {
   fleetCapacity: number;
 }
 
-export interface Force {
-  carriers: number;
-  cruisers: number;
-  destroyers: number;
-  dreadnoughts: number;
-  factory: number;
-  fighters: number;
-  flagship: number;
-  infantry: number;
-  mechs: number;
-  pds: number;
-  warsuns: number;
-}
-
 export interface ForceI extends Force {
   systemId: number;
   planetId: number | null;
   playerId: number;
-}
-
-export interface Reinforcements extends Force {
-  tokens: number;
 }
 
 export interface Tokens {

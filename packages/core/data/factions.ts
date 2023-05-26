@@ -1,5 +1,6 @@
-import { Faction } from "../types/static";
+import { Faction, Force } from "../types/static";
 import { Expansion } from "../types/const";
+import DefaultForces from "./forces";
 
 const FactionData: Faction[] = [
   {
@@ -8,6 +9,15 @@ const FactionData: Faction[] = [
     name: "The Arborec",
     attributes: [],
     short: "Arborec",
+    startingForces: {
+      ...DefaultForces,
+      carriers: 1,
+      cruisers: 1,
+      fighters: 2,
+      infantry: 4,
+      factory: 1,
+      pds: 1,
+    },
   },
   {
     factionId: 2,
@@ -15,6 +25,7 @@ const FactionData: Faction[] = [
     name: "The Barony of Letnev",
     attributes: [],
     short: "Barony",
+    startingForces: DefaultForces,
   },
   {
     factionId: 3,
@@ -22,6 +33,7 @@ const FactionData: Faction[] = [
     name: "The Clan of Saar",
     attributes: [],
     short: "Saar",
+    startingForces: DefaultForces,
   },
   {
     factionId: 4,
@@ -29,6 +41,7 @@ const FactionData: Faction[] = [
     name: "The Embers of Muaat",
     attributes: [],
     short: "Muaat",
+    startingForces: DefaultForces,
   },
   {
     factionId: 5,
@@ -36,6 +49,7 @@ const FactionData: Faction[] = [
     name: "The Emirates of Hacan",
     attributes: [],
     short: "Hacan",
+    startingForces: DefaultForces,
   },
   {
     factionId: 6,
@@ -43,6 +57,7 @@ const FactionData: Faction[] = [
     name: "The Federation of Sol",
     attributes: [],
     short: "Sol",
+    startingForces: DefaultForces,
   },
   {
     factionId: 7,
@@ -50,6 +65,7 @@ const FactionData: Faction[] = [
     name: "The Ghosts of Creuss",
     attributes: [],
     short: "Ghosts",
+    startingForces: DefaultForces,
   },
   {
     factionId: 8,
@@ -57,6 +73,7 @@ const FactionData: Faction[] = [
     name: "The L1Z1X Mindnet",
     attributes: [],
     short: "L1Z1X",
+    startingForces: DefaultForces,
   },
   {
     factionId: 9,
@@ -64,6 +81,7 @@ const FactionData: Faction[] = [
     name: "The Mentak Coalition",
     attributes: [],
     short: "Mentak",
+    startingForces: DefaultForces,
   },
   {
     factionId: 10,
@@ -71,6 +89,7 @@ const FactionData: Faction[] = [
     name: "The Naalu Collective",
     attributes: [],
     short: "Naalu",
+    startingForces: DefaultForces,
   },
   {
     factionId: 11,
@@ -78,6 +97,7 @@ const FactionData: Faction[] = [
     name: "The Nekro Virus",
     attributes: [],
     short: "Nekro",
+    startingForces: DefaultForces,
   },
   {
     factionId: 12,
@@ -85,6 +105,7 @@ const FactionData: Faction[] = [
     name: "Sardakk N’orr",
     attributes: [],
     short: "Sardakk",
+    startingForces: DefaultForces,
   },
   {
     factionId: 13,
@@ -92,6 +113,7 @@ const FactionData: Faction[] = [
     name: "The Universities of Jol-Nar",
     attributes: [],
     short: "Universities",
+    startingForces: DefaultForces,
   },
   {
     factionId: 14,
@@ -99,6 +121,7 @@ const FactionData: Faction[] = [
     name: "The Winnu",
     attributes: [],
     short: "Winnu",
+    startingForces: DefaultForces,
   },
   {
     factionId: 15,
@@ -106,6 +129,7 @@ const FactionData: Faction[] = [
     name: "The Xxcha Kingdom",
     attributes: [],
     short: "Xxcha",
+    startingForces: DefaultForces,
   },
   {
     factionId: 16,
@@ -113,6 +137,7 @@ const FactionData: Faction[] = [
     name: "The Yin Brotherhood",
     attributes: [],
     short: "Yin",
+    startingForces: DefaultForces,
   },
   {
     factionId: 17,
@@ -120,6 +145,7 @@ const FactionData: Faction[] = [
     name: "The Yssaril Tribes",
     attributes: [],
     short: "Yssaril",
+    startingForces: DefaultForces,
   },
   {
     factionId: 18,
@@ -127,6 +153,7 @@ const FactionData: Faction[] = [
     name: "The Argent Flight",
     attributes: [],
     short: "Argent",
+    startingForces: DefaultForces,
   },
   {
     factionId: 19,
@@ -134,6 +161,7 @@ const FactionData: Faction[] = [
     name: "The Empyrean",
     attributes: [],
     short: "Empyrean",
+    startingForces: DefaultForces,
   },
   {
     factionId: 20,
@@ -141,6 +169,7 @@ const FactionData: Faction[] = [
     name: "The Mahact Gene-Sorcerers",
     attributes: [],
     short: "Mahact",
+    startingForces: DefaultForces,
   },
   {
     factionId: 21,
@@ -148,6 +177,7 @@ const FactionData: Faction[] = [
     name: "The Naaz-Rokha Alliance",
     attributes: [],
     short: "Naaz-Rokha",
+    startingForces: DefaultForces,
   },
   {
     factionId: 22,
@@ -155,6 +185,7 @@ const FactionData: Faction[] = [
     name: "The Nomad",
     attributes: [],
     short: "Nomad",
+    startingForces: DefaultForces,
   },
   {
     factionId: 23,
@@ -162,6 +193,7 @@ const FactionData: Faction[] = [
     name: "The Titans of Ul",
     attributes: [],
     short: "Titans",
+    startingForces: DefaultForces,
   },
   {
     factionId: 24,
@@ -169,6 +201,7 @@ const FactionData: Faction[] = [
     name: "The Vuil'Raith Cabal",
     attributes: [],
     short: "Cabal",
+    startingForces: DefaultForces,
   },
   {
     factionId: 25,
@@ -176,6 +209,7 @@ const FactionData: Faction[] = [
     name: "The Council Keleres",
     attributes: [],
     short: "Keleres",
+    startingForces: DefaultForces,
   },
 ];
 
