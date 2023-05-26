@@ -1,7 +1,6 @@
 import { KeyDiff, Difference } from "./diff";
 import { Phase } from "./const";
 import {
-  Force,
   ForceI,
   PlanetI,
   PlayerI,
