@@ -9,6 +9,7 @@ import { Stage } from "@pixi/react";
 import { GalaxySystemTile } from "./pixi/GalaxySystemTile";
 import Viewport from "./pixi/Viewport";
 import useWindowSize from "./useWindowSize";
+import { GalaxyForce } from "./pixi/GalaxyForce";
 
 export const PublicGalaxyMap = (props: { publicGalaxy: PublicGalaxy }) => {
   const systems = Object.values(props.publicGalaxy.systems).map((s, index) => {
@@ -28,6 +29,22 @@ export const PublicGalaxyMap = (props: { publicGalaxy: PublicGalaxy }) => {
       />
     );
   });
+
+  const forces = Object.values(props.publicGalaxy.forces)
+    .flatMap((s) => s)
+    .map((s, index) => {
+      const factionColor = props.publicGalaxy.players[s.playerId ?? 0]?.color;
+      const position = props.publicGalaxy.systems[s.systemId].position;
+
+      return (
+        <GalaxyForce
+          key={index}
+          factionColor={factionColor}
+          position={position}
+          force={s}
+        />
+      );
+    });
 
   let worldBounds: BoundingBox = {
     maxX: -100,
@@ -66,6 +83,7 @@ export const PublicGalaxyMap = (props: { publicGalaxy: PublicGalaxy }) => {
           screenHeight={elementSize[1]}
         >
           {systems}
+          {forces}
         </Viewport>
       </Stage>
     </div>

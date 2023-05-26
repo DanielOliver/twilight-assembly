@@ -273,7 +273,9 @@ export function createGalaxy(creation: GalaxyCreationSimpleParameters): {
   });
 
   let players: PlayerI[] = creation.players.map((player) => {
-    const faction = setupInfo.factions[player.factionId];
+    const faction = setupInfo.factions.find(
+      (x) => x.factionId === player.factionId
+    );
 
     const homeSystemId =
       setupInfo.systems.find(
