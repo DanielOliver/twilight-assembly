@@ -9,19 +9,19 @@ describe("galaxy.test.creation", () => {
     const { publicGalaxy, secretGalaxy } = createSixPlayerGalaxy({
       players: [
         {
-          factionId: 8,
+          factionId: 11,
           playerId: 1,
         },
         {
-          factionId: 55,
+          factionId: 23,
           playerId: 2,
         },
         {
-          factionId: 16,
+          factionId: 5,
           playerId: 3,
         },
         {
-          factionId: 54,
+          factionId: 24,
           playerId: 4,
         },
         {
@@ -29,14 +29,20 @@ describe("galaxy.test.creation", () => {
           playerId: 5,
         },
         {
-          factionId: 12,
+          factionId: 13,
           playerId: 6,
         },
       ],
       ttsString: ttsString,
     });
 
-    expect(publicGalaxy.systems[51].position).toEqual({ x: 0, y: 0 });
+    // Checking home systems
+    expect(publicGalaxy.systems[8].position).toEqual({ x: 4, y: 1 });
+    expect(publicGalaxy.systems[55].position).toEqual({ x: 7, y: 3 });
+    expect(publicGalaxy.systems[16].position).toEqual({ x: 7, y: 6 });
+    expect(publicGalaxy.systems[54].position).toEqual({ x: 4, y: 7 });
+    expect(publicGalaxy.systems[51].position).toEqual({ x: 1, y: 1 });
     expect(publicGalaxy.systems[17].position).toEqual({ x: 1, y: 6 });
+    expect(publicGalaxy.systems[12].position).toEqual({ x: 1, y: 3 });
   });
 });
