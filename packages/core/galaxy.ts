@@ -5,11 +5,13 @@ import {
   GalaxyCreationSimpleSixPlayerParameters,
 } from "./types/engine";
 import {
+  PlanetI,
   PlayerI,
   Position,
   PublicGalaxy,
   Reinforcements,
   SecretGalaxy,
+  SystemI,
   UnitTechnologyI,
 } from "./types/galaxy";
 import { SetupInfo } from "./types/static";
@@ -233,7 +235,6 @@ export function createGalaxy(creation: GalaxyCreationSimpleParameters): {
           count: 3,
         },
       ],
-
       tacticalTokens: [
         {
           playerId: x.playerId,
@@ -247,46 +248,63 @@ export function createGalaxy(creation: GalaxyCreationSimpleParameters): {
     .sort((a, b) => a.speakerOrder - b.speakerOrder)
     .map((x) => x.playerId);
 
-  let systems = Object.fromEntries(
-    creation.map.map((x) => {
-      const system = setupInfo.systems.find((y) => y.systemId === x.systemId);
-      if (!system) return [];
-      const planets = setupInfo.planets.filter(
-        (y) => y.systemId === x.systemId
-      );
-      return [
-        x.systemId,
-        {
-          systemId: x.systemId,
-          position: x.position,
-          adjacencies: [],
-          neighbors: [],
-          canOccupy: true,
-          wormholes: system.wormholes,
-          homeSystem:
-            !system.emptySystem && system.systemType === SystemType.Green,
-          legendary:
-            system.unique === UniqueTile.MalliceFlippedSide ||
-            system.unique === UniqueTile.MalliceStartingSide ||
-            system.unique === UniqueTile.HopesEnd ||
-            system.unique === UniqueTile.Mirage ||
-            system.unique === UniqueTile.Primor,
-          mecatolRex: system.unique === UniqueTile.MecatolRex,
-          emptySystem: system.emptySystem,
-          anomalies: system.anomaly ? [system.anomaly] : [],
-          planetIds: planets.map((y) => y.planetId),
-          tokens: [],
-          frontierToken: system.emptySystem,
-        },
-      ];
-    })
-  );
+  let planets: { [planetId: number]: PlanetI } = {};
+  let systems: { [systemId: number]: SystemI } = {};
+
+  creation.map.forEach((mapitem) => {
+    const system = setupInfo.systems.find(
+      (system) => system.systemId === mapitem.systemId
+    );
+    if (!system) return [];
+    const systemPlanets = setupInfo.planets.filter(
+      (planet) => planet.systemId === mapitem.systemId
+    );
+
+    systemPlanets.forEach((planet) => {
+      planets[planet.planetId] = {
+        planetId: planet.planetId,
+        attachments: [],
+        canOccupy: true,
+        exhausted: false,
+        influence: planet.influence,
+        resources: planet.resources,
+        planetType: planet.planetType,
+        PlayerId: null,
+        spaceCannon: [],
+        specialties: planet.specialty ? [planet.specialty] : [],
+        systemId: planet.systemId,
+        traits: planet.trait ? [planet.trait] : [],
+      };
+    });
+
+    systems[mapitem.systemId] = {
+      systemId: mapitem.systemId,
+      position: mapitem.position,
+      adjacencies: [],
+      neighbors: [],
+      canOccupy: true,
+      wormholes: system.wormholes,
+      homeSystem: !system.emptySystem && system.systemType === SystemType.Green,
+      legendary:
+        system.unique === UniqueTile.MalliceFlippedSide ||
+        system.unique === UniqueTile.MalliceStartingSide ||
+        system.unique === UniqueTile.HopesEnd ||
+        system.unique === UniqueTile.Mirage ||
+        system.unique === UniqueTile.Primor,
+      mecatolRex: system.unique === UniqueTile.MecatolRex,
+      emptySystem: system.emptySystem,
+      anomalies: system.anomaly ? [system.anomaly] : [],
+      planetIds: systemPlanets.map((y) => y.planetId),
+      tokens: [],
+      frontierToken: system.emptySystem,
+    };
+  });
 
   let publicGalaxy: PublicGalaxy = {
     activeLawIds: [],
     forces: {},
     initiativeOrder: [],
-    planets: {},
+    planets: planets,
     players: Object.fromEntries(players.map((x) => [x.playerId, x])),
     speakerOrder: speakerOrder,
     strategyCards: {},

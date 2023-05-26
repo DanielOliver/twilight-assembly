@@ -76,6 +76,7 @@ export interface PlanetI {
   canOccupy: boolean;
   spaceCannon: SpaceCannon[];
   attachments: AttachmentI[];
+  exhausted: boolean;
 }
 
 export interface UnitTechnologyI {
