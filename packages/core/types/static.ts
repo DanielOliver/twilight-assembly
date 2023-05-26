@@ -29,7 +29,7 @@ export interface Planet {
  */
 
 export interface System {
-  systemId: number | string;
+  systemId: number;
   factionId?: number;
   name: string;
   game: Expansion;

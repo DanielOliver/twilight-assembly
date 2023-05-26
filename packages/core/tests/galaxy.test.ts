@@ -44,5 +44,9 @@ describe("galaxy.test.creation", () => {
     expect(publicGalaxy.systems[51].position).toEqual({ x: 1, y: 1 });
     expect(publicGalaxy.systems[17].position).toEqual({ x: 1, y: 6 });
     expect(publicGalaxy.systems[12].position).toEqual({ x: 1, y: 3 });
+
+    const ghostHomePlanet = publicGalaxy.planets[59];
+    expect(ghostHomePlanet.PlayerId).toBe(5);
+    expect(ghostHomePlanet.exhausted).toBe(false);
   });
 });

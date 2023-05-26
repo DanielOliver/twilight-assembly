@@ -97,6 +97,7 @@ export interface UnitTechnologyI {
 export interface PlayerI {
   playerId: number;
   factionId: number;
+  color: string;
   homeSystemId: number;
   handActionCardCount: number;
   handPromissoryNoteCount: number;

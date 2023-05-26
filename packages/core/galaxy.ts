@@ -1,10 +1,11 @@
-import { DefaultSetupInfo } from "./data";
+import { DefaultForces, DefaultSetupInfo } from "./data";
 import { SystemType, UniqueTile } from "./types/const";
 import {
   GalaxyCreationSimpleParameters,
   GalaxyCreationSimpleSixPlayerParameters,
 } from "./types/engine";
 import {
+  ForceI,
   PlanetI,
   PlayerI,
   Position,
@@ -59,6 +60,25 @@ const defaultPlayerSettings = {
   faceUpRelicIds: [],
   handActionCardCount: 0,
 };
+
+const playerColors = [
+  // Green
+  "#00ff00",
+  // Blue
+  "#0000ff",
+  // Red
+  "#ff0000",
+  // Black
+  "#000000",
+  // Orange
+  "#ffa500",
+  // Purple
+  "#800080",
+  // Yellow
+  "#FFFF00",
+  // Pink
+  "#FFC0CB",
+];
 
 export function ttsStringtoTilePositions(ttsString: string): {
   systemId: number;
@@ -142,12 +162,12 @@ export function createSixPlayerGalaxy(
   secretGalaxy: SecretGalaxy;
 } {
   const playerPositions = [
-    [1, 6],
-    [1, 5],
-    [1, 4],
+    [4, 1],
+    [7, 3],
+    [7, 6],
+    [4, 7],
+    [1, 1],
     [1, 3],
-    [2, 2],
-    [3, 2],
   ];
 
   const players = creation.players.map((x, index) => {
@@ -170,9 +190,10 @@ export function createSixPlayerGalaxy(
     });
   }
 
+  // Mallice
   map = map.concat({
     position: { x: 7, y: 1 },
-    systemId: 82,
+    systemId: 820,
   });
 
   return createGalaxy({
@@ -198,57 +219,9 @@ export function createGalaxy(creation: GalaxyCreationSimpleParameters): {
     secretObjectiveDeckIds: [],
   };
 
-  let players: PlayerI[] = creation.players.map((x) => {
-    return {
-      ...defaultPlayerSettings,
-
-      playerId: x.playerId,
-      factionId: x.factionId,
-      homeSystemId: 0,
-      planetIds: [],
-
-      reinforcements: defaultReinforcements,
-      unitTechnology: defaultUnitTechnology,
-
-      currentCommodity: 0,
-      maxCommodity: 2,
-
-      unlockedLeaderIds: [],
-      leaderIds: [],
-      technologyIds: [],
-      handPromissoryNoteCount: 0,
-      handSecretObjectiveCount: 0,
-
-      strategyCardIds: [],
-      exhaustedStrategyCardIds: [],
-
-      fleetTokens: [
-        {
-          playerId: x.playerId,
-          count: 3,
-        },
-      ],
-      strategyTokens: [
-        {
-          playerId: x.playerId,
-          count: 3,
-        },
-      ],
-      tacticalTokens: [
-        {
-          playerId: x.playerId,
-          count: 2,
-        },
-      ],
-    };
-  });
-
-  let speakerOrder = creation.players
-    .sort((a, b) => a.speakerOrder - b.speakerOrder)
-    .map((x) => x.playerId);
-
   let planets: { [planetId: number]: PlanetI } = {};
   let systems: { [systemId: number]: SystemI } = {};
+  let forces: { [systemId: number]: ForceI[] } = {};
 
   creation.map.forEach((mapitem) => {
     const system = setupInfo.systems.find(
@@ -299,9 +272,111 @@ export function createGalaxy(creation: GalaxyCreationSimpleParameters): {
     };
   });
 
+  let players: PlayerI[] = creation.players.map((player) => {
+    const faction = setupInfo.factions[player.factionId];
+
+    const homeSystemId =
+      setupInfo.systems.find(
+        (system) =>
+          system.systemType === SystemType.Green &&
+          system.emptySystem === false &&
+          system.factionId === player.factionId
+      )?.systemId || 0;
+
+    let homePlanets = setupInfo.planets.filter(
+      (planet) => planet.systemId === homeSystemId
+    );
+
+    let highestResourceHomePlanet = homePlanets[0];
+
+    homePlanets.forEach((planet) => {
+      let planetI = planets[planet.planetId];
+      planetI.PlayerId = player.playerId;
+
+      if (planet.resources > highestResourceHomePlanet.resources) {
+        highestResourceHomePlanet = planet;
+      }
+    });
+
+    const homePlanetGroundForces: ForceI = {
+      ...DefaultForces,
+      planetId: highestResourceHomePlanet.planetId,
+      playerId: player.playerId,
+      systemId: homeSystemId,
+
+      infantry: faction.startingForces.infantry,
+      factory: faction.startingForces.factory,
+      pds: faction.startingForces.pds,
+      mechs: faction.startingForces.mechs,
+    };
+    const homeSpaceForces: ForceI = {
+      ...DefaultForces,
+      planetId: null,
+      playerId: player.playerId,
+      systemId: homeSystemId,
+
+      cruisers: faction.startingForces.cruisers,
+      fighters: faction.startingForces.fighters,
+      carriers: faction.startingForces.carriers,
+      destroyers: faction.startingForces.destroyers,
+      dreadnoughts: faction.startingForces.dreadnoughts,
+      flagship: faction.startingForces.flagship,
+      warsuns: faction.startingForces.warsuns,
+    };
+    forces[homeSystemId] = [homePlanetGroundForces, homeSpaceForces];
+
+    return {
+      ...defaultPlayerSettings,
+
+      playerId: player.playerId,
+      factionId: player.factionId,
+      color: playerColors[player.playerId],
+      homeSystemId: homeSystemId,
+      planetIds: homePlanets.map((planet) => planet.planetId),
+
+      reinforcements: defaultReinforcements,
+      unitTechnology: defaultUnitTechnology,
+
+      currentCommodity: 0,
+      maxCommodity: 2,
+
+      unlockedLeaderIds: [],
+      leaderIds: [],
+      technologyIds: [],
+      handPromissoryNoteCount: 0,
+      handSecretObjectiveCount: 0,
+
+      strategyCardIds: [],
+      exhaustedStrategyCardIds: [],
+
+      fleetTokens: [
+        {
+          playerId: player.playerId,
+          count: 3,
+        },
+      ],
+      strategyTokens: [
+        {
+          playerId: player.playerId,
+          count: 3,
+        },
+      ],
+      tacticalTokens: [
+        {
+          playerId: player.playerId,
+          count: 2,
+        },
+      ],
+    };
+  });
+
+  let speakerOrder = creation.players
+    .sort((a, b) => a.speakerOrder - b.speakerOrder)
+    .map((x) => x.playerId);
+
   let publicGalaxy: PublicGalaxy = {
     activeLawIds: [],
-    forces: {},
+    forces: forces,
     initiativeOrder: [],
     planets: planets,
     players: Object.fromEntries(players.map((x) => [x.playerId, x])),

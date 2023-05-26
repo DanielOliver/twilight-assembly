@@ -697,7 +697,7 @@ const SystemData: System[] = [
     emptySystem: true,
   },
   {
-    systemId: 82,
+    systemId: 820,
     name: "",
     game: Expansion.ProphecyOfKings,
     wormholes: [Wormhole.Gamma],
@@ -706,7 +706,7 @@ const SystemData: System[] = [
     unique: UniqueTile.MalliceStartingSide,
   },
   {
-    systemId: 83,
+    systemId: 82,
     name: "",
     game: Expansion.ProphecyOfKings,
     wormholes: [Wormhole.Alpha, Wormhole.Beta, Wormhole.Gamma],

@@ -11,9 +11,23 @@ import Viewport from "./pixi/Viewport";
 import useWindowSize from "./useWindowSize";
 
 export const PublicGalaxyMap = (props: { publicGalaxy: PublicGalaxy }) => {
-  const systems = Object.values(props.publicGalaxy.systems).map((s, index) => (
-    <GalaxySystemTile position={s.position} systemId={s.systemId} key={index} />
-  ));
+  const systems = Object.values(props.publicGalaxy.systems).map((s, index) => {
+    const force = props.publicGalaxy.forces[s.systemId]?.find(
+      (force) => force.planetId
+    );
+    const factionColor =
+      props.publicGalaxy.players[force?.playerId ?? 0]?.color;
+
+    return (
+      <GalaxySystemTile
+        position={s.position}
+        systemId={s.systemId}
+        factionColor={factionColor}
+        system={s}
+        key={index}
+      />
+    );
+  });
 
   let worldBounds: BoundingBox = {
     maxX: -100,

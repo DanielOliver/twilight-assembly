@@ -8,19 +8,19 @@ export default function GalaxyMap() {
   const { publicGalaxy, secretGalaxy } = createSixPlayerGalaxy({
     players: [
       {
-        factionId: 8,
+        factionId: 11,
         playerId: 1,
       },
       {
-        factionId: 55,
+        factionId: 23,
         playerId: 2,
       },
       {
-        factionId: 16,
+        factionId: 5,
         playerId: 3,
       },
       {
-        factionId: 54,
+        factionId: 24,
         playerId: 4,
       },
       {
@@ -28,7 +28,7 @@ export default function GalaxyMap() {
         playerId: 5,
       },
       {
-        factionId: 12,
+        factionId: 13,
         playerId: 6,
       },
     ],

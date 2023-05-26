@@ -65,7 +65,14 @@ const FactionData: Faction[] = [
     name: "The Ghosts of Creuss",
     attributes: [],
     short: "Ghosts",
-    startingForces: DefaultForces,
+    startingForces: {
+      ...DefaultForces,
+      carriers: 1,
+      destroyers: 2,
+      fighters: 2,
+      infantry: 4,
+      factory: 1,
+    },
   },
   {
     factionId: 8,
