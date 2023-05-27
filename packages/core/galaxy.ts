@@ -8,13 +8,12 @@ import {
   ForceI,
   PlanetI,
   PlayerI,
-  Position,
   PublicGalaxy,
   SecretGalaxy,
   SystemI,
   UnitTechnologyI,
 } from "./types/galaxy";
-import { Reinforcements, SetupInfo } from "./types/static";
+import { Position, Reinforcements, SetupInfo } from "./types/static";
 
 const defaultReinforcements: Reinforcements = {
   tokens: 8,

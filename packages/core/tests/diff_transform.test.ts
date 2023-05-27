@@ -10,7 +10,7 @@ import {
 } from "../diff_transform";
 import { Difference, KeyDiffType } from "../types/diff";
 import { describe, it, expect, beforeEach } from "vitest";
-import { Position } from "../types/galaxy";
+import { Position } from "../types/static";
 
 describe("Transform.Test.diff", () => {
   const original: Position = {
