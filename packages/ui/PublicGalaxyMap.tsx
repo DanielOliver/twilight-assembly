@@ -19,12 +19,14 @@ export const PublicGalaxyMap = (props: { publicGalaxy: PublicGalaxy }) => {
     const factionColor =
       props.publicGalaxy.players[force?.playerId ?? 0]?.color;
 
+    const planets = s.planetIds.map((x) => props.publicGalaxy.planets[x]);
+
     return (
       <GalaxySystemTile
-        position={s.position}
         systemId={s.systemId}
         factionColor={factionColor}
         system={s}
+        publicGalaxy={props.publicGalaxy}
         key={index}
       />
     );

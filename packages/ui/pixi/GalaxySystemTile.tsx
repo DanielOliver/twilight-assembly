@@ -2,22 +2,50 @@ import { Sprite } from "@pixi/react";
 import {
   HexDefaultWidth,
   Position,
+  PublicGalaxy,
   SystemI,
   tilePositionToCoordinate,
 } from "@twilight-assembly/core";
 import { Color } from "pixi.js";
 import * as React from "react";
 import { Circle } from "./Circle";
+import { FactionMarker } from "./FactionMarker";
 
 export const GalaxySystemTile = (props: {
   systemId: number;
-  position: Position;
   factionColor?: string;
   system: SystemI;
+  publicGalaxy: PublicGalaxy;
 }) => {
   const px = tilePositionToCoordinate({
-    x: props.position.x,
-    y: props.position.y,
+    x: props.system.position.x,
+    y: props.system.position.y,
+  });
+
+  const planets = props.system.planetIds.map(
+    (planetId) => props.publicGalaxy.planets[planetId]
+  );
+
+  const planetDisplay = planets.map((planet) => {
+    const player = planet.PlayerId
+      ? props.publicGalaxy.players[planet.PlayerId]
+      : null;
+
+    const planetPosition = {
+      x: px.x + planet.pxOffset.x,
+      y: px.y + planet.pxOffset.y,
+    };
+
+    return (
+      <>
+        {player && (
+          <FactionMarker
+            factionId={player.factionId}
+            worldPosition={planetPosition}
+          />
+        )}
+      </>
+    );
   });
 
   return (
@@ -55,6 +83,7 @@ export const GalaxySystemTile = (props: {
           />
         </>
       )}
+      {planetDisplay}
     </>
   );
 };

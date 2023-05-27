@@ -121,6 +121,7 @@ const PlanetData: Planet[] = [
     resources: 2,
     influence: 3,
     planetType: PlanetType.Home,
+    pxOffset: { x: 45, y: 60 },
   },
   {
     systemId: 12,
@@ -129,6 +130,7 @@ const PlanetData: Planet[] = [
     resources: 1,
     influence: 2,
     planetType: PlanetType.Home,
+    pxOffset: { x: -45, y: -60 },
   },
   {
     systemId: 13,
@@ -185,6 +187,7 @@ const PlanetData: Planet[] = [
     resources: 2,
     influence: 0,
     planetType: PlanetType.Home,
+    pxOffset: { x: 35, y: -70 },
   },
   {
     systemId: 16,
@@ -193,6 +196,7 @@ const PlanetData: Planet[] = [
     resources: 1,
     influence: 1,
     planetType: PlanetType.Home,
+    pxOffset: { x: -85, y: -10 },
   },
   {
     systemId: 16,
@@ -201,6 +205,7 @@ const PlanetData: Planet[] = [
     resources: 0,
     influence: 1,
     planetType: PlanetType.Home,
+    pxOffset: { x: 55, y: 80 },
   },
   {
     systemId: 18,
@@ -513,6 +518,7 @@ const PlanetData: Planet[] = [
     resources: 4,
     influence: 2,
     planetType: PlanetType.Home,
+    pxOffset: { x: 0, y: -30 },
   },
   {
     systemId: 52,

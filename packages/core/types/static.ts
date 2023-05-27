@@ -10,9 +10,10 @@ import {
   FactionAttributes,
 } from "./const";
 
-/**
- * Static definition not sent over wire.
- */
+export interface Position {
+  x: number;
+  y: number;
+}
 
 export interface Planet {
   systemId: number;
@@ -23,10 +24,9 @@ export interface Planet {
   planetType: PlanetType;
   trait?: Trait;
   specialty?: Specialty;
+  pxOffset?: Position;
+  pxRadius?: number;
 }
-/**
- * Static definition not sent over wire.
- */
 
 export interface System {
   systemId: number;

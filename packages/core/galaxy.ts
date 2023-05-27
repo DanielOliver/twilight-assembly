@@ -246,6 +246,8 @@ export function createGalaxy(creation: GalaxyCreationSimpleParameters): {
         specialties: planet.specialty ? [planet.specialty] : [],
         systemId: planet.systemId,
         traits: planet.trait ? [planet.trait] : [],
+        pxOffset: planet.pxOffset || { x: 0, y: 0 },
+        pxRadius: planet.pxRadius || 30,
       };
     });
 
@@ -272,10 +274,11 @@ export function createGalaxy(creation: GalaxyCreationSimpleParameters): {
     };
   });
 
-  let players: PlayerI[] = creation.players.map((player) => {
+  let players: PlayerI[] = creation.players.flatMap((player) => {
     const faction = setupInfo.factions.find(
       (x) => x.factionId === player.factionId
     );
+    if (!faction) return [];
 
     const homeSystemId =
       setupInfo.systems.find(
@@ -327,49 +330,51 @@ export function createGalaxy(creation: GalaxyCreationSimpleParameters): {
     };
     forces[homeSystemId] = [homePlanetGroundForces, homeSpaceForces];
 
-    return {
-      ...defaultPlayerSettings,
+    return [
+      {
+        ...defaultPlayerSettings,
 
-      playerId: player.playerId,
-      factionId: player.factionId,
-      color: playerColors[player.playerId],
-      homeSystemId: homeSystemId,
-      planetIds: homePlanets.map((planet) => planet.planetId),
+        playerId: player.playerId,
+        factionId: player.factionId,
+        color: playerColors[player.playerId],
+        homeSystemId: homeSystemId,
+        planetIds: homePlanets.map((planet) => planet.planetId),
 
-      reinforcements: defaultReinforcements,
-      unitTechnology: defaultUnitTechnology,
+        reinforcements: defaultReinforcements,
+        unitTechnology: defaultUnitTechnology,
 
-      currentCommodity: 0,
-      maxCommodity: 2,
+        currentCommodity: 0,
+        maxCommodity: 2,
 
-      unlockedLeaderIds: [],
-      leaderIds: [],
-      technologyIds: [],
-      handPromissoryNoteCount: 0,
-      handSecretObjectiveCount: 0,
+        unlockedLeaderIds: [],
+        leaderIds: [],
+        technologyIds: [],
+        handPromissoryNoteCount: 0,
+        handSecretObjectiveCount: 0,
 
-      strategyCardIds: [],
-      exhaustedStrategyCardIds: [],
+        strategyCardIds: [],
+        exhaustedStrategyCardIds: [],
 
-      fleetTokens: [
-        {
-          playerId: player.playerId,
-          count: 3,
-        },
-      ],
-      strategyTokens: [
-        {
-          playerId: player.playerId,
-          count: 3,
-        },
-      ],
-      tacticalTokens: [
-        {
-          playerId: player.playerId,
-          count: 2,
-        },
-      ],
-    };
+        fleetTokens: [
+          {
+            playerId: player.playerId,
+            count: 3,
+          },
+        ],
+        strategyTokens: [
+          {
+            playerId: player.playerId,
+            count: 3,
+          },
+        ],
+        tacticalTokens: [
+          {
+            playerId: player.playerId,
+            count: 2,
+          },
+        ],
+      },
+    ];
   });
 
   let speakerOrder = creation.players

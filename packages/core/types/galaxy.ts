@@ -6,12 +6,7 @@ import {
   Trait,
   Wormhole,
 } from "./const";
-import { Force, Reinforcements } from "./static";
-
-export interface Position {
-  x: number;
-  y: number;
-}
+import { Force, Position, Reinforcements } from "./static";
 
 export interface AdjacencyOverride {
   playerId: number;
@@ -78,6 +73,8 @@ export interface PlanetI {
   spaceCannon: SpaceCannon[];
   attachments: AttachmentI[];
   exhausted: boolean;
+  pxOffset: Position;
+  pxRadius: number;
 }
 
 export interface UnitTechnologyI {

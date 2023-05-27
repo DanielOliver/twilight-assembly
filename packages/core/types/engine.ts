@@ -1,13 +1,7 @@
 import { KeyDiff, Difference } from "./diff";
 import { Phase } from "./const";
-import {
-  ForceI,
-  PlanetI,
-  PlayerI,
-  Position,
-  StrategyCardI,
-  SystemI,
-} from "./galaxy";
+import { ForceI, PlanetI, PlayerI, StrategyCardI, SystemI } from "./galaxy";
+import { Position } from "./static";
 
 export enum GameCreationState {
   NameTheGame = 1,
