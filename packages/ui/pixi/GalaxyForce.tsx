@@ -1,15 +1,11 @@
-import { Sprite } from "@pixi/react";
 import {
+  Force,
   ForceI,
-  HexDefaultHeight,
   HexDefaultWidth,
   Position,
-  SystemI,
   tilePositionToCoordinate,
 } from "@twilight-assembly/core";
-import { Color } from "pixi.js";
-import * as React from "react";
-import { Circle } from "./Circle";
+import { ForceMarker } from "./ForceMarker";
 
 export const GalaxyForce = (props: {
   position: Position;
@@ -20,26 +16,27 @@ export const GalaxyForce = (props: {
     x: props.position.x,
     y: props.position.y,
   });
+
+  const forces: (keyof Force)[] = [
+    "dreadnoughts",
+    "carriers",
+    "cruisers",
+    "destroyers",
+  ];
+
   return (
     <>
-      {props.force.carriers > 0 && (
-        <>
-          <Circle
-            x={px.x - HexDefaultWidth / 3}
-            y={px.y - HexDefaultHeight / 3}
-            r={42}
-            fill={"#dddddd"}
+      {forces
+        .filter((forceName) => props.force[forceName] > 0)
+        .map((forceName, index) => (
+          <ForceMarker
+            key={forceName}
+            pxPosition={{ x: px.x + index * 40, y: px.y - 30 + index * 10 }}
+            factionColor={props.factionColor}
+            forceName={forceName}
+            quantity={props.force[forceName]}
           />
-          <Sprite
-            image={`/static/units/carrier.png`}
-            x={px.x - HexDefaultWidth / 3}
-            y={px.y - HexDefaultHeight / 3}
-            scale={0.7}
-            anchor={{ x: 0.5, y: 0.5 }}
-            tint={props.factionColor}
-          />
-        </>
-      )}
+        ))}
     </>
   );
 };

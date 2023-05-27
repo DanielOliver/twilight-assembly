@@ -49,7 +49,14 @@ const FactionData: Faction[] = [
     name: "The Emirates of Hacan",
     attributes: [],
     short: "Hacan",
-    startingForces: DefaultForces,
+    startingForces: {
+      ...DefaultForces,
+      carriers: 2,
+      cruisers: 1,
+      fighters: 2,
+      infantry: 4,
+      factory: 1,
+    },
   },
   {
     factionId: 6,
@@ -208,7 +215,15 @@ const FactionData: Faction[] = [
     name: "The Vuil'Raith Cabal",
     attributes: [],
     short: "Cabal",
-    startingForces: DefaultForces,
+    startingForces: {
+      ...DefaultForces,
+      carriers: 1,
+      dreadnoughts: 1,
+      cruisers: 1,
+      infantry: 3,
+      fighters: 3,
+      factory: 1,
+    },
   },
   {
     factionId: 25,

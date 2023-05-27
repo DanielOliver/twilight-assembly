@@ -69,7 +69,7 @@ const playerColors = [
   // Red
   "#ff0000",
   // Black
-  "#000000",
+  "#0e0e0e",
   // Orange
   "#ffa500",
   // Purple
@@ -274,7 +274,7 @@ export function createGalaxy(creation: GalaxyCreationSimpleParameters): {
     };
   });
 
-  let players: PlayerI[] = creation.players.flatMap((player) => {
+  let players: PlayerI[] = creation.players.flatMap((player, index) => {
     const faction = setupInfo.factions.find(
       (x) => x.factionId === player.factionId
     );
@@ -336,7 +336,7 @@ export function createGalaxy(creation: GalaxyCreationSimpleParameters): {
 
         playerId: player.playerId,
         factionId: player.factionId,
-        color: playerColors[player.playerId],
+        color: playerColors[index],
         homeSystemId: homeSystemId,
         planetIds: homePlanets.map((planet) => planet.planetId),
 

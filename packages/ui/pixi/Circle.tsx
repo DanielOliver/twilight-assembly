@@ -1,11 +1,22 @@
 import { PixiComponent } from "@pixi/react";
-import { Graphics } from "pixi.js";
+import { Color, Filter, Graphics } from "pixi.js";
 import { propUpdated } from "./propsUpdates";
 
+export interface CircleProps {
+  x?: number;
+  y?: number;
+  stroke?: Color;
+  r: number;
+  strokeWidth?: number;
+  fill?: Color | string;
+  alpha?: number;
+  filters?: Filter[];
+}
+
 export const Circle = PixiComponent("Circle", {
-  create: (props) => new Graphics(),
+  create: (props: CircleProps) => new Graphics(),
   applyProps: (instance, oldProps, props) => {
-    const { x, y, r, fill, stroke, strokeWidth, alpha } = props;
+    const { x, y, r, fill, stroke, strokeWidth, alpha, filters } = props;
     if (
       propUpdated(props, oldProps, [
         "x",
@@ -14,6 +25,7 @@ export const Circle = PixiComponent("Circle", {
         "strokeWidth",
         "r",
         "fill",
+        "filters",
       ])
     ) {
       instance.clear();
@@ -21,9 +33,10 @@ export const Circle = PixiComponent("Circle", {
       instance.beginFill(fill);
       instance.drawCircle(x || 0, y || 0, r);
       instance.endFill();
+      instance.filters = filters || null;
     }
     if (propUpdated(props, oldProps, ["alpha"])) {
-      instance.alpha = alpha;
+      instance.alpha = alpha || 1;
     }
   },
 });
