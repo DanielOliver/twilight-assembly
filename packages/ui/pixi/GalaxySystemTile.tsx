@@ -71,7 +71,7 @@ export const GalaxySystemTile = (props: {
             x={px.x - HexDefaultWidth / 3}
             y={px.y}
             r={46}
-            fill={"#222222"}
+            fill={"#262626"}
           />
           <Sprite
             image={`/static/misc/Frontier.png`}

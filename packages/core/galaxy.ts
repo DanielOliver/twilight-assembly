@@ -68,7 +68,7 @@ const playerColors = [
   // Red
   "#ff0000",
   // Black
-  "#0e0e0e",
+  "#000000",
   // Orange
   "#ffa500",
   // Purple

@@ -31,7 +31,7 @@ export const GalaxyForce = (props: {
         .map((forceName, index) => (
           <ForceMarker
             key={forceName}
-            pxPosition={{ x: px.x + index * 40, y: px.y - 30 + index * 10 }}
+            pxPosition={{ x: px.x + index * 40, y: px.y - 60 + index * 10 }}
             factionColor={props.factionColor}
             forceName={forceName}
             quantity={props.force[forceName]}
